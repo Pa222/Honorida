@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.honorida.ui.theme.HonoridaTheme
 
 @Composable
 fun NavBar(tabBarItems: List<NavTab>, navController: NavController, modifier: Modifier = Modifier) {

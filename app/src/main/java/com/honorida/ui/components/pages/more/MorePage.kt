@@ -12,7 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.honorida.R
-import com.honorida.ui.theme.HonoridaTheme
 
 @Composable
 fun MorePage(modifier: Modifier = Modifier) {
