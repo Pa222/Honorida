@@ -1,6 +1,5 @@
 package com.honorida.ui.components
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +12,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -28,10 +29,18 @@ import com.honorida.ui.components.pages.history.HistoryPage
 import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
 import com.honorida.ui.theme.HonoridaTheme
+import com.honorida.ui.viewModels.AppViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun App() {
+fun App(
+    appViewModel: AppViewModel = viewModel(
+        factory = AppViewModel.Factory
+    )
+) {
+    val viewModelState = appViewModel.uiState.collectAsState()
+
+    var test = viewModelState.value.darkThemePreference
+
     val navController = rememberNavController()
 
     val navBarItems = listOf(
