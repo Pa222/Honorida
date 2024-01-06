@@ -29,6 +29,17 @@ class UserPreferencesRepository(
                 ?: DarkThemePreference.FOLLOW_SYSTEM
         }
 
+    suspend fun <T> getPreference(key: Preferences.Key<T>, defaultValue: T):
+            Flow<T> = dataStore.data.catch { exception ->
+        if (exception is IOException){
+            emit(emptyPreferences())
+        } else {
+            throw exception
+        }
+    }.map { preferences ->
+        preferences[key] ?: defaultValue
+    }
+
     suspend fun <T> putPreference(key: Preferences.Key<T>, value: T) {
         dataStore.edit { preferences ->
             preferences[key] = value
