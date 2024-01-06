@@ -1,6 +1,9 @@
 package com.honorida.ui.components
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -21,6 +24,7 @@ import com.honorida.R
 import com.honorida.ui.components.navigation.NavBar
 import com.honorida.ui.components.navigation.NavTab
 import com.honorida.ui.components.navigation.Routes
+import com.honorida.ui.components.pages.appUpdate.AppUpdatePage
 import com.honorida.ui.components.pages.history.HistoryPage
 import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
@@ -32,9 +36,12 @@ fun App() {
     val navController = rememberNavController()
 
     val navBarItems = listOf(
-        NavTab(stringResource(R.string.library), Routes.Library.route, Icons.Filled.Home, Icons.Filled.Home),
-        NavTab(stringResource(R.string.history), Routes.History.route, Icons.Filled.History, Icons.Filled.History),
-        NavTab(stringResource(R.string.more), Routes.More.route, Icons.Filled.MoreHoriz, Icons.Filled.MoreHoriz)
+        NavTab(stringResource(R.string.library), Routes.Library.route, Icons.Filled.Home,
+            Icons.Filled.Home),
+        NavTab(stringResource(R.string.history), Routes.History.route, Icons.Filled.History,
+            Icons.Filled.History),
+        NavTab(stringResource(R.string.more), Routes.More.route, Icons.Filled.MoreHoriz,
+            Icons.Filled.MoreHoriz)
     )
 
     HonoridaTheme {
@@ -47,7 +54,16 @@ fun App() {
                     NavBar(navBarItems, navController)
                 }
             ) { innerPadding ->
-                NavHost(navController = navController, startDestination = Routes.Library.route) {
+                NavHost(
+                    navController = navController,
+                    startDestination = Routes.Library.route,
+                    enterTransition = {
+                        EnterTransition.None
+                    },
+                    exitTransition = {
+                        ExitTransition.None
+                    }
+                ) {
                     composable(Routes.Library.route) {
                         LibraryPage(Modifier.padding(innerPadding))
                     }
@@ -56,6 +72,9 @@ fun App() {
                     }
                     composable(Routes.More.route) {
                         MorePage(Modifier.padding(innerPadding))
+                    }
+                    composable(Routes.AppUpdate.route) {
+                        AppUpdatePage(navController, Modifier.padding(innerPadding))
                     }
                 }
             }

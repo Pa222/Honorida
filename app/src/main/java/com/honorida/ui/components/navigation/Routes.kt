@@ -1,7 +1,11 @@
 package com.honorida.ui.components.navigation
 
-sealed class Routes(val route: String) {
-    data object Library: Routes("library")
-    data object History: Routes("history")
-    data object More: Routes("more")
+enum class Routes(
+    val route: String,
+    val showNavBar: Boolean = true
+) {
+    Library("library"),
+    History("history"),
+    More("more"),
+    AppUpdate("appUpdate", showNavBar = false)
 }

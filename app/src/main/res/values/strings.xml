@@ -4,4 +4,8 @@
     <string name="library">Library</string>
     <string name="history">History</string>
     <string name="more">More</string>
+    <string name="new_version_available">New version available!</string>
+    <string name="download">Download</string>
+    <string name="not_now">Not now</string>
+    <string name="open_on_github">Open on GitHub</string>
 </resources>
