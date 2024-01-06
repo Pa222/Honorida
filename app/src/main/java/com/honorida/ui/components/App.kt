@@ -41,6 +41,9 @@ fun App(
         }
     )
 ) {
+    val viewModelState = appViewModel.uiState.collectAsState()
+    val darkThemePreference = viewModelState.value.darkThemePreference
+
     val navController = rememberNavController()
 
     val navBarItems = listOf(
@@ -52,7 +55,9 @@ fun App(
             Icons.Filled.MoreHoriz)
     )
 
-    HonoridaTheme {
+    HonoridaTheme(
+        darkThemePreference = darkThemePreference
+    ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.surface,

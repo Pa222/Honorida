@@ -17,14 +17,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import com.honorida.data.local.enums.DarkThemePreference
 
 @Composable
 fun HonoridaTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkThemePreference: DarkThemePreference = DarkThemePreference.FOLLOW_SYSTEM,
     themeType: ThemeType = ThemeType.DEFAULT,
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = when (darkThemePreference) {
+        DarkThemePreference.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        DarkThemePreference.DISABLED -> false
+        DarkThemePreference.ENABLED -> true
+    }
+
     val colorScheme: ColorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
