@@ -44,7 +44,7 @@ fun NavBar(tabBarItems: List<NavTab>, navController: NavController, modifier: Mo
             BackHandler(enabled = true, onBack = {
                 if (selectedTabIndex != 0) {
                     selectedTabIndex = 0
-                    navController.navigate(Routes.Library.route)
+                    navController.navigate(Routes.LIBRARY.route)
                 }
                 else {
                     activity?.finish()

@@ -4,8 +4,8 @@ enum class Routes(
     val route: String,
     val showNavBar: Boolean = true
 ) {
-    Library("library"),
-    History("history"),
-    More("more"),
-    AppUpdate("appUpdate", showNavBar = false)
+    LIBRARY("library"),
+    HISTORY("history"),
+    MORE("more"),
+    APP_UPDATE("appUpdate", showNavBar = false)
 }

@@ -1,7 +1,6 @@
 package com.honorida.ui.components
 
 import android.annotation.SuppressLint
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,11 +35,11 @@ fun App() {
     val navController = rememberNavController()
 
     val navBarItems = listOf(
-        NavTab(stringResource(R.string.library), Routes.Library.route, Icons.Filled.Home,
+        NavTab(stringResource(R.string.library), Routes.LIBRARY.route, Icons.Filled.Home,
             Icons.Filled.Home),
-        NavTab(stringResource(R.string.history), Routes.History.route, Icons.Filled.History,
+        NavTab(stringResource(R.string.history), Routes.HISTORY.route, Icons.Filled.History,
             Icons.Filled.History),
-        NavTab(stringResource(R.string.more), Routes.More.route, Icons.Filled.MoreHoriz,
+        NavTab(stringResource(R.string.more), Routes.MORE.route, Icons.Filled.MoreHoriz,
             Icons.Filled.MoreHoriz)
     )
 
@@ -56,7 +55,7 @@ fun App() {
             ) { innerPadding ->
                 NavHost(
                     navController = navController,
-                    startDestination = Routes.Library.route,
+                    startDestination = Routes.LIBRARY.route,
                     enterTransition = {
                         EnterTransition.None
                     },
@@ -64,16 +63,16 @@ fun App() {
                         ExitTransition.None
                     }
                 ) {
-                    composable(Routes.Library.route) {
+                    composable(Routes.LIBRARY.route) {
                         LibraryPage(Modifier.padding(innerPadding))
                     }
-                    composable(Routes.History.route) {
+                    composable(Routes.HISTORY.route) {
                         HistoryPage(Modifier.padding(innerPadding))
                     }
-                    composable(Routes.More.route) {
+                    composable(Routes.MORE.route) {
                         MorePage(Modifier.padding(innerPadding))
                     }
-                    composable(Routes.AppUpdate.route) {
+                    composable(Routes.APP_UPDATE.route) {
                         AppUpdatePage(navController, Modifier.padding(innerPadding))
                     }
                 }
