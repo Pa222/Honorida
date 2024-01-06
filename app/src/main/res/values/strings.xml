@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Honorida</string>
+    <string name="header">Header</string>
+    <string name="library">Library</string>
+    <string name="history">History</string>
+    <string name="more">More</string>
+</resources>
