@@ -9,7 +9,6 @@ import com.honorida.data.local.enums.UserPreferencesKey
 import com.honorida.data.local.enums.toDarkThemePreference
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -25,7 +24,7 @@ class UserPreferencesRepository(
             }
         }
         .map { preferences ->
-            preferences[UserPreferencesKey.USE_DARK_THEME]?.toDarkThemePreference()
+            preferences[UserPreferencesKey.DARK_THEME_PREFERENCE]?.toDarkThemePreference()
                 ?: DarkThemePreference.FOLLOW_SYSTEM
         }
 
