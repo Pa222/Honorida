@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 
 class UserPreferencesRepository(
-    dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>
 ) {
     val darkThemePreference: Flow<DarkThemePreference> = dataStore.data
         .catch {
@@ -28,4 +28,22 @@ class UserPreferencesRepository(
             preferences[UserPreferencesKey.USE_DARK_THEME]?.toDarkThemePreference()
                 ?: DarkThemePreference.FOLLOW_SYSTEM
         }
+
+    suspend fun <T> putPreference(key: Preferences.Key<T>, value: T) {
+        dataStore.edit { preferences ->
+            preferences[key] = value
+        }
+    }
+
+    suspend fun <T> removePreference(key: Preferences.Key<T>) {
+        dataStore.edit { preferences ->
+            preferences.remove(key)
+        }
+    }
+
+    suspend fun <T> clearAllPreference() {
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
 }
