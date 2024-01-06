@@ -26,13 +26,4 @@ class AppViewModel(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = AppUiState()
         )
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as HonoridaApplication)
-                AppViewModel(application.userPreferencesRepository)
-            }
-        }
-    }
 }

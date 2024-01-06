@@ -20,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.honorida.HonoridaApplication
 import com.honorida.R
 import com.honorida.ui.components.navigation.NavBar
 import com.honorida.ui.components.navigation.NavTab
@@ -30,17 +31,16 @@ import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
 import com.honorida.ui.theme.HonoridaTheme
 import com.honorida.ui.viewModels.AppViewModel
+import com.honorida.ui.viewModels.helpers.viewModelFactory
 
 @Composable
 fun App(
     appViewModel: AppViewModel = viewModel(
-        factory = AppViewModel.Factory
+        factory = viewModelFactory {
+            AppViewModel(HonoridaApplication.appModule.userPreferencesRepository)
+        }
     )
 ) {
-    val viewModelState = appViewModel.uiState.collectAsState()
-
-    var test = viewModelState.value.darkThemePreference
-
     val navController = rememberNavController()
 
     val navBarItems = listOf(
