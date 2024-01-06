@@ -16,18 +16,16 @@ import com.honorida.ui.theme.HonoridaTheme
 
 @Composable
 fun MorePage(modifier: Modifier = Modifier) {
-    HonoridaTheme {
-        Column(
-            modifier = modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.logo128_128),
-                contentDescription = null,
-                modifier = Modifier.padding(vertical = 50.dp)
-            )
-            Divider()
-        }
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.logo128_128),
+            contentDescription = null,
+            modifier = Modifier.padding(vertical = 50.dp)
+        )
+        Divider()
     }
 }
 

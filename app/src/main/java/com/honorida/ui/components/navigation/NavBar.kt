@@ -39,39 +39,37 @@ fun NavBar(tabBarItems: List<NavTab>, navController: NavController, modifier: Mo
 
     val activity = (LocalContext.current as? Activity)
 
-    HonoridaTheme {
-        if (showNavBar){
-            BackHandler(enabled = true, onBack = {
-                if (selectedTabIndex != 0) {
-                    selectedTabIndex = 0
-                    navController.navigate(Routes.LIBRARY.route)
-                }
-                else {
-                    activity?.finish()
-                }
-            })
-            NavigationBar(modifier = modifier) {
-                tabBarItems.forEachIndexed { index, tabBarItem ->
-                    NavigationBarItem(
-                        selected = selectedTabIndex == index,
-                        onClick = {
-                            if (selectedTabIndex != index) {
-                                selectedTabIndex = index
-                                navController.navigate(tabBarItem.route)
-                            }
-                        },
-                        icon = {
-                            Icon(
-                                imageVector = if (selectedTabIndex == index) {tabBarItem.selectedIcon}
-                                else {tabBarItem.unselectedIcon},
-                                contentDescription = tabBarItem.title
-                            )
-                        },
-                        label = {
-                            Text(tabBarItem.title)
-                        },
-                    )
-                }
+    if (showNavBar){
+        BackHandler(enabled = true, onBack = {
+            if (selectedTabIndex != 0) {
+                selectedTabIndex = 0
+                navController.navigate(Routes.LIBRARY.route)
+            }
+            else {
+                activity?.finish()
+            }
+        })
+        NavigationBar(modifier = modifier) {
+            tabBarItems.forEachIndexed { index, tabBarItem ->
+                NavigationBarItem(
+                    selected = selectedTabIndex == index,
+                    onClick = {
+                        if (selectedTabIndex != index) {
+                            selectedTabIndex = index
+                            navController.navigate(tabBarItem.route)
+                        }
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = if (selectedTabIndex == index) {tabBarItem.selectedIcon}
+                            else {tabBarItem.unselectedIcon},
+                            contentDescription = tabBarItem.title
+                        )
+                    },
+                    label = {
+                        Text(tabBarItem.title)
+                    },
+                )
             }
         }
     }

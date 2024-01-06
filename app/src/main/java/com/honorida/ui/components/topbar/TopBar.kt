@@ -21,22 +21,20 @@ fun TopBar(
         title: String = stringResource(R.string.header),
         actions: @Composable (RowScope.() -> Unit) = {  },
     ) {
-    HonoridaTheme {
-        TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent,
-            ),
-            title = {
-                Text(
-                    title,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            actions = actions,
-            modifier = modifier
-        )
-    }
+    TopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.Transparent,
+        ),
+        title = {
+            Text(
+                title,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        actions = actions,
+        modifier = modifier
+    )
 }
 
 @Preview

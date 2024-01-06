@@ -13,18 +13,16 @@ import com.honorida.ui.theme.HonoridaTheme
 
 @Composable
 fun HistoryPage(modifier: Modifier = Modifier) {
-    HonoridaTheme {
-        Scaffold(
-            topBar = {
-                TopBar(
-                    title = stringResource(R.string.history)
-                )
-            },
-            modifier = modifier
-        ) { innerPadding ->
-            Column(Modifier.padding(innerPadding)) {
+    Scaffold(
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.history)
+            )
+        },
+        modifier = modifier
+    ) { innerPadding ->
+        Column(Modifier.padding(innerPadding)) {
 
-            }
         }
     }
 }
