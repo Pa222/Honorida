@@ -3,30 +3,58 @@ package com.honorida.ui.components.pages.more
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.honorida.R
-import com.honorida.ui.theme.HonoridaTheme
+import com.honorida.ui.components.navigation.Routes
+import com.honorida.ui.components.shared.ApplicationLogo
 
 @Composable
-fun MorePage(modifier: Modifier = Modifier) {
-    HonoridaTheme {
-        Column(
-            modifier = modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.logo128_128),
-                contentDescription = null,
-                modifier = Modifier.padding(vertical = 50.dp)
+fun MorePage(navController: NavController, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val items = remember {
+        listOf(
+            NavigationListItemModel(
+                icon = Icons.Outlined.Settings,
+                text = context.getString(R.string.settings),
+                onClick = {
+                    navController.navigate(Routes.MORE_MAIN_SETTINGS.route)
+                }
+            ),
+            NavigationListItemModel(
+                Icons.Outlined.Info,
+                context.getString(R.string.about),
+                onClick = {
+                    navController.navigate(Routes.MORE_MAIN_ABOUT.route)
+                }
             )
-            Divider()
+        )
+    }
+
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ApplicationLogo(modifier = Modifier.padding(vertical = 30.dp))
+        Divider()
+        Column(
+            modifier = Modifier
+                .padding(vertical = 20.dp),
+        ) {
+            items.forEach {
+                NavigationListItem(item = it)
+            }
         }
     }
 }
@@ -34,5 +62,6 @@ fun MorePage(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun MorePagePreview() {
-    MorePage()
+    val navController = rememberNavController()
+    MorePage(navController)
 }
