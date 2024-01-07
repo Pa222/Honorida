@@ -1,0 +1,35 @@
+package com.honorida.domain.services
+
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
+import com.honorida.R
+import com.honorida.data.external.models.CheckUpdateResponse
+import com.honorida.data.external.services.HonoridaApiService
+
+class AppUpdater(
+    private val apiService: HonoridaApiService
+) {
+    suspend fun checkForUpdates (
+        context: Context,
+        appVersion: String,
+        callBack: (CheckUpdateResponse) -> Unit
+    ) {
+        try {
+            val checkForPreRelease = when {
+                appVersion.contains(context.getString(R.string.alpha)) -> true
+                else -> false
+            }
+            val response = apiService.checkUpdates(
+                appVersion,
+                checkForPreRelease
+            )
+            callBack(response)
+        } catch (e: Exception) {
+            Log.e("checkForUpdates", e.message ?: "Unknown error")
+            Toast.makeText(context,
+                context.getText(R.string.failed_to_check_for_updates),
+                Toast.LENGTH_SHORT).show()
+        }
+    }
+}

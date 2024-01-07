@@ -3,34 +3,37 @@ package com.honorida.ui.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.enums.DarkThemePreference
-import com.honorida.data.local.enums.UserPreferencesKey
+import com.honorida.data.local.enums.DataStoreKey
+import com.honorida.data.local.enums.toDarkThemePreference
 import com.honorida.data.local.enums.toInt
-import com.honorida.data.local.repositories.UserPreferencesRepository
+import com.honorida.data.local.repositories.DataStoreRepository
 import com.honorida.ui.uiStates.AppUiState
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AppViewModel(
-    private val userPreferencesRepository: UserPreferencesRepository
+    private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel() {
 
-    val uiState: StateFlow<AppUiState> =
-        userPreferencesRepository.darkThemePreference.map {
-            AppUiState(it)
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = AppUiState()
-        )
+    private val _uiState = MutableStateFlow(AppUiState())
 
-    fun updateDarkThemePreference(preference: DarkThemePreference) {
+    val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
+
+    init {
         viewModelScope.launch {
-            userPreferencesRepository.putPreference(
-                UserPreferencesKey.DARK_THEME_PREFERENCE, preference.toInt()
-            )
+            val darkThemePreference = dataStoreRepository.getFirstPreference(
+                DataStoreKey.DARK_THEME_PREFERENCE,
+                DarkThemePreference.FOLLOW_SYSTEM.toInt()
+            ).toDarkThemePreference() ?: DarkThemePreference.FOLLOW_SYSTEM
+
+            _uiState.update {
+                it.copy(
+                    darkThemePreference = darkThemePreference,
+                )
+            }
         }
     }
 }

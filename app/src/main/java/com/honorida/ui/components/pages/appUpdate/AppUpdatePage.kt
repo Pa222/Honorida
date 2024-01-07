@@ -15,17 +15,28 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.honorida.HonoridaApp
 import com.honorida.R
+import com.honorida.data.local.interfaces.Downloader
 import com.honorida.ui.components.navigation.Routes
 
 @Composable
-fun AppUpdatePage(navController: NavController, modifier: Modifier = Modifier) {
+fun AppUpdatePage(
+    navController: NavController,
+    updateUrl: String,
+    latestAppVersion: String,
+    releaseUrl: String,
+    modifier: Modifier = Modifier,
+    downloader: Downloader = HonoridaApp.appModule.downloader
+) {
+    val uriHandler = LocalUriHandler.current
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -44,24 +55,29 @@ fun AppUpdatePage(navController: NavController, modifier: Modifier = Modifier) {
                 fontSize = 30.sp
             )
             Text(
-                text = "v1.0.0-alpha.2",
+                text = latestAppVersion,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(vertical = 10.dp)
             )
-            OutlinedButton(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.padding(top = 20.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.open_on_github)
-                )
-            }
         }
         Column {
+            OutlinedButton(
+                onClick = { uriHandler.openUri(releaseUrl) },
+                modifier = Modifier.padding(top = 20.dp).fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.check_on_github)
+                )
+            }
             Divider(Modifier.padding(vertical = 10.dp))
             FilledTonalButton(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 5.dp),
-                onClick = { /*TODO*/ }
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 5.dp),
+                onClick = {
+                    downloader.downloadFile(context, updateUrl)
+                    navController.navigate(Routes.LIBRARY.route)
+                }
             ) {
                 Text(
                     text = stringResource(R.string.download)
@@ -70,9 +86,7 @@ fun AppUpdatePage(navController: NavController, modifier: Modifier = Modifier) {
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    navController.navigate(
-                        Routes.LIBRARY.route,
-                    )
+                    navController.navigate(Routes.LIBRARY.route)
                 }
             ) {
                 Text(
@@ -81,11 +95,4 @@ fun AppUpdatePage(navController: NavController, modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun AppUpdatePreview() {
-    val navController = rememberNavController()
-    AppUpdatePage(navController)
 }

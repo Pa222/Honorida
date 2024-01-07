@@ -40,12 +40,19 @@ fun NavBar(tabBarItems: List<NavTab>, navController: NavController, modifier: Mo
 
     if (showNavBar){
         BackHandler(enabled = true, onBack = {
-            if (selectedTabIndex != 0) {
-                selectedTabIndex = 0
-                navController.navigate(Routes.LIBRARY.route)
-            }
-            else {
-                activity?.finish()
+            val route = Routes.entries.find { it.route == currentRoute }
+            if (route != null) {
+                if (route.subRouteOf != null) {
+                    navController.popBackStack()
+                }
+                else {
+                    if (selectedTabIndex != 0) {
+                        selectedTabIndex = 0
+                        navController.navigate(Routes.LIBRARY.route)
+                    } else {
+                        activity?.finish()
+                    }
+                }
             }
         })
         NavigationBar(modifier = modifier) {
