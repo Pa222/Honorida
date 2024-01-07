@@ -17,13 +17,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-    import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.datastore.core.DataStore
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.honorida.HonoridaApp
 import com.honorida.R
+import com.honorida.data.models.protoStore.AppearancePreferences
 import com.honorida.ui.components.navigation.NavBar
 import com.honorida.ui.components.navigation.NavTab
 import com.honorida.ui.components.navigation.Routes
@@ -34,23 +35,16 @@ import com.honorida.ui.components.pages.more.MorePage
 import com.honorida.ui.components.pages.more.subPages.about.AboutPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.AppSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.AppearanceSettingsPage
+import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.ApplicationPreferencesPage
 import com.honorida.ui.theme.HonoridaTheme
-import com.honorida.ui.viewModels.AppViewModel
-import com.honorida.ui.viewModels.helpers.viewModelFactory
 
 @Composable
 fun App(
-    viewModel: AppViewModel = viewModel(
-        factory = viewModelFactory {
-            AppViewModel(
-                HonoridaApp.appModule.dataStoreRepository,
-            )
-        }
-    )
+    appearancePreferences: DataStore<AppearancePreferences> =
+        HonoridaApp.appModule.protoDataStore.appearancePreferences
 ) {
-    val uiState = viewModel.uiState.collectAsState().value
-    val darkThemePreference = uiState.darkThemePreference
-
+    val preferences = appearancePreferences.data
+        .collectAsState(initial = AppearancePreferences()).value
     val navController = rememberNavController()
 
     val navBarItems = listOf(
@@ -63,7 +57,7 @@ fun App(
     )
 
     HonoridaTheme(
-        darkThemePreference = darkThemePreference
+        darkThemePreference = preferences.darkThemePreference
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -99,6 +93,12 @@ fun App(
                         }
                         composable(Routes.MORE_MAIN_SETTINGS_APPEARANCE.route) {
                             AppearanceSettingsPage(
+                                navController = navController,
+                                Modifier.padding(innerPadding)
+                            )
+                        }
+                        composable(Routes.MORE_MAIN_SETTINGS_APPLICATION.route) {
+                            ApplicationPreferencesPage(
                                 navController = navController,
                                 Modifier.padding(innerPadding)
                             )

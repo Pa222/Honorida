@@ -1,9 +1,9 @@
 package com.honorida.ui.components.pages.more.subPages.appSettings
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ColorLens
+import androidx.compose.material.icons.outlined.SettingsApplications
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,6 +17,7 @@ import com.honorida.R
 import com.honorida.ui.components.navigation.Routes
 import com.honorida.ui.components.pages.more.NavigationListItem
 import com.honorida.ui.components.pages.more.NavigationListItemModel
+import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.topbar.TopBar
 
 @Composable
@@ -35,6 +36,14 @@ fun AppSettingsPage(
                     navController.navigate(Routes.MORE_MAIN_SETTINGS_APPEARANCE.route)
                 }
             ),
+            NavigationListItemModel(
+                Icons.Outlined.SettingsApplications,
+                text = context.getString(R.string.application),
+                description = context.getString(R.string.application_settings_description),
+                onClick = {
+                    navController.navigate(Routes.MORE_MAIN_SETTINGS_APPLICATION.route)
+                }
+            )
         )
     }
 
@@ -49,7 +58,7 @@ fun AppSettingsPage(
             )
         }
     ) { innerPadding ->
-        Column(
+        SettingsListColumn(
             modifier = Modifier.padding(innerPadding)
         ) {
             items.forEach {

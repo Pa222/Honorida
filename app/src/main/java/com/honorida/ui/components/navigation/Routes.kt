@@ -19,6 +19,11 @@ enum class Routes(
         subRouteOf = MORE_MAIN_SETTINGS,
         showNavBar = false
     ),
+    MORE_MAIN_SETTINGS_APPLICATION(
+        "${MORE_MAIN_SETTINGS}/application",
+        subRouteOf = MORE_MAIN_SETTINGS,
+        showNavBar = false
+    ),
     APP_UPDATE("appUpdate", showNavBar = false)
 }
 

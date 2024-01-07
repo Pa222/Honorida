@@ -1,6 +1,5 @@
 package com.honorida.ui.components.pages.more
 
-import android.os.Parcelable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -48,7 +47,6 @@ fun NavigationListItem(
             Icon(
                 imageVector = item.icon,
                 contentDescription = item.text,
-                modifier = Modifier.padding(start = 20.dp)
             )
         }
         Column(

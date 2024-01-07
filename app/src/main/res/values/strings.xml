@@ -13,7 +13,7 @@
     <string name="check_for_update_is_in_progress">Check for update is in progress</string>
     <string name="unable_to_open_file">Unable to open file</string>
     <string name="failed_to_open_file">Failed to open file</string>
-    <string name="application_update">Update</string>
+    <string name="application_updates">Application updates</string>
     <string name="new_app_version_is_available">New app version is available!</string>
     <string name="app_update_notifications">App update notifications</string>
     <string name="notifications_of_a_new_app_version_available">Notifications of a new app version available</string>
@@ -29,4 +29,7 @@
     <string name="alpha">alpha</string>
     <string name="check_for_updates">Check for updates</string>
     <string name="application_is_up_to_date">Application is up-to-date</string>
+    <string name="application">Application</string>
+    <string name="application_settings_description">Updates</string>
+    <string name="check_application_updates_on_startup">Check app updates on launch</string>
 </resources>

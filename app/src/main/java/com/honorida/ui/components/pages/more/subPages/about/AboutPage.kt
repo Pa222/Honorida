@@ -16,17 +16,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.honorida.BuildConfig
+import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.ui.components.pages.more.NavigationListItem
 import com.honorida.ui.components.pages.more.NavigationListItemModel
 import com.honorida.ui.components.shared.ApplicationLogo
 import com.honorida.ui.components.topbar.TopBar
 import com.honorida.ui.viewModels.AboutPageViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.honorida.HonoridaApp
 import com.honorida.ui.viewModels.helpers.viewModelFactory
 
 @Composable

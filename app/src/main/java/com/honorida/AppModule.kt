@@ -9,6 +9,7 @@ import com.honorida.data.external.services.HonoridaApiService
 import com.honorida.data.local.interfaces.Downloader
 import com.honorida.data.local.repositories.DataStoreRepository
 import com.honorida.data.local.services.DownloaderImpl
+import com.honorida.data.models.protoStore.repositories.ProtoDataStore
 import com.honorida.domain.services.AppUpdater
 import com.honorida.domain.services.NotificationService
 import retrofit2.Retrofit
@@ -17,6 +18,7 @@ import retrofit2.create
 
 interface IAppModule {
     val dataStoreRepository: DataStoreRepository
+    val protoDataStore: ProtoDataStore
     val honoridaApiService: HonoridaApiService
     val downloader: Downloader
     val appUpdater: AppUpdater
@@ -34,6 +36,10 @@ class AppModuleImpl (
 
     override val dataStoreRepository: DataStoreRepository by lazy {
         DataStoreRepository(appContext.dataStore)
+    }
+
+    override val protoDataStore: ProtoDataStore by lazy {
+        ProtoDataStore(appContext)
     }
 
     override val honoridaApiService: HonoridaApiService by lazy {

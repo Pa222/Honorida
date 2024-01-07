@@ -19,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.honorida.R
 import com.honorida.ui.components.navigation.Routes
 import com.honorida.ui.components.shared.ApplicationLogo
+import com.honorida.ui.components.shared.SettingsListColumn
 
 @Composable
 fun MorePage(navController: NavController, modifier: Modifier = Modifier) {
@@ -48,7 +49,7 @@ fun MorePage(navController: NavController, modifier: Modifier = Modifier) {
     ) {
         ApplicationLogo(modifier = Modifier.padding(vertical = 30.dp))
         Divider()
-        Column(
+        SettingsListColumn(
             modifier = Modifier
                 .padding(vertical = 20.dp),
         ) {
