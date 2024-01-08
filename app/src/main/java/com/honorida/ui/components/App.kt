@@ -37,13 +37,21 @@ import com.honorida.ui.components.pages.more.subPages.appSettings.AppSettingsPag
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.AppearanceSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.ApplicationPreferencesPage
 import com.honorida.ui.theme.HonoridaTheme
+import com.honorida.ui.viewModels.AppViewModel
+import com.honorida.ui.viewModels.helpers.viewModelFactory
 
 @Composable
 fun App(
-    appearancePreferences: DataStore<AppearancePreferences> =
-        HonoridaApp.appModule.protoDataStore.appearancePreferences
+    viewModel: AppViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+        factory = viewModelFactory {
+            AppViewModel(
+                appearancePreferenceStore =
+                HonoridaApp.appModule.protoDataStore.appearancePreferences
+            )
+        }
+    )
 ) {
-    val preferences = appearancePreferences.data
+    val preferences = viewModel.appearancePreferences
         .collectAsState(initial = AppearancePreferences()).value
     val navController = rememberNavController()
 
