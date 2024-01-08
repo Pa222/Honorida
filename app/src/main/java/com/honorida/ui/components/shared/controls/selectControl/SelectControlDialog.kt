@@ -69,7 +69,7 @@ fun <T> SelectControlDialog(
                         TextButton(
                             onClick = onDismissRequest
                         ) {
-                            Text(text = stringResource(R.string.cancel))
+                            Text(text = stringResource(R.string.close))
                         }
                     }
                 }

@@ -10,6 +10,7 @@ import com.honorida.data.local.interfaces.Downloader
 import com.honorida.data.local.repositories.DataStoreRepository
 import com.honorida.data.local.services.DownloaderImpl
 import com.honorida.data.models.protoStore.repositories.ProtoDataStore
+import com.honorida.domain.services.ActivitiesManager
 import com.honorida.domain.services.AppUpdater
 import com.honorida.domain.services.NotificationService
 import retrofit2.Retrofit
@@ -24,6 +25,7 @@ interface IAppModule {
     val appUpdater: AppUpdater
     val notificationService: NotificationService
     val workManager: WorkManager
+    val activitiesManager: ActivitiesManager
 }
 
 class AppModuleImpl (
@@ -63,5 +65,8 @@ class AppModuleImpl (
     }
     override val workManager: WorkManager by lazy {
         WorkManager.getInstance(appContext)
+    }
+    override val activitiesManager: ActivitiesManager by lazy {
+        ActivitiesManager()
     }
 }

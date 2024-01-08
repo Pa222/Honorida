@@ -64,8 +64,7 @@ fun AboutPage(
                 onClick = {
                     viewModel.checkForUpdates(
                         context,
-                        appVersion,
-                        navController
+                        appVersion
                     )
                 }
             )

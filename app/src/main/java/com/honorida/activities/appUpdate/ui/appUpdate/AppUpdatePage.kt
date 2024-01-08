@@ -1,4 +1,4 @@
-package com.honorida.ui.components.pages.appUpdate
+package com.honorida.activities.appUpdate.ui.appUpdate
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,23 +20,28 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.honorida.HonoridaApp
 import com.honorida.R
-import com.honorida.data.local.interfaces.Downloader
-import com.honorida.ui.components.navigation.Routes
+import com.honorida.activities.appUpdate.ui.viewModels.AppUpdateViewModel
+import com.honorida.ui.viewModels.helpers.viewModelFactory
 
 @Composable
 fun AppUpdatePage(
-    navController: NavController,
     updateUrl: String,
     latestAppVersion: String,
     releaseUrl: String,
     modifier: Modifier = Modifier,
-    downloader: Downloader = HonoridaApp.appModule.downloader
+    viewModel: AppUpdateViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+        factory = viewModelFactory {
+            AppUpdateViewModel(
+                HonoridaApp.appModule.downloader,
+                HonoridaApp.appModule.activitiesManager
+            )
+        }
+    )
 ) {
-    val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -62,7 +67,9 @@ fun AppUpdatePage(
         }
         Column {
             OutlinedButton(
-                onClick = { uriHandler.openUri(releaseUrl) },
+                onClick = {
+                    uriHandler.openUri(releaseUrl)
+                },
                 modifier = Modifier.padding(top = 20.dp).fillMaxWidth()
             ) {
                 Text(
@@ -75,8 +82,7 @@ fun AppUpdatePage(
                     .fillMaxWidth()
                     .padding(bottom = 5.dp),
                 onClick = {
-                    downloader.downloadFile(context, updateUrl)
-                    navController.navigate(Routes.LIBRARY.route)
+                    viewModel.downloadUpdate(context, updateUrl)
                 }
             ) {
                 Text(
@@ -86,7 +92,7 @@ fun AppUpdatePage(
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    navController.navigate(Routes.LIBRARY.route)
+                    viewModel.returnToMainActivity(context)
                 }
             ) {
                 Text(

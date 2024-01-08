@@ -21,6 +21,7 @@ class ApplicationPreferencesViewModel(
         get() = _uiState.asStateFlow()
 
     fun updateCheckForUpdatesOnStartUp(value: Boolean) {
+        // TODO: Ask for notification permissions
         viewModelScope.launch {
             preferencesStore.updateData { it.copy(
                 checkUpdatesOnStartUp = value

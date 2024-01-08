@@ -4,11 +4,9 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
+import com.honorida.HonoridaApp.Companion.appModule
 import com.honorida.R
 import com.honorida.domain.services.AppUpdater
-import com.honorida.ui.components.navigation.Routes
-import com.honorida.ui.components.navigation.toAppUpdate
 import kotlinx.coroutines.launch
 
 class AboutPageViewModel(
@@ -18,7 +16,6 @@ class AboutPageViewModel(
     fun checkForUpdates(
         context: Context,
         appVersion: String,
-        navController: NavController
     ) {
         viewModelScope.launch {
             appUpdater.checkForUpdates(
@@ -26,8 +23,9 @@ class AboutPageViewModel(
                 appVersion
             ) {
                 if (it.updateRequired) {
-                    navController.navigate(
-                        Routes.APP_UPDATE.toAppUpdate(it)
+                    appModule.activitiesManager.startAppUpdateActivity(
+                        context = context,
+                        it
                     )
                 } else {
                     Toast.makeText(

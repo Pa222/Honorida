@@ -37,4 +37,6 @@
     <string name="off" tools:override="true">Off</string>
     <string name="on" tools:override="true">On</string>
     <string name="cancel">Cancel</string>
+    <string name="title_activity_app_update">AppUpdateActivity</string>
+    <string name="close">Close</string>
 </resources>

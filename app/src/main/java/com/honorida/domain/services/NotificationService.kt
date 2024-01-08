@@ -3,8 +3,13 @@ package com.honorida.domain.services
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.honorida.R
+import com.honorida.data.external.models.CheckUpdateResponse
+import com.honorida.domain.broadcastReceivers.AppUpdateReceiver
+import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
+import com.honorida.domain.constants.HonoridaNotification
 
 class NotificationService(
     private val context: Context
@@ -25,6 +30,7 @@ class NotificationService(
             .setContentTitle(title)
             .setContentText(contentText)
             .setOngoing(!swappable)
+            .setAutoCancel(true)
 
         if (activityIntent != null) {
             notificationBuilder.setContentIntent(activityIntent)
@@ -32,5 +38,24 @@ class NotificationService(
 
         val notification = notificationBuilder.build()
         notificationManager.notify(notificationId, notification)
+    }
+
+    fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
+        val intent = Intent(context, AppUpdateReceiver::class.java)
+        intent.putExtras(updateInfo.toExtras())
+        val activityIntent = PendingIntent.getActivity(
+            context,
+            APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        showNotification(
+            notificationId = HonoridaNotification.AppUpdate.id,
+            channelId = HonoridaNotification.AppUpdate.channelId,
+            title = context.getString(R.string.application_updates),
+            contentText = context.getString(R.string.new_app_version_is_available),
+            activityIntent = activityIntent,
+        )
     }
 }
