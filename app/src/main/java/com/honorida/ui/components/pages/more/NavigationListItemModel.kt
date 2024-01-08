@@ -68,7 +68,7 @@ fun NavigationListItem(
 
 @Preview
 @Composable
-fun MorePageListItemPreview() {
+private fun MorePageListItemPreview() {
     NavigationListItem(
         item = NavigationListItemModel(
             icon = Icons.Outlined.Settings,

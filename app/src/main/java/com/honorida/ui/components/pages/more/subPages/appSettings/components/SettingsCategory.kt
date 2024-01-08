@@ -39,7 +39,7 @@ fun SettingsCategory(
 
 @Preview(showBackground = true)
 @Composable
-fun SettingsCategoryPreview() {
+private fun SettingsCategoryPreview() {
     SettingsCategory(
         title = stringResource(R.string.theme)
     ) {

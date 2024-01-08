@@ -71,7 +71,7 @@ fun AppSettingsPage(
 
 @Preview
 @Composable
-fun AppSettingsPreview() {
+private fun AppSettingsPreview() {
     val navController = rememberNavController()
     AppSettingsPage(navController)
 }

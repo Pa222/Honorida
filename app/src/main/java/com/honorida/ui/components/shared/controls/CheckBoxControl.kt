@@ -53,7 +53,7 @@ fun CheckBoxControl(
 
 @Preview(showBackground = true)
 @Composable
-fun CheckBoxControlPreview() {
+private fun CheckBoxControlPreview() {
     CheckBoxControl(
         text = stringResource(R.string.check_application_updates_on_startup),
         description = "Example description",

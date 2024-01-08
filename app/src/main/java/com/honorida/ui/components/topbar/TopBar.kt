@@ -58,6 +58,6 @@ fun TopBar(
 
 @Preview
 @Composable
-fun TopBarPreview() {
+private fun TopBarPreview() {
     TopBar(navigateBackAction = {})
 }

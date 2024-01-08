@@ -103,6 +103,6 @@ fun AboutPage(
 
 @Preview
 @Composable
-fun AboutPagePreview() {
+private fun AboutPagePreview() {
     AboutPage(navController = rememberNavController())
 }

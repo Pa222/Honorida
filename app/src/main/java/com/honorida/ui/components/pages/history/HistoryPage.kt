@@ -28,6 +28,6 @@ fun HistoryPage(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun HistoryPagePreview() {
+private fun HistoryPagePreview() {
     HistoryPage()
 }

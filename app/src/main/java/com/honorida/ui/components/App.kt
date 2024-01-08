@@ -131,6 +131,6 @@ fun App(
 
 @Preview
 @Composable
-fun AppPreview(){
+private fun AppPreview(){
     App()
 }

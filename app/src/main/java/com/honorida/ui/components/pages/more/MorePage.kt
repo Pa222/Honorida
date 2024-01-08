@@ -62,7 +62,7 @@ fun MorePage(navController: NavController, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun MorePagePreview() {
+private fun MorePagePreview() {
     val navController = rememberNavController()
     MorePage(navController)
 }

@@ -42,7 +42,7 @@ fun AppearanceSettingsPage(
 
 @Preview
 @Composable
-fun AppearanceSettingsPagePreview() {
+private fun AppearanceSettingsPagePreview() {
     val navController = rememberNavController()
     AppearanceSettingsPage(navController = navController)
 }

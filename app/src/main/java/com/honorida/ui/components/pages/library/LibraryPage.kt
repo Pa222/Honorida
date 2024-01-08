@@ -40,6 +40,6 @@ fun LibraryPage(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun LibraryPagePreview() {
+private fun LibraryPagePreview() {
     LibraryPage()
 }

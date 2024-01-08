@@ -67,6 +67,6 @@ fun ApplicationPreferencesPage(
 
 @Preview
 @Composable
-fun ApplicationPreferencesPagePreview() {
+private fun ApplicationPreferencesPagePreview() {
     ApplicationPreferencesPage(navController = rememberNavController())
 }
