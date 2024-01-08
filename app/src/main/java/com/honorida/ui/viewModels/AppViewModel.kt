@@ -5,24 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.models.protoStore.AppearancePreferences
 import com.honorida.ui.uiStates.AppUiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class AppViewModel(
     appearancePreferenceStore: DataStore<AppearancePreferences>
 ) : ViewModel() {
-    val uiState = MutableStateFlow(AppUiState())
+    private val _uiState: StateFlow<AppUiState> = appearancePreferenceStore.data.map {
+        AppUiState(darkThemePreference = it.darkThemePreference)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = AppUiState()
+    )
 
-    init {
-        viewModelScope.launch {
-            val darkThemePreference = appearancePreferenceStore.data.first().darkThemePreference
-            uiState.update {
-                it.copy(darkThemePreference = darkThemePreference)
-            }
-        }
-    }
-
-    val appearancePreferences = appearancePreferenceStore.data
+    val uiState
+        get() = _uiState
 }

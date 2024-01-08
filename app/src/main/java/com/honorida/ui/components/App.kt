@@ -17,7 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.datastore.core.DataStore
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -51,8 +50,8 @@ fun App(
         }
     )
 ) {
-    val uiState = viewModel.uiState.collectAsState().value
-    val darkThemePreference = uiState.darkThemePreference
+    val darkThemePreference = viewModel.appearancePreferences
+        .collectAsState(initial = AppearancePreferences()).value.darkThemePreference
     val navController = rememberNavController()
 
     val navBarItems = listOf(
