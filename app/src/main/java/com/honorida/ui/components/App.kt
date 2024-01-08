@@ -50,8 +50,8 @@ fun App(
         }
     )
 ) {
-    val darkThemePreference = viewModel.appearancePreferences
-        .collectAsState(initial = AppearancePreferences()).value.darkThemePreference
+    val uiState = viewModel.uiState.collectAsState().value
+    val darkThemePreference = uiState.darkThemePreference
     val navController = rememberNavController()
 
     val navBarItems = listOf(

@@ -32,6 +32,7 @@ fun SettingsCategory(
         Spacer(modifier = Modifier.height(10.dp))
         settingsControls()
         if (displayBottomDivider) {
+            Spacer(modifier = Modifier.height(10.dp))
             Divider()
         }
     }
