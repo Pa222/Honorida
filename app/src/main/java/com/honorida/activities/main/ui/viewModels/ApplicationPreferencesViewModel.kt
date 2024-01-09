@@ -3,8 +3,8 @@ package com.honorida.activities.main.ui.viewModels
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.honorida.data.models.protoStore.ApplicationPreferences
 import com.honorida.activities.main.ui.uiStates.ApplicationPreferencesUiState
+import com.honorida.data.models.protoStore.ApplicationPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

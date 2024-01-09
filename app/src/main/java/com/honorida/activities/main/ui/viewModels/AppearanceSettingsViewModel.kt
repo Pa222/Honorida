@@ -3,9 +3,9 @@ package com.honorida.activities.main.ui.viewModels
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.honorida.activities.main.ui.uiStates.AppearanceUiState
 import com.honorida.data.local.enums.DarkThemePreference
 import com.honorida.data.models.protoStore.AppearancePreferences
-import com.honorida.activities.main.ui.uiStates.AppearanceUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

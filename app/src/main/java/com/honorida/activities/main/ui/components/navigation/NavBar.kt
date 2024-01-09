@@ -2,6 +2,13 @@ package com.honorida.activities.main.ui.components.navigation
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -9,20 +16,38 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.honorida.R
 
 @Composable
-fun NavBar(tabBarItems: List<NavTab>, navController: NavController, modifier: Modifier = Modifier) {
+fun NavBar(navController: NavController, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+
     var selectedTabIndex by rememberSaveable {
         mutableIntStateOf(0)
     }
 
-    var showNavBar = false;
+    val tabBarItems = remember {
+        listOf(
+            NavTab(
+                context.getString(R.string.library), Routes.LIBRARY.route, Icons.Filled.Home,
+                Icons.Outlined.Home),
+            NavTab(
+                context.getString(R.string.history), Routes.HISTORY.route, Icons.Filled.History,
+                Icons.Outlined.History),
+            NavTab(
+                context.getString(R.string.more), Routes.MORE_MAIN.route, Icons.Filled.MoreHoriz,
+                Icons.Outlined.MoreHoriz)
+        )
+    }
+
+    var showNavBar = false
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route

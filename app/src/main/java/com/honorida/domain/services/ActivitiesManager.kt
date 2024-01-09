@@ -2,8 +2,8 @@ package com.honorida.domain.services
 
 import android.content.Context
 import android.content.Intent
-import com.honorida.activities.main.MainActivity
 import com.honorida.activities.appUpdate.AppUpdateActivity
+import com.honorida.activities.main.MainActivity
 import com.honorida.data.external.models.CheckUpdateResponse
 
 class ActivitiesManager {

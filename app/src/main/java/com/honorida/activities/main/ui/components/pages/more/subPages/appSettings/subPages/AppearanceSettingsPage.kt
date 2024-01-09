@@ -11,14 +11,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.honorida.HonoridaApp
 import com.honorida.R
-import com.honorida.data.local.enums.DarkThemePreference
-import com.honorida.data.local.enums.toSelectControlValue
 import com.honorida.activities.main.ui.components.pages.more.subPages.appSettings.components.SettingsCategory
 import com.honorida.activities.main.ui.components.shared.SettingsListColumn
 import com.honorida.activities.main.ui.components.shared.controls.selectControl.SelectControl
 import com.honorida.activities.main.ui.components.topbar.TopBar
 import com.honorida.activities.main.ui.viewModels.AppearanceSettingsViewModel
 import com.honorida.activities.main.ui.viewModels.helpers.viewModelFactory
+import com.honorida.data.local.enums.DarkThemePreference
+import com.honorida.data.local.enums.toSelectControlValue
 
 @Composable
 fun AppearanceSettingsPage(

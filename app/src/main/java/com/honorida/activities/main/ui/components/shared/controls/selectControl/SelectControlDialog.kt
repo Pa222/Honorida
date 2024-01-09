@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.honorida.R
-import com.honorida.data.local.enums.DarkThemePreference
 import com.honorida.activities.main.ui.components.shared.controls.selectControl.models.SelectControlValue
+import com.honorida.data.local.enums.DarkThemePreference
 
 @Composable
 fun <T> SelectControlDialog(

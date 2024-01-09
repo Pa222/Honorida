@@ -12,13 +12,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.honorida.HonoridaApp
 import com.honorida.R
-import com.honorida.data.models.protoStore.ApplicationPreferences
 import com.honorida.activities.main.ui.components.pages.more.subPages.appSettings.components.SettingsCategory
 import com.honorida.activities.main.ui.components.shared.SettingsListColumn
 import com.honorida.activities.main.ui.components.shared.controls.CheckBoxControl
 import com.honorida.activities.main.ui.components.topbar.TopBar
 import com.honorida.activities.main.ui.viewModels.ApplicationPreferencesViewModel
 import com.honorida.activities.main.ui.viewModels.helpers.viewModelFactory
+import com.honorida.data.models.protoStore.ApplicationPreferences
 
 @Composable
 fun ApplicationPreferencesPage(
