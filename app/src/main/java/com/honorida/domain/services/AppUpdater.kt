@@ -5,12 +5,13 @@ import android.util.Log
 import android.widget.Toast
 import com.honorida.R
 import com.honorida.data.external.models.CheckUpdateResponse
-import com.honorida.data.external.services.HonoridaApiService
+import com.honorida.data.external.services.IHonoridaApiService
+import com.honorida.domain.services.interfaces.IAppUpdater
 
 class AppUpdater(
-    private val apiService: HonoridaApiService
-) {
-    suspend fun checkForUpdates (
+    private val apiService: IHonoridaApiService
+) : IAppUpdater {
+    override suspend fun checkForUpdates (
         context: Context,
         appVersion: String,
         callBack: (CheckUpdateResponse) -> Unit

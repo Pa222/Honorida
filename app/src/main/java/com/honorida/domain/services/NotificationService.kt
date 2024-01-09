@@ -9,21 +9,22 @@ import com.honorida.R
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.broadcastReceivers.AppUpdateReceiver
 import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
-import com.honorida.domain.constants.HonoridaNotification
+import com.honorida.domain.models.HonoridaNotification
+import com.honorida.domain.services.interfaces.INotificationService
 
 class NotificationService(
     private val context: Context
-) {
+) : INotificationService {
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    fun showNotification(
+    override fun showNotification(
         notificationId: Int,
         channelId: String,
         title: String,
         contentText: String,
-        swappable: Boolean = true,
-        iconResourceId: Int = R.drawable.logo64_64,
-        activityIntent: PendingIntent? = null
+        swappable: Boolean,
+        iconResourceId: Int,
+        activityIntent: PendingIntent?
     ) {
         val notificationBuilder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(iconResourceId)
@@ -40,7 +41,7 @@ class NotificationService(
         notificationManager.notify(notificationId, notification)
     }
 
-    fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
+    override fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
         val intent = Intent(context, AppUpdateReceiver::class.java)
         intent.putExtras(updateInfo.toExtras())
         val activityIntent = PendingIntent.getActivity(

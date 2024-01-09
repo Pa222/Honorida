@@ -5,9 +5,10 @@ import android.content.Intent
 import com.honorida.activities.appUpdate.AppUpdateActivity
 import com.honorida.activities.main.MainActivity
 import com.honorida.data.external.models.CheckUpdateResponse
+import com.honorida.domain.services.interfaces.IActivitiesManager
 
-class ActivitiesManager {
-    fun startAppUpdateActivity(
+class ActivitiesManager : IActivitiesManager {
+    override fun startAppUpdateActivity(
         context: Context,
         updateInfo: CheckUpdateResponse
     ) {
@@ -17,7 +18,7 @@ class ActivitiesManager {
         context.startActivity(activityIntent)
     }
 
-    fun startMainActivity(context: Context) {
+    override fun startMainActivity(context: Context) {
         val activityIntent = Intent(context, MainActivity::class.java)
         context.startActivity(activityIntent)
     }

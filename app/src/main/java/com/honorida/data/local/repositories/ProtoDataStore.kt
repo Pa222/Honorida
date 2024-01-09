@@ -1,19 +1,15 @@
-package com.honorida.data.models.protoStore.repositories
+package com.honorida.data.local.repositories
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.data.models.protoStore.AppearancePreferences
 import com.honorida.data.models.protoStore.ApplicationPreferences
 import com.honorida.data.models.protoStore.constants.APPEARANCE_PREFERENCES_DATASTORE_NAME
 import com.honorida.data.models.protoStore.constants.APPLICATION_PREFERENCES_DATASTORE_NAME
 import com.honorida.data.models.protoStore.serializers.AppearancePreferencesSerializer
 import com.honorida.data.models.protoStore.serializers.ApplicationPreferencesSerializer
-
-interface IProtoDataStore {
-    val appearancePreferences: DataStore<AppearancePreferences>
-    val applicationPreferences: DataStore<ApplicationPreferences>
-}
 
 class ProtoDataStore(
     private val context: Context

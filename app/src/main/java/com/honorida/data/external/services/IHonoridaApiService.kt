@@ -4,7 +4,7 @@ import com.honorida.data.external.models.CheckUpdateResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface HonoridaApiService {
+interface IHonoridaApiService {
     companion object {
         const val ROOT_URL = "https://honorida-api.azurewebsites.net/"
     }

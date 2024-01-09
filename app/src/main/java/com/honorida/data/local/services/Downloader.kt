@@ -4,11 +4,11 @@ import android.app.DownloadManager
 import android.content.Context
 import android.os.Environment
 import androidx.core.net.toUri
-import com.honorida.data.local.interfaces.Downloader
+import com.honorida.data.local.interfaces.IDownloader
 
-class DownloaderImpl(
+class Downloader(
     context: Context
-): Downloader {
+): IDownloader {
 
     private val downloadManager = context.getSystemService(DownloadManager::class.java)
 

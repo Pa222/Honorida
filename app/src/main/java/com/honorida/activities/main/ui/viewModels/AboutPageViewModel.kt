@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.honorida.HonoridaApp.Companion.appModule
 import com.honorida.R
 import com.honorida.domain.services.AppUpdater
+import com.honorida.domain.services.interfaces.IAppUpdater
 import kotlinx.coroutines.launch
 
 class AboutPageViewModel(
-    private val appUpdater: AppUpdater
+    private val appUpdater: IAppUpdater
 ) : ViewModel() {
 
     fun checkForUpdates(
