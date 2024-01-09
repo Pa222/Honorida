@@ -1,5 +1,7 @@
 package com.honorida.activities.main.ui.components.shared.controls.selectControl
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +13,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -49,15 +52,25 @@ fun <T> SelectControlDialog(
                         modifier = Modifier.padding(start = 15.dp)
                     )
                     options.forEach {
+                        val interactionSource = remember {
+                            MutableInteractionSource()
+                        }
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth()
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
+                                    onChange(it.value)
+                                },
                         ) {
                             RadioButton(
                                 selected = it == value,
                                 onClick = {
                                     onChange(it.value)
-                                }
+                                },
+                                interactionSource = interactionSource
                             )
                             Text(text = it.title)
                         }
