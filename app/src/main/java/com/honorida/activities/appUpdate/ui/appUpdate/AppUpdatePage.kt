@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.activities.appUpdate.ui.viewModels.AppUpdateViewModel
-import com.honorida.ui.viewModels.helpers.viewModelFactory
+import com.honorida.activities.main.ui.viewModels.helpers.viewModelFactory
 
 @Composable
 fun AppUpdatePage(

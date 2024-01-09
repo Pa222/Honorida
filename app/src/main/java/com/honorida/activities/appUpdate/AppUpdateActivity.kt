@@ -12,7 +12,7 @@ import com.honorida.HonoridaApp
 import com.honorida.activities.appUpdate.ui.appUpdate.AppUpdatePage
 import com.honorida.data.models.protoStore.AppearancePreferences
 import com.honorida.domain.services.Extras
-import com.honorida.ui.theme.HonoridaTheme
+import com.honorida.activities.main.ui.theme.HonoridaTheme
 
 class AppUpdateActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
