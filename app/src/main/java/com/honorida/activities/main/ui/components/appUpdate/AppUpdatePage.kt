@@ -58,7 +58,8 @@ fun AppUpdatePage(
             )
             Text(
                 text = stringResource(R.string.new_version_available),
-                fontSize = 30.sp
+                fontSize = 30.sp,
+                lineHeight = 40.sp
             )
             Text(
                 text = latestAppVersion,
@@ -71,7 +72,9 @@ fun AppUpdatePage(
                 onClick = {
                     uriHandler.openUri(releaseUrl)
                 },
-                modifier = Modifier.padding(top = 20.dp).fillMaxWidth()
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .fillMaxWidth()
             ) {
                 Text(
                     text = stringResource(R.string.check_on_github)
