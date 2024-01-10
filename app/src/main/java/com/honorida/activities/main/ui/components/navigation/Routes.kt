@@ -2,7 +2,7 @@ package com.honorida.activities.main.ui.components.navigation
 
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
-import java.net.URLEncoder
+import com.honorida.domain.extensions.replaceValues
 
 enum class Routes(
     val route: String,
@@ -26,7 +26,10 @@ enum class Routes(
         showNavBar = false
     ),
     APP_UPDATE(
-        "appUpdate",
+        "appUpdate?" +
+                "${Extras.UpdateUrl.key}={${Extras.UpdateUrl.key}}&" +
+                "${Extras.LatestAppVersion.key}={${Extras.LatestAppVersion.key}}&" +
+                "${Extras.ReleaseUrl.key}={${Extras.ReleaseUrl.key}}",
         showNavBar = false
     )
 }
@@ -40,14 +43,10 @@ fun Routes.withArgs(vararg args: String) : String {
     }
 }
 
-fun Routes.toAppUpdate(info: CheckUpdateResponse) : String {
-    return buildString {
-        append(route)
-        append('/')
-        append(URLEncoder.encode(info.updateUrl, "utf-8"))
-        append('/')
-        append(info.latestAppVersion)
-        append('/')
-        append(URLEncoder.encode(info.releaseUrl, "utf-8"))
-    }
+fun getAppUpdateUri(updateInfo: CheckUpdateResponse) : String {
+    return Routes.APP_UPDATE.route.replaceValues(mapOf(
+        Extras.UpdateUrl.key to updateInfo.updateUrl!!,
+        Extras.LatestAppVersion.key to updateInfo.latestAppVersion!!,
+        Extras.ReleaseUrl.key to updateInfo.releaseUrl!!,
+    ))
 }

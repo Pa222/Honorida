@@ -24,6 +24,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <data
+                    android:scheme="honorida"
+                    android:host="honorida.app"
+                />
+            </intent-filter>
         </activity>
 
         <provider

@@ -2,6 +2,7 @@ package com.honorida.activities.main.ui.components
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -62,6 +63,7 @@ fun App(
                 buildLibraryPageNavGraph()
                 buildHistoryPageNavGraph()
                 buildMorePageNavGraph(navController)
+                buildAppUpdateNavGraph(navController)
             }
         }
     }

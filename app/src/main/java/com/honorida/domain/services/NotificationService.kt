@@ -2,14 +2,13 @@ package com.honorida.domain.services
 
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.core.app.NotificationCompat
 import com.honorida.R
 import com.honorida.activities.main.MainActivity
-import com.honorida.activities.main.ui.components.navigation.DeepLinks
-import com.honorida.activities.main.ui.components.navigation.DeepLinks.Companion.toAppUpdate
+import com.honorida.activities.main.ui.components.navigation.DeepLinks.Companion.getAppUpdateUri
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
 import com.honorida.domain.models.HonoridaNotification
@@ -45,24 +44,28 @@ class NotificationService(
     }
 
     override fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
-        val intent = Intent(
+        val deepLinkIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse(DeepLinks.toAppUpdate(updateInfo)),
+            getAppUpdateUri(updateInfo),
+            context,
+            MainActivity::class.java
         )
 
-        val activityIntent = PendingIntent.getActivity(
-            context,
-            APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
+        val deepLinkPendingIntent: PendingIntent? = TaskStackBuilder
+            .create(context).run {
+            addNextIntentWithParentStack(deepLinkIntent)
+            getPendingIntent(
+                APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        }
 
         showNotification(
             notificationId = HonoridaNotification.AppUpdate.id,
             channelId = HonoridaNotification.AppUpdate.channelId,
             title = context.getString(R.string.application_updates),
             contentText = context.getString(R.string.new_app_version_is_available),
-            activityIntent = activityIntent,
+            activityIntent = deepLinkPendingIntent,
         )
     }
 }

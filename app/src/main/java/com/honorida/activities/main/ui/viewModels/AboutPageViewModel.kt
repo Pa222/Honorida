@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.honorida.R
-import com.honorida.activities.main.ui.components.navigation.Routes
-import com.honorida.activities.main.ui.components.navigation.toAppUpdate
+import com.honorida.activities.main.ui.components.navigation.getAppUpdateUri
 import com.honorida.domain.services.interfaces.IAppUpdater
 import kotlinx.coroutines.launch
 
@@ -26,7 +25,7 @@ class AboutPageViewModel(
                 appVersion
             ) {
                 if (it.updateRequired) {
-                    navController.navigate(Routes.APP_UPDATE.toAppUpdate(it))
+                    navController.navigate(getAppUpdateUri(it))
                 } else {
                     Toast.makeText(
                         context,

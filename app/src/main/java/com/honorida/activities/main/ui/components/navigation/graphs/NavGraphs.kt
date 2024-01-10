@@ -71,21 +71,8 @@ fun NavGraphBuilder.buildAppUpdateNavGraph (
     navController: NavController
 ) {
     this.composable(
-        route = Routes.APP_UPDATE.route + "/{${Extras.UpdateUrl.key}}/" +
-                "{${Extras.LatestAppVersion.key}}/{${Extras.ReleaseUrl.key}}",
-//        route = Routes.APP_UPDATE.route,
+        route = Routes.APP_UPDATE.route,
         deepLinks = listOf(DeepLinks.AppUpdate.link),
-        arguments = listOf(
-            navArgument(Extras.UpdateUrl.key) {
-                defaultValue = ""
-            },
-            navArgument(Extras.LatestAppVersion.key) {
-                defaultValue = ""
-            },
-            navArgument(Extras.ReleaseUrl.key) {
-                defaultValue = ""
-            }
-        )
     ) { backStackEntry ->
         AppUpdatePage(
             updateUrl = backStackEntry.arguments?.getString(Extras.UpdateUrl.key) ?: "",
