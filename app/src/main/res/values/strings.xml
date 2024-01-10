@@ -1,11 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_updates_push_notification_channel_id">HONORIDA_APP_UPDATE_NOTIFICATIONS</string>
     <string name="search">Search</string>
     <string name="app_name">Honorida</string>
     <string name="header">Header</string>
     <string name="library">Library</string>
     <string name="history">History</string>
     <string name="more">More</string>
-    <string name="new_version_available">New version available!</string>
+    <string name="new_version_available">New application version available!</string>
     <string name="download">Download</string>
     <string name="not_now">Not now</string>
     <string name="check_on_github">Check it on GitHub</string>

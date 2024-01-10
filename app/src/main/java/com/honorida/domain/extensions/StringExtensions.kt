@@ -15,3 +15,10 @@ fun String.replaceValues(params: Map<String, String>): String {
 
     return result.toString()
 }
+
+fun String?.asBoolean(): Boolean {
+    if (this == null) {
+        return false
+    }
+    return this.equals("true", ignoreCase = true)
+}

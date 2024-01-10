@@ -4,11 +4,9 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.Context
-import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.honorida.R
-import com.honorida.activities.main.MainActivity
-import com.honorida.activities.main.ui.components.navigation.DeepLinks.Companion.getAppUpdateUri
+import com.honorida.activities.main.ui.components.navigation.DeepLinks
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
 import com.honorida.domain.models.HonoridaNotification
@@ -44,12 +42,7 @@ class NotificationService(
     }
 
     override fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
-        val deepLinkIntent = Intent(
-            Intent.ACTION_VIEW,
-            getAppUpdateUri(updateInfo),
-            context,
-            MainActivity::class.java
-        )
+        val deepLinkIntent = DeepLinks.AppUpdate.getIntent(context, updateInfo)
 
         val deepLinkPendingIntent: PendingIntent? = TaskStackBuilder
             .create(context).run {

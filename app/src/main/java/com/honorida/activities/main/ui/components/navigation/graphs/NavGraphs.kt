@@ -1,12 +1,8 @@
 package com.honorida.activities.main.ui.components.navigation.graphs
 
-import android.content.Intent
-import androidx.compose.foundation.layout.padding
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import com.honorida.activities.main.ui.components.appUpdate.AppUpdatePage
 import com.honorida.activities.main.ui.components.navigation.DeepLinks

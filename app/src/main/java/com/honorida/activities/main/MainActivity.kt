@@ -1,6 +1,5 @@
 package com.honorida.activities.main
 
-import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -10,13 +9,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.work.Data
+import androidx.compose.ui.platform.LocalContext
 import androidx.work.OneTimeWorkRequestBuilder
 import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.activities.main.ui.components.App
+import com.honorida.activities.main.ui.components.navigation.DeepLinks
+import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATES_NOTIFICATION_CHANNEL_ID
+import com.honorida.domain.constants.Extras
+import com.honorida.domain.extensions.asBoolean
 import com.honorida.workers.AppUpdateWorker
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +32,13 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
+            val bundle = intent.extras
+            if (bundle != null) {
+                if (bundle.getString(Extras.OpenAppUpdatePage.key).asBoolean()) {
+                    val updateInfo = CheckUpdateResponse.fromExtras(bundle)
+                    startActivity(DeepLinks.AppUpdate.getIntent(LocalContext.current, updateInfo))
+                }
+            }
             App()
         }
     }

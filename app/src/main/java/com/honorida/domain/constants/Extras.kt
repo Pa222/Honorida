@@ -7,4 +7,5 @@ sealed class Extras(
     data object UpdateUrl: Extras("updateUrl")
     data object LatestAppVersion: Extras("latestAppVersion")
     data object ReleaseUrl: Extras("releaseUrl")
+    data object OpenAppUpdatePage: Extras("openAppUpdatePage")
 }
