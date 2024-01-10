@@ -11,6 +11,8 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.work.OneTimeWorkRequestBuilder
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.activities.main.ui.components.App
@@ -25,6 +27,8 @@ import com.honorida.workers.AppUpdateWorker
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Firebase.messaging.subscribeToTopic("AppUpdates")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             scheduleAppUpdatesCheck()
