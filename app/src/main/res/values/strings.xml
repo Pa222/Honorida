@@ -15,7 +15,6 @@
     <string name="unable_to_open_file">Unable to open file</string>
     <string name="failed_to_open_file">Failed to open file</string>
     <string name="application_updates">Application updates</string>
-    <string name="new_app_version_is_available">New app version is available!</string>
     <string name="app_update_notifications">App update notifications</string>
     <string name="notifications_of_a_new_app_version_available">Notifications of a new app version available</string>
     <string name="settings">Settings</string>

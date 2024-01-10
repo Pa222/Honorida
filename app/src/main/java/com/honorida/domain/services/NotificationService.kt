@@ -57,7 +57,7 @@ class NotificationService(
             notificationId = HonoridaNotification.AppUpdate.id,
             channelId = HonoridaNotification.AppUpdate.channelId,
             title = context.getString(R.string.application_updates),
-            contentText = context.getString(R.string.new_app_version_is_available),
+            contentText = context.getString(R.string.new_version_available),
             activityIntent = deepLinkPendingIntent,
         )
     }
