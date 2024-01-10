@@ -14,7 +14,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 3
-        versionName = "1.0.0-alpha.3"
+        versionName = "1.0.0-alpha.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -74,6 +74,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0-Beta2")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

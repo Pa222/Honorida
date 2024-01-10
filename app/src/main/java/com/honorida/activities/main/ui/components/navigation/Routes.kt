@@ -1,6 +1,7 @@
 package com.honorida.activities.main.ui.components.navigation
 
 import com.honorida.data.external.models.CheckUpdateResponse
+import com.honorida.domain.constants.Extras
 import java.net.URLEncoder
 
 enum class Routes(
@@ -24,7 +25,10 @@ enum class Routes(
         subRouteOf = MORE_MAIN_SETTINGS,
         showNavBar = false
     ),
-    APP_UPDATE("appUpdate", showNavBar = false)
+    APP_UPDATE(
+        "appUpdate",
+        showNavBar = false
+    )
 }
 
 fun Routes.withArgs(vararg args: String) : String {

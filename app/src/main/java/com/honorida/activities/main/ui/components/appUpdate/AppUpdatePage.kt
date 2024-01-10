@@ -1,4 +1,4 @@
-package com.honorida.activities.appUpdate.ui.appUpdate
+package com.honorida.activities.main.ui.components.appUpdate
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,10 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.honorida.HonoridaApp
 import com.honorida.R
-import com.honorida.activities.appUpdate.ui.viewModels.AppUpdateViewModel
+import com.honorida.activities.main.ui.viewModels.AppUpdateViewModel
 import com.honorida.activities.main.ui.viewModels.helpers.viewModelFactory
 
 @Composable
@@ -31,11 +32,11 @@ fun AppUpdatePage(
     latestAppVersion: String,
     releaseUrl: String,
     modifier: Modifier = Modifier,
+    navController: NavController,
     viewModel: AppUpdateViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
         factory = viewModelFactory {
             AppUpdateViewModel(
-                HonoridaApp.appModule.downloader,
-                HonoridaApp.appModule.activitiesManager
+                HonoridaApp.appModule.downloader
             )
         }
     )
@@ -92,7 +93,7 @@ fun AppUpdatePage(
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    viewModel.returnToMainActivity(context)
+                    navController.navigateUp()
                 }
             ) {
                 Text(

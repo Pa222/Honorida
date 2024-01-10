@@ -2,7 +2,7 @@ package com.honorida.data.external.models
 
 import android.os.Bundle
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.honorida.domain.services.Extras
+import com.honorida.domain.constants.Extras
 
 data class CheckUpdateResponse (
     @JsonProperty("updateRequired") val updateRequired: Boolean,
