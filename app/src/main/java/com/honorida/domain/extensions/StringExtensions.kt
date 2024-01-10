@@ -22,3 +22,7 @@ fun String?.asBoolean(): Boolean {
     }
     return this.equals("true", ignoreCase = true)
 }
+
+fun String.isPreReleaseVersion(): Boolean {
+    return this.contains("alpha", ignoreCase = true)
+}

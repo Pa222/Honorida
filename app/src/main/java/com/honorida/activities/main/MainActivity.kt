@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.work.OneTimeWorkRequestBuilder
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import com.honorida.BuildConfig
 import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.activities.main.ui.components.App
@@ -21,6 +22,7 @@ import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATES_NOTIFICATION_CHANNEL_ID
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.extensions.asBoolean
+import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.workers.AppUpdateWorker
 
 
@@ -28,7 +30,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Firebase.messaging.subscribeToTopic("AppUpdates")
+        if (BuildConfig.VERSION_NAME.isPreReleaseVersion()) {
+            Firebase.messaging.subscribeToTopic("AppUpdates-PreRelease")
+        } else {
+            Firebase.messaging.subscribeToTopic("AppUpdates")
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             scheduleAppUpdatesCheck()

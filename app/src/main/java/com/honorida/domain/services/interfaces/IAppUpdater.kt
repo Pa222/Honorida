@@ -7,6 +7,7 @@ interface IAppUpdater {
     suspend fun checkForUpdates (
         context: Context,
         appVersion: String,
+        checkForPreRelease: Boolean,
         callBack: (CheckUpdateResponse) -> Unit
     )
 }

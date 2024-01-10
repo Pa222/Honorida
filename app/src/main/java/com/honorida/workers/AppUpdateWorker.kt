@@ -5,6 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.honorida.BuildConfig
 import com.honorida.HonoridaApp
+import com.honorida.domain.extensions.isPreReleaseVersion
 import kotlinx.coroutines.flow.first
 
 class AppUpdateWorker(
@@ -20,7 +21,8 @@ class AppUpdateWorker(
         if (checkUpdatesOnStartUpEnabled) {
             appModule.appUpdater.checkForUpdates(
                 context,
-                BuildConfig.VERSION_NAME
+                BuildConfig.VERSION_NAME,
+                BuildConfig.VERSION_NAME.isPreReleaseVersion()
             ) {
                 if (it.updateRequired) {
                     appModule.notificationService.showAppUpdateNotification(it)

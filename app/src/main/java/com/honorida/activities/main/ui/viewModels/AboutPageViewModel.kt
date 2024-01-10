@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.activities.main.ui.components.navigation.getAppUpdateUri
+import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.domain.services.interfaces.IAppUpdater
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,8 @@ class AboutPageViewModel(
         viewModelScope.launch {
             appUpdater.checkForUpdates(
                 context,
-                appVersion
+                appVersion,
+                checkForPreRelease = appVersion.isPreReleaseVersion()
             ) {
                 if (it.updateRequired) {
                     navController.navigate(getAppUpdateUri(it))

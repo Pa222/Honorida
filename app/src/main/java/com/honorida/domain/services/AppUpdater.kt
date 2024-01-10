@@ -14,13 +14,10 @@ class AppUpdater(
     override suspend fun checkForUpdates (
         context: Context,
         appVersion: String,
+        checkForPreRelease: Boolean,
         callBack: (CheckUpdateResponse) -> Unit
     ) {
         try {
-            val checkForPreRelease = when {
-                appVersion.contains(context.getString(R.string.alpha)) -> true
-                else -> false
-            }
             val response = apiService.checkUpdates(
                 appVersion,
                 checkForPreRelease
