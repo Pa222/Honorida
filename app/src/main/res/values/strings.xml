@@ -14,6 +14,7 @@
     <string name="check_for_update_is_in_progress">Check for update is in progress</string>
     <string name="unable_to_open_file">Unable to open file</string>
     <string name="failed_to_open_file">Failed to open file</string>
+    <string name="failed_to_start_download">Failed to start download</string>
     <string name="application_updates">Application updates</string>
     <string name="app_update_notifications">App update notifications</string>
     <string name="notifications_of_a_new_app_version_available">Notifications of a new app version available</string>
@@ -39,4 +40,6 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_app_update">AppUpdateActivity</string>
     <string name="close">Close</string>
+    <string name="downloading">Downloading</string>
+    <string name="download_started">Download started</string>
 </resources>

@@ -26,3 +26,17 @@ fun String?.asBoolean(): Boolean {
 fun String.isPreReleaseVersion(): Boolean {
     return this.contains("alpha", ignoreCase = true)
 }
+
+fun String.getFileExtension(): String? {
+    if (!this.contains('.')) {
+        return null
+    }
+    return this.subSequence(this.lastIndexOf('.') + 1, this.length).toString()
+}
+
+fun String.getFileNameFromUrl(): String? {
+    if (!this.contains('/')) {
+        return null
+    }
+    return this.subSequence(this.lastIndexOf('/') + 1, this.length).toString()
+}

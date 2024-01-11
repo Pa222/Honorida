@@ -41,7 +41,6 @@ fun AppUpdatePage(
         }
     )
 ) {
-    val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
     Column(
         modifier = modifier
@@ -86,7 +85,8 @@ fun AppUpdatePage(
                     .fillMaxWidth()
                     .padding(bottom = 5.dp),
                 onClick = {
-                    viewModel.downloadUpdate(context, updateUrl)
+                    viewModel.downloadUpdate(updateUrl)
+                    navController.navigateUp()
                 }
             ) {
                 Text(
