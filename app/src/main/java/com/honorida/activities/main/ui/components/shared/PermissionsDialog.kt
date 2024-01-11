@@ -96,6 +96,7 @@ fun PermissionsDialog(
                 TextButton(
                     onClick = {
                         viewModel.openAppSettings(context)
+                        onDismissRequest()
                     },
                 ) {
                     Text(
