@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            scheduleAppUpdatesCheck()
             createNotificationChannels()
         }
 
@@ -47,6 +46,11 @@ class MainActivity : ComponentActivity() {
                 if (bundle.getString(Extras.OpenAppUpdatePage.key).asBoolean()) {
                     val updateInfo = CheckUpdateResponse.fromExtras(bundle)
                     startActivity(DeepLinks.AppUpdate.getIntent(LocalContext.current, updateInfo))
+                }
+                else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        scheduleAppUpdatesCheck()
+                    }
                 }
             }
             App()
