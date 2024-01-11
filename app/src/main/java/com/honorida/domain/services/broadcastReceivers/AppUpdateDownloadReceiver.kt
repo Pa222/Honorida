@@ -6,19 +6,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
-import android.content.pm.ProviderInfo
 import android.net.Uri
 import android.os.Build
-import android.widget.Toast
-import androidx.core.content.FileProvider
-import com.honorida.BuildConfig
-import com.honorida.R
-import com.honorida.data.local.services.Downloader
-import com.honorida.domain.extensions.getFileExtension
 import com.honorida.domain.extensions.getFileNameFromUrl
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.io.File
 
 class AppUpdateDownloadReceiver  : BroadcastReceiver() {
 

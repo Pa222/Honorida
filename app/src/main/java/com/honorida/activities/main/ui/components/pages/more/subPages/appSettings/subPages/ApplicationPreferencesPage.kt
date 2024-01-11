@@ -1,5 +1,6 @@
 package com.honorida.activities.main.ui.components.pages.more.subPages.appSettings.subPages
 
+import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -18,7 +19,8 @@ import com.honorida.activities.main.ui.components.shared.controls.CheckBoxContro
 import com.honorida.activities.main.ui.components.topbar.TopBar
 import com.honorida.activities.main.ui.viewModels.ApplicationPreferencesViewModel
 import com.honorida.activities.main.ui.viewModels.helpers.viewModelFactory
-import com.honorida.data.models.protoStore.ApplicationPreferences
+import com.honorida.data.models.protoStore.UpdatesPreferences
+import com.honorida.domain.constants.Permissions
 
 @Composable
 fun ApplicationPreferencesPage(
@@ -27,13 +29,14 @@ fun ApplicationPreferencesPage(
     viewModel: ApplicationPreferencesViewModel = viewModel(
         factory = viewModelFactory {
             ApplicationPreferencesViewModel(
-                HonoridaApp.appModule.protoDataStore.applicationPreferences
+                HonoridaApp.appModule.protoDataStore
             )
         }
     )
 ) {
     val uiState = viewModel.uiState.collectAsState().value
-    val preferences = uiState.preferences.collectAsState(initial = ApplicationPreferences()).value
+    val updatesPreferences = uiState.updatesPreferences
+        .collectAsState(initial = UpdatesPreferences()).value
 
     Scaffold(
         modifier = modifier,
@@ -53,13 +56,27 @@ fun ApplicationPreferencesPage(
             SettingsCategory(
                 title = stringResource(R.string.application_updates),
             ) {
+                val requiredPermissions = mutableListOf<Permissions>()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requiredPermissions.add(Permissions.PostNotifications)
+                }
                 CheckBoxControl(
-                    text = stringResource(R.string.check_application_updates_on_startup),
-                    checked = preferences.checkUpdatesOnStartUp,
+                    text = stringResource(R.string.receive_app_updates),
+                    checked = updatesPreferences.receiveAppUpdates,
                     onChange = {
-                        viewModel.updateCheckForUpdatesOnStartUp(it)
+                        viewModel.updateReceiveAppUpdatesPreference(it)
                     },
-                )
+                    displayChildren = updatesPreferences.receiveAppUpdates,
+                    requiredPermissions = requiredPermissions
+                ) {
+                    CheckBoxControl(
+                        text = stringResource(R.string.check_application_updates_on_startup),
+                        checked = updatesPreferences.checkUpdatesOnStartUp,
+                        onChange = {
+                            viewModel.updateCheckUpdatesOnStartUpPreference(it)
+                        }
+                    )
+                }
             }
         }
     }

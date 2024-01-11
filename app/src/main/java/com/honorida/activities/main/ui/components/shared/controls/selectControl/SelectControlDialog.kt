@@ -30,60 +30,57 @@ fun <T> SelectControlDialog(
     title: String,
     value: SelectControlValue<T>,
     options: List<SelectControlValue<T>>,
-    display: Boolean,
     onChange: (T) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    if (display) {
-        Dialog(
-            onDismissRequest = onDismissRequest,
+    Dialog(
+        onDismissRequest = onDismissRequest,
+    ) {
+        Card(
+            modifier = modifier,
+            shape = RoundedCornerShape(16.dp)
         ) {
-            Card(
-                modifier = modifier,
-                shape = RoundedCornerShape(16.dp)
+            Column(
+                modifier = Modifier.padding(vertical = 20.dp, horizontal = 15.dp)
             ) {
-                Column(
-                    modifier = Modifier.padding(vertical = 20.dp, horizontal = 15.dp)
-                ) {
-                    Text(
-                        text = title,
-                        fontSize = 24.sp,
-                        modifier = Modifier.padding(start = 15.dp)
-                    )
-                    options.forEach {
-                        val interactionSource = remember {
-                            MutableInteractionSource()
-                        }
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                                .clickable(
-                                    interactionSource = interactionSource,
-                                    indication = null
-                                ) {
-                                    onChange(it.value)
-                                },
-                        ) {
-                            RadioButton(
-                                selected = it == value,
-                                onClick = {
-                                    onChange(it.value)
-                                },
-                                interactionSource = interactionSource
-                            )
-                            Text(text = it.title)
-                        }
+                Text(
+                    text = title,
+                    fontSize = 24.sp,
+                    modifier = Modifier.padding(start = 15.dp)
+                )
+                options.forEach {
+                    val interactionSource = remember {
+                        MutableInteractionSource()
                     }
                     Row(
-                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
+                            .clickable(
+                                interactionSource = interactionSource,
+                                indication = null
+                            ) {
+                                onChange(it.value)
+                            },
                     ) {
-                        TextButton(
-                            onClick = onDismissRequest
-                        ) {
-                            Text(text = stringResource(R.string.close))
-                        }
+                        RadioButton(
+                            selected = it == value,
+                            onClick = {
+                                onChange(it.value)
+                            },
+                            interactionSource = interactionSource
+                        )
+                        Text(text = it.title)
+                    }
+                }
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    TextButton(
+                        onClick = onDismissRequest
+                    ) {
+                        Text(text = stringResource(R.string.close))
                     }
                 }
             }
@@ -115,7 +112,6 @@ private fun SelectControlDialogPreview() {
             )
         ),
         onChange = { },
-        onDismissRequest = { },
-        display = true
+        onDismissRequest = { }
     )
 }

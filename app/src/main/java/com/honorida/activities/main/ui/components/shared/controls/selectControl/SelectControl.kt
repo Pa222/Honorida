@@ -51,16 +51,17 @@ fun <T> SelectControl(
             modifier = Modifier.padding(top = 5.dp)
         )
     }
-    SelectControlDialog(
-        title = text,
-        value = value,
-        options = options,
-        display = displayDialog,
-        onChange = onChange,
-        onDismissRequest = {
-            displayDialog = false
-        },
-    )
+    if (displayDialog) {
+        SelectControlDialog(
+            title = text,
+            value = value,
+            options = options,
+            onChange = onChange,
+            onDismissRequest = {
+                displayDialog = false
+            },
+        )
+    }
 }
 
 @Preview(showBackground = true)

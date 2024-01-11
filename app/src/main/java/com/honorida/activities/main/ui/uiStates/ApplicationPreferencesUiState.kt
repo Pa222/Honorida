@@ -1,8 +1,8 @@
 package com.honorida.activities.main.ui.uiStates
 
-import com.honorida.data.models.protoStore.ApplicationPreferences
+import com.honorida.data.models.protoStore.UpdatesPreferences
 import kotlinx.coroutines.flow.Flow
 
 data class ApplicationPreferencesUiState(
-    val preferences: Flow<ApplicationPreferences>
+    val updatesPreferences: Flow<UpdatesPreferences>
 )

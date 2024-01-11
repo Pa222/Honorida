@@ -1,23 +1,13 @@
 package com.honorida.data.local.services
 
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import com.honorida.BuildConfig
 import com.honorida.R
 import com.honorida.data.local.interfaces.IDownloader
 import com.honorida.domain.extensions.getFileNameFromUrl
-import com.honorida.domain.services.broadcastReceivers.AppUpdateDownloadReceiver
-import java.io.File
 
 class Downloader(
     private val context: Context

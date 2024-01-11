@@ -1,20 +1,20 @@
 package com.honorida.data.models.protoStore.serializers
 
 import androidx.datastore.core.Serializer
-import com.honorida.data.models.protoStore.ApplicationPreferences
+import com.honorida.data.models.protoStore.UpdatesPreferences
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-object ApplicationPreferencesSerializer: Serializer<ApplicationPreferences> {
-    override val defaultValue: ApplicationPreferences
-        get() = ApplicationPreferences()
+object UpdatesPreferencesSerializer : Serializer<UpdatesPreferences> {
+    override val defaultValue: UpdatesPreferences
+        get() = UpdatesPreferences()
 
-    override suspend fun readFrom(input: InputStream): ApplicationPreferences {
+    override suspend fun readFrom(input: InputStream): UpdatesPreferences {
         return try {
             Json.decodeFromString(
-                deserializer = ApplicationPreferences.serializer(),
+                deserializer = UpdatesPreferences.serializer(),
                 string = input.readBytes().decodeToString()
             )
         } catch (e: SerializationException) {
@@ -23,10 +23,10 @@ object ApplicationPreferencesSerializer: Serializer<ApplicationPreferences> {
         }
     }
 
-    override suspend fun writeTo(t: ApplicationPreferences, output: OutputStream) {
+    override suspend fun writeTo(t: UpdatesPreferences, output: OutputStream) {
         output.write(
             Json.encodeToString(
-                serializer = ApplicationPreferences.serializer(),
+                serializer = UpdatesPreferences.serializer(),
                 value = t
             ).encodeToByteArray()
         )

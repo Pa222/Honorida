@@ -16,9 +16,9 @@ class AppUpdateWorker(
     private val appModule = HonoridaApp.appModule
 
     override suspend fun doWork(): Result {
-        val checkUpdatesOnStartUpEnabled =
-            appModule.protoDataStore.applicationPreferences.data.first().checkUpdatesOnStartUp
-        if (checkUpdatesOnStartUpEnabled) {
+        val updatesPreferences =
+            appModule.protoDataStore.updatesPreferences.data.first()
+        if (updatesPreferences.receiveAppUpdates && updatesPreferences.checkUpdatesOnStartUp) {
             appModule.appUpdater.checkForUpdates(
                 context,
                 BuildConfig.VERSION_NAME,
