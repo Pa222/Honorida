@@ -1,25 +1,48 @@
 package com.honorida.data.local.enums
 
+import android.content.Context
+import com.honorida.R
+import com.honorida.activities.main.ui.components.shared.controls.selectControl.models.SelectControlValue
+
 enum class DarkThemePreference {
     ENABLED,
     DISABLED,
-    FOLLOW_SYSTEM
-}
+    FOLLOW_SYSTEM;
 
-fun DarkThemePreference.toInt(): Int {
-    return when (this) {
-        DarkThemePreference.ENABLED -> 0
-        DarkThemePreference.DISABLED -> 1
-        DarkThemePreference.FOLLOW_SYSTEM -> 2
+    companion object {
+        fun getSelectControlOptions(context: Context): List<SelectControlValue<DarkThemePreference>> {
+            return listOf(
+                SelectControlValue(
+                    title = context.getString(R.string.follow_system),
+                    value = FOLLOW_SYSTEM
+                ),
+                SelectControlValue(
+                    title = context.getString(R.string.off),
+                    value = DISABLED
+                ),
+                SelectControlValue(
+                    title = context.getString(R.string.on),
+                    value = ENABLED
+                )
+            )
+        }
     }
 }
 
-fun Int.toDarkThemePreference(): DarkThemePreference? {
+fun DarkThemePreference.toSelectControlValue(context: Context) :
+        SelectControlValue<DarkThemePreference> {
     return when (this) {
-        0 -> DarkThemePreference.ENABLED
-        1 -> DarkThemePreference.DISABLED
-        2 -> DarkThemePreference.FOLLOW_SYSTEM
-        else -> null
+        DarkThemePreference.FOLLOW_SYSTEM -> SelectControlValue(
+            title = context.getString(R.string.follow_system),
+            value = DarkThemePreference.FOLLOW_SYSTEM
+        )
+        DarkThemePreference.DISABLED -> SelectControlValue(
+            title = context.getString(R.string.off),
+            value = DarkThemePreference.DISABLED
+        )
+        DarkThemePreference.ENABLED -> SelectControlValue(
+            title = context.getString(R.string.on),
+            value = DarkThemePreference.ENABLED
+        )
     }
 }
-

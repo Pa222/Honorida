@@ -1,11 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_updates_push_notification_channel_id">HONORIDA_APP_UPDATE_NOTIFICATIONS</string>
     <string name="search">Search</string>
     <string name="app_name">Honorida</string>
     <string name="header">Header</string>
     <string name="library">Library</string>
     <string name="history">History</string>
     <string name="more">More</string>
-    <string name="new_version_available">New version available!</string>
+    <string name="new_version_available">New application version available!</string>
     <string name="download">Download</string>
     <string name="not_now">Not now</string>
     <string name="check_on_github">Check it on GitHub</string>
@@ -13,8 +14,8 @@
     <string name="check_for_update_is_in_progress">Check for update is in progress</string>
     <string name="unable_to_open_file">Unable to open file</string>
     <string name="failed_to_open_file">Failed to open file</string>
-    <string name="application_update">Update</string>
-    <string name="new_app_version_is_available">New app version is available!</string>
+    <string name="failed_to_start_download">Failed to start download</string>
+    <string name="application_updates">Application updates</string>
     <string name="app_update_notifications">App update notifications</string>
     <string name="notifications_of_a_new_app_version_available">Notifications of a new app version available</string>
     <string name="settings">Settings</string>
@@ -29,4 +30,20 @@
     <string name="alpha">alpha</string>
     <string name="check_for_updates">Check for updates</string>
     <string name="application_is_up_to_date">Application is up-to-date</string>
+    <string name="application">Application</string>
+    <string name="application_settings_description">Updates</string>
+    <string name="check_application_updates_on_startup">Check app updates on launch</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="follow_system">Follow system</string>
+    <string name="off" tools:override="true">Off</string>
+    <string name="on" tools:override="true">On</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_app_update">AppUpdateActivity</string>
+    <string name="close">Close</string>
+    <string name="downloading">Downloading</string>
+    <string name="download_started">Download started</string>
+    <string name="receive_app_updates">Receive App Updates</string>
+    <string name="this_feature_requires_following_permissions">This feature requires following permissions:</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="please_enable_them_in_settings_and_return_to_the_app">Please enable them in settings and return to the app</string>
 </resources>
