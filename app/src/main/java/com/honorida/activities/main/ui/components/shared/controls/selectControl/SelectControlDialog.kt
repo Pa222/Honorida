@@ -103,11 +103,11 @@ private fun SelectControlDialogPreview() {
                 value = DarkThemePreference.FOLLOW_SYSTEM
             ),
             SelectControlValue(
-                title = stringResource(R.string.off),
+                title = stringResource(R.string.disabled),
                 value = DarkThemePreference.DISABLED
             ),
             SelectControlValue(
-                title = stringResource(R.string.on),
+                title = stringResource(R.string.enabled),
                 value = DarkThemePreference.ENABLED
             )
         ),
