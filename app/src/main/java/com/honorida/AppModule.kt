@@ -49,7 +49,7 @@ class AppModuleImpl (
     override val honoridaApiService: IHonoridaApiService by lazy {
         Retrofit.Builder()
             .addConverterFactory(JacksonConverterFactory.create())
-            .baseUrl(IHonoridaApiService.ROOT_URL)
+            .baseUrl(BuildConfig.API_URL)
             .build()
             .create()
     }

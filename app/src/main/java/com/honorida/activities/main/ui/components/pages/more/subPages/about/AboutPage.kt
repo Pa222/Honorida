@@ -25,6 +25,7 @@ import com.honorida.R
 import com.honorida.activities.main.ui.components.pages.more.NavigationListItem
 import com.honorida.activities.main.ui.components.pages.more.NavigationListItemModel
 import com.honorida.activities.main.ui.components.shared.ApplicationLogo
+import com.honorida.activities.main.ui.components.shared.socialLinks.SocialLinks
 import com.honorida.activities.main.ui.components.topbar.TopBar
 import com.honorida.activities.main.ui.viewModels.AboutPageViewModel
 import com.honorida.activities.main.ui.viewModels.helpers.viewModelFactory
@@ -97,6 +98,9 @@ fun AboutPage(
                     NavigationListItem(item = it)
                 }
             }
+            SocialLinks(
+                modifier = Modifier.padding(top = 10.dp)
+            )
         }
     }
 }

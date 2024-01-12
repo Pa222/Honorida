@@ -46,4 +46,5 @@
     <string name="this_feature_requires_following_permissions">This feature requires following permissions:</string>
     <string name="go_to_settings">Go to settings</string>
     <string name="please_enable_them_in_settings_and_return_to_the_app">Please enable them in settings and return to the app</string>
+    <string name="failed_to_open_link">Failed to open link</string>
 </resources>
