@@ -1,14 +1,10 @@
 package com.honorida.activities.main.ui.components.appUpdate
 
 import android.widget.Toast
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,12 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -49,7 +43,7 @@ fun AppUpdatePage(
     viewModel: AppUpdateViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
         factory = viewModelFactory {
             AppUpdateViewModel(
-                HonoridaApp.appModule.downloader,
+                HonoridaApp.appModule.appUpdater,
                 HonoridaApp.appModule.honoridaApiService,
                 releaseId
             )
@@ -116,7 +110,7 @@ fun AppUpdatePage(
                     .verticalScroll(rememberScrollState())
             ) {
                 Text(
-                    text = uiState.releaseInfo.releaseNotes.repeat(6),
+                    text = uiState.releaseInfo.releaseNotes,
                 )
             }
             Column(
@@ -151,7 +145,7 @@ fun AppUpdatePage(
                         .fillMaxWidth()
                         .padding(bottom = 5.dp),
                     onClick = {
-                        viewModel.downloadUpdate(uiState.releaseInfo.downloadUrl)
+                        viewModel.startUpdate(uiState.releaseInfo)
                         navController.navigateUp()
                     }
                 ) {

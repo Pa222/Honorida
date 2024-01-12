@@ -59,7 +59,10 @@ class AppModuleImpl (
     }
 
     override val appUpdater: IAppUpdater by lazy {
-        AppUpdater(honoridaApiService)
+        AppUpdater(
+            honoridaApiService,
+            downloader
+        )
     }
 
     override val notificationService: INotificationService by lazy {
