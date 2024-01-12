@@ -1,5 +1,6 @@
 package com.honorida.activities.main.ui.components.shared.controls
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -69,6 +70,7 @@ fun CheckBoxControl(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .animateContentSize()
     ) {
         Row(
             modifier = Modifier
