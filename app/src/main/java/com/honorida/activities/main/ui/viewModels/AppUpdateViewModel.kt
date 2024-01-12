@@ -5,9 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.honorida.activities.main.ui.uiStates.AppUpdateUiState
 import com.honorida.data.external.models.VersionInfoResponse
 import com.honorida.data.external.services.IHonoridaApiService
-import com.honorida.data.local.interfaces.IDownloader
 import com.honorida.domain.constants.LoadingState
-import com.honorida.domain.services.AppUpdater
 import com.honorida.domain.services.interfaces.IAppUpdater
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
