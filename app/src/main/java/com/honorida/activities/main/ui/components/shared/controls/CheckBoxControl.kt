@@ -38,6 +38,7 @@ fun CheckBoxControl(
     description: String? = null,
     displayChildren: Boolean = false,
     requiredPermissions: List<Permissions> = emptyList(),
+    enabled: Boolean = true,
     children: (@Composable () -> Unit)? = null,
 ) {
     var permissionsState: MultiplePermissionsState? = null
@@ -54,6 +55,9 @@ fun CheckBoxControl(
                 }
             }
         )
+        if (!permissionsState.allPermissionsGranted && checked) {
+            onChange(false)
+        }
     }
 
     if (showPermissionsDialog && permissionsState != null) {
@@ -94,6 +98,7 @@ fun CheckBoxControl(
             }
             Switch(
                 checked = checked,
+                enabled = enabled,
                 onCheckedChange = {
                     if (permissionsState != null && !permissionsState.allPermissionsGranted) {
                         if (permissionsState.shouldShowRationale) {
