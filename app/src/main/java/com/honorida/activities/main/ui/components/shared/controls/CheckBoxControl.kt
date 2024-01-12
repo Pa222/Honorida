@@ -113,7 +113,7 @@ fun CheckBoxControl(
             )
         }
         if (displayChildren && children != null) {
-            Row(
+            Column(
                 modifier = Modifier.padding(start = 20.dp)
             ) {
                 children()
