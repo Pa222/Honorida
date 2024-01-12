@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_updates_push_notification_channel_id">HONORIDA_APP_UPDATE_NOTIFICATIONS</string>
     <string name="search">Search</string>
     <string name="app_name">Honorida</string>
@@ -47,4 +47,5 @@
     <string name="go_to_settings">Go to settings</string>
     <string name="please_enable_them_in_settings_and_return_to_the_app">Please enable them in settings and return to the app</string>
     <string name="failed_to_open_link">Failed to open link</string>
+    <string name="failed_to_retrieve_release_info">Failed to retrieve release info</string>
 </resources>

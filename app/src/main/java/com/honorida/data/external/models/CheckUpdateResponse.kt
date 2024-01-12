@@ -6,26 +6,15 @@ import com.honorida.domain.constants.Extras
 
 data class CheckUpdateResponse (
     @JsonProperty("updateRequired") val updateRequired: Boolean,
-    @JsonProperty("updateUrl") val updateUrl: String?,
-    @JsonProperty("latestAppVersion") val latestAppVersion: String?,
-    @JsonProperty("releaseUrl") val releaseUrl: String?,
+    @JsonProperty("releaseId") val releaseId: Int,
 ) {
 
-    fun toExtras() : Bundle {
-        val extras = Bundle()
-        extras.putString(Extras.UpdateUrl.key, updateUrl)
-        extras.putString(Extras.LatestAppVersion.key, latestAppVersion)
-        extras.putString(Extras.ReleaseUrl.key, releaseUrl)
-        return extras
-    }
-
     companion object {
-        fun fromExtras(extras: Bundle) : CheckUpdateResponse {
+        fun fromExtras(extras: Bundle) : CheckUpdateResponse? {
+            val releaseIdAsString = extras.getString(Extras.ReleaseId.key) ?: return null
             return CheckUpdateResponse(
-                updateRequired = extras.getBoolean(Extras.UpdateRequired.key, false),
-                updateUrl = extras.getString(Extras.UpdateUrl.key, ""),
-                latestAppVersion = extras.getString(Extras.LatestAppVersion.key, ""),
-                releaseUrl = extras.getString(Extras.ReleaseUrl.key, "")
+                updateRequired = extras.getBoolean(Extras.UpdateRequired.key),
+                releaseId = releaseIdAsString.toInt()
             )
         }
     }

@@ -6,21 +6,36 @@ import com.google.firebase.messaging.RemoteMessage
 import com.honorida.HonoridaApp
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
+import com.honorida.domain.constants.notifications.APP_UPDATE
+import com.honorida.domain.models.HonoridaNotification
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class FMService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         try {
-            val updateInfo = CheckUpdateResponse(
-                updateRequired = true,
-                updateUrl = message.data[Extras.UpdateUrl.key],
-                latestAppVersion = message.data[Extras.LatestAppVersion.key],
-                releaseUrl = message.data[Extras.ReleaseUrl.key]
-            )
-            HonoridaApp.appModule.notificationService.showAppUpdateNotification(updateInfo)
+            when(message.data[Extras.NotificationType.key]) {
+                APP_UPDATE -> {
+                    val updateInfo = CheckUpdateResponse(
+                        updateRequired = true,
+                        releaseId = message.data[Extras.ReleaseId.key]!!.toInt()
+                    )
+                    HonoridaApp.appModule.notificationService.showAppUpdateNotification(updateInfo)
+                }
+                null -> {
+                    //
+                }
+                else -> {
+                    HonoridaApp.appModule.notificationService.showNotification(
+                        HonoridaNotification.GeneralNotification,
+                        message.notification?.title!!,
+                        message.notification?.body!!
+                    )
+                }
+            }
+
         }
-        catch(_: Exception) {
-            //
+        catch(e: Exception) {
+            e.printStackTrace()
         }
     }
 }

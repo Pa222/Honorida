@@ -19,8 +19,8 @@ import com.honorida.R
 import com.honorida.activities.main.ui.components.App
 import com.honorida.activities.main.ui.components.navigation.DeepLinks
 import com.honorida.data.external.models.CheckUpdateResponse
-import com.honorida.domain.constants.APP_UPDATES_NOTIFICATION_CHANNEL_ID
 import com.honorida.domain.constants.Extras
+import com.honorida.domain.constants.notifications.APP_UPDATES_NOTIFICATION_CHANNEL_ID
 import com.honorida.domain.extensions.asBoolean
 import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.workers.AppUpdateWorker
@@ -36,22 +36,26 @@ class MainActivity : ComponentActivity() {
             Firebase.messaging.subscribeToTopic("AppUpdates")
         }
 
+        Firebase.messaging.subscribeToTopic("AppUpdates-Test")
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannels()
         }
 
         setContent {
             val bundle = intent.extras
+            var scheduleUpdateCheck = true
             if (bundle != null) {
                 if (bundle.getString(Extras.OpenAppUpdatePage.key).asBoolean()) {
+                    scheduleUpdateCheck = false
                     val updateInfo = CheckUpdateResponse.fromExtras(bundle)
-                    startActivity(DeepLinks.AppUpdate.getIntent(LocalContext.current, updateInfo))
-                }
-                else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        scheduleAppUpdatesCheck()
+                    if (updateInfo != null) {
+                        startActivity(DeepLinks.AppUpdate.getIntent(LocalContext.current, updateInfo))
                     }
                 }
+            }
+            if (scheduleUpdateCheck && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                scheduleAppUpdatesCheck()
             }
             App()
         }

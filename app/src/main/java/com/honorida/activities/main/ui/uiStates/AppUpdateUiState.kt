@@ -1,6 +1,9 @@
 package com.honorida.activities.main.ui.uiStates
 
-sealed interface CheckForUpdatesUiState {
-    data object Loading : CheckForUpdatesUiState
-    data object Pending : CheckForUpdatesUiState
-}
+import com.honorida.data.external.models.VersionInfoResponse
+import com.honorida.domain.constants.LoadingState
+
+data class AppUpdateUiState(
+    val loadingState: LoadingState = LoadingState.Loading,
+    val releaseInfo: VersionInfoResponse? = null
+)

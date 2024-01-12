@@ -18,15 +18,14 @@ class NotificationService(
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     override fun showNotification(
-        notificationId: Int,
-        channelId: String,
+        notification: HonoridaNotification,
         title: String,
         contentText: String,
         swappable: Boolean,
         iconResourceId: Int,
         activityIntent: PendingIntent?
     ) {
-        val notificationBuilder = NotificationCompat.Builder(context, channelId)
+        val notificationBuilder = NotificationCompat.Builder(context, notification.channelId)
             .setSmallIcon(iconResourceId)
             .setContentTitle(title)
             .setContentText(contentText)
@@ -37,8 +36,8 @@ class NotificationService(
             notificationBuilder.setContentIntent(activityIntent)
         }
 
-        val notification = notificationBuilder.build()
-        notificationManager.notify(notificationId, notification)
+        val builtNotification = notificationBuilder.build()
+        notificationManager.notify(notification.id, builtNotification)
     }
 
     override fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
@@ -54,8 +53,7 @@ class NotificationService(
         }
 
         showNotification(
-            notificationId = HonoridaNotification.AppUpdate.id,
-            channelId = HonoridaNotification.AppUpdate.channelId,
+            notification = HonoridaNotification.AppUpdate,
             title = context.getString(R.string.application_updates),
             contentText = context.getString(R.string.new_version_available),
             activityIntent = deepLinkPendingIntent,

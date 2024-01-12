@@ -27,9 +27,7 @@ enum class Routes(
     ),
     APP_UPDATE(
         "appUpdate?" +
-                "${Extras.UpdateUrl.key}={${Extras.UpdateUrl.key}}&" +
-                "${Extras.LatestAppVersion.key}={${Extras.LatestAppVersion.key}}&" +
-                "${Extras.ReleaseUrl.key}={${Extras.ReleaseUrl.key}}",
+                "${Extras.ReleaseId.key}={${Extras.ReleaseId.key}}",
         showNavBar = false
     )
 }
@@ -45,8 +43,6 @@ fun Routes.withArgs(vararg args: String) : String {
 
 fun getAppUpdateUri(updateInfo: CheckUpdateResponse) : String {
     return Routes.APP_UPDATE.route.replaceValues(mapOf(
-        Extras.UpdateUrl.key to updateInfo.updateUrl!!,
-        Extras.LatestAppVersion.key to updateInfo.latestAppVersion!!,
-        Extras.ReleaseUrl.key to updateInfo.releaseUrl!!,
+        Extras.ReleaseId.key to updateInfo.releaseId.toString(),
     ))
 }

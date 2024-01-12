@@ -46,9 +46,7 @@ sealed class DeepLinks(
         fun getAppUpdateUri(updateInfo: CheckUpdateResponse) : Uri {
             return AppUpdate.link.uriPattern!!.replaceValues(
                 params = mapOf(
-                    Extras.UpdateUrl.key to updateInfo.updateUrl!!,
-                    Extras.LatestAppVersion.key to updateInfo.latestAppVersion!!,
-                    Extras.ReleaseUrl.key to updateInfo.releaseUrl!!,
+                    Extras.ReleaseId.key to updateInfo.releaseId.toString(),
                 )
             ).toUri()
         }

@@ -2,7 +2,9 @@ package com.honorida.activities.main.ui.components.navigation.graphs
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.honorida.activities.main.ui.components.appUpdate.AppUpdatePage
 import com.honorida.activities.main.ui.components.navigation.DeepLinks
@@ -69,11 +71,14 @@ fun NavGraphBuilder.buildAppUpdateNavGraph (
     this.composable(
         route = Routes.APP_UPDATE.route,
         deepLinks = listOf(DeepLinks.AppUpdate.link),
+        arguments = listOf(
+            navArgument(Extras.ReleaseId.key) {
+                type = NavType.IntType
+            }
+        )
     ) { backStackEntry ->
         AppUpdatePage(
-            updateUrl = backStackEntry.arguments?.getString(Extras.UpdateUrl.key) ?: "",
-            latestAppVersion = backStackEntry.arguments?.getString(Extras.LatestAppVersion.key) ?: "",
-            releaseUrl = backStackEntry.arguments?.getString(Extras.ReleaseUrl.key) ?: "",
+            releaseId = backStackEntry.arguments?.getInt(Extras.ReleaseId.key) ?: 0,
             navController = navController,
         )
     }
