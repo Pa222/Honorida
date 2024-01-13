@@ -54,15 +54,18 @@ fun AddBookDialog(
                         Text(text = stringResource(R.string.book_name))
                     },
                     onValueChange = {
-                        bookTitle = it
-                    }
+                        if (it.length <= 126) {
+                            bookTitle = it
+                        }
+                    },
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 TextButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         onConfirm(Book(title = bookTitle))
-                    }
+                    },
+                    enabled = bookTitle.isNotEmpty()
                 ) {
                     Text(text = stringResource(R.string.add))
                 }
