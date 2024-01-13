@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,7 +38,7 @@ fun HistoryPage(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = Icons.Outlined.Build,
+                imageVector = Icons.Filled.Build,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(vertical = 20.dp)
