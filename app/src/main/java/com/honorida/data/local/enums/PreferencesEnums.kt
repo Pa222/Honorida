@@ -2,7 +2,7 @@ package com.honorida.data.local.enums
 
 import android.content.Context
 import com.honorida.R
-import com.honorida.activities.main.ui.components.shared.controls.selectControl.models.SelectControlValue
+import com.honorida.ui.components.shared.controls.selectControl.models.SelectControlValue
 
 enum class DarkThemePreference {
     ENABLED,

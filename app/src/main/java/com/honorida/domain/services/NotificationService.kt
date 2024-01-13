@@ -6,11 +6,11 @@ import android.app.TaskStackBuilder
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.honorida.R
-import com.honorida.activities.main.ui.components.navigation.DeepLinks
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
 import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.interfaces.INotificationService
+import com.honorida.ui.components.navigation.DeepLinks
 
 class NotificationService(
     private val context: Context
