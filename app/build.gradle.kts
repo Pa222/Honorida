@@ -33,7 +33,7 @@ android {
             correctErrorTypes = true
 
             arguments {
-                arg("room.schemaLocation", "${projectDir}/main/java/honorida/data/local/context")
+                arg("room.schemaLocation", "${projectDir}/schemas")
             }
         }
 
