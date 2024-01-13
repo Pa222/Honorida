@@ -93,6 +93,8 @@ fun PermissionsDialog(
                         viewModel.openAppSettings(context)
                         onDismissRequest()
                     },
+                    modifier = Modifier
+                        .fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.go_to_settings),
