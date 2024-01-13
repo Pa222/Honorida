@@ -1,32 +1,32 @@
 package com.honorida.domain.services
 
+import android.app.Application
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.honorida.R
-import com.honorida.activities.main.ui.components.navigation.DeepLinks
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
 import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.interfaces.INotificationService
+import com.honorida.ui.components.navigation.DeepLinks
 
 class NotificationService(
-    private val context: Context
+    private val context: Application
 ) : INotificationService {
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     override fun showNotification(
-        notificationId: Int,
-        channelId: String,
+        notification: HonoridaNotification,
         title: String,
         contentText: String,
         swappable: Boolean,
         iconResourceId: Int,
         activityIntent: PendingIntent?
     ) {
-        val notificationBuilder = NotificationCompat.Builder(context, channelId)
+        val notificationBuilder = NotificationCompat.Builder(context, notification.channelId)
             .setSmallIcon(iconResourceId)
             .setContentTitle(title)
             .setContentText(contentText)
@@ -37,8 +37,8 @@ class NotificationService(
             notificationBuilder.setContentIntent(activityIntent)
         }
 
-        val notification = notificationBuilder.build()
-        notificationManager.notify(notificationId, notification)
+        val builtNotification = notificationBuilder.build()
+        notificationManager.notify(notification.id, builtNotification)
     }
 
     override fun showAppUpdateNotification(updateInfo: CheckUpdateResponse) {
@@ -54,8 +54,7 @@ class NotificationService(
         }
 
         showNotification(
-            notificationId = HonoridaNotification.AppUpdate.id,
-            channelId = HonoridaNotification.AppUpdate.channelId,
+            notification = HonoridaNotification.AppUpdate,
             title = context.getString(R.string.application_updates),
             contentText = context.getString(R.string.new_version_available),
             activityIntent = deepLinkPendingIntent,

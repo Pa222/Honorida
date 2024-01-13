@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_updates_push_notification_channel_id">HONORIDA_APP_UPDATE_NOTIFICATIONS</string>
     <string name="search">Search</string>
     <string name="app_name">Honorida</string>
@@ -35,8 +35,8 @@
     <string name="check_application_updates_on_startup">Check app updates on launch</string>
     <string name="dark_theme">Dark theme</string>
     <string name="follow_system">Follow system</string>
-    <string name="off" tools:override="true">Off</string>
-    <string name="on" tools:override="true">On</string>
+    <string name="disabled">Disabled</string>
+    <string name="enabled">Enabled</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_app_update">AppUpdateActivity</string>
     <string name="close">Close</string>
@@ -46,4 +46,15 @@
     <string name="this_feature_requires_following_permissions">This feature requires following permissions:</string>
     <string name="go_to_settings">Go to settings</string>
     <string name="please_enable_them_in_settings_and_return_to_the_app">Please enable them in settings and return to the app</string>
+    <string name="failed_to_open_link">Failed to open link</string>
+    <string name="failed_to_retrieve_release_info">Failed to retrieve release info</string>
+    <string name="receive_pre_release_versions">Receive pre-release versions</string>
+    <string name="failed_to_add_book">Failed to add book</string>
+    <string name="under_development">Under development</string>
+    <string name="add_book">Add book</string>
+    <string name="your_library_is_empty">Your library is empty</string>
+    <string name="add">Add</string>
+    <string name="book_name">Book name</string>
+    <string name="failed_to_remove_book">Failed to remove book</string>
+    <string name="remove_book">Remove book</string>
 </resources>

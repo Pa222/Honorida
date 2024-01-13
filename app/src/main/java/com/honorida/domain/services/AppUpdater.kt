@@ -5,29 +5,50 @@ import android.util.Log
 import android.widget.Toast
 import com.honorida.R
 import com.honorida.data.external.models.CheckUpdateResponse
+import com.honorida.data.external.models.VersionInfoResponse
 import com.honorida.data.external.services.IHonoridaApiService
+import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.domain.services.interfaces.IAppUpdater
+import com.honorida.domain.services.interfaces.IDownloader
+import kotlinx.coroutines.flow.collectLatest
+import java.util.concurrent.CancellationException
+import javax.inject.Inject
 
-class AppUpdater(
-    private val apiService: IHonoridaApiService
+class AppUpdater @Inject constructor(
+    private val apiService: IHonoridaApiService,
+    private val downloader: IDownloader,
+    protoDataStore: IProtoDataStore,
 ) : IAppUpdater {
+
+    private val _updatePreferences = protoDataStore.updatesPreferences.data
+
     override suspend fun checkForUpdates (
         context: Context,
         appVersion: String,
-        checkForPreRelease: Boolean,
         callBack: (CheckUpdateResponse) -> Unit
     ) {
         try {
-            val response = apiService.checkUpdates(
-                appVersion,
-                checkForPreRelease
-            )
-            callBack(response)
-        } catch (e: Exception) {
+            _updatePreferences.collectLatest {
+                val response = apiService.checkUpdates(
+                    appVersion,
+                    it.receivePreReleaseVersions
+                )
+                callBack(response)
+            }
+
+        }
+        catch (e: CancellationException) {
+            //
+        }
+        catch (e: Exception) {
             Log.e("checkForUpdates", e.message ?: "Unknown error")
             Toast.makeText(context,
                 context.getText(R.string.failed_to_check_for_updates),
                 Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun startUpdate(versionInfo: VersionInfoResponse) {
+        downloader.downloadFile(versionInfo.downloadUrl)
     }
 }

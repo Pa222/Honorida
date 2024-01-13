@@ -2,7 +2,7 @@ package com.honorida.data.local.enums
 
 import android.content.Context
 import com.honorida.R
-import com.honorida.activities.main.ui.components.shared.controls.selectControl.models.SelectControlValue
+import com.honorida.ui.components.shared.controls.selectControl.models.SelectControlValue
 
 enum class DarkThemePreference {
     ENABLED,
@@ -17,11 +17,11 @@ enum class DarkThemePreference {
                     value = FOLLOW_SYSTEM
                 ),
                 SelectControlValue(
-                    title = context.getString(R.string.off),
+                    title = context.getString(R.string.disabled),
                     value = DISABLED
                 ),
                 SelectControlValue(
-                    title = context.getString(R.string.on),
+                    title = context.getString(R.string.enabled),
                     value = ENABLED
                 )
             )
@@ -37,11 +37,11 @@ fun DarkThemePreference.toSelectControlValue(context: Context) :
             value = DarkThemePreference.FOLLOW_SYSTEM
         )
         DarkThemePreference.DISABLED -> SelectControlValue(
-            title = context.getString(R.string.off),
+            title = context.getString(R.string.disabled),
             value = DarkThemePreference.DISABLED
         )
         DarkThemePreference.ENABLED -> SelectControlValue(
-            title = context.getString(R.string.on),
+            title = context.getString(R.string.enabled),
             value = DarkThemePreference.ENABLED
         )
     }

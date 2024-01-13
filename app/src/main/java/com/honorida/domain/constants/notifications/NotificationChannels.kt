@@ -1,0 +1,4 @@
+package com.honorida.domain.constants.notifications
+
+const val APP_UPDATES_NOTIFICATION_CHANNEL_ID: String = "HONORIDA_APP_UPDATE_NOTIFICATIONS"
+const val GENERAL_NOTIFICATION_CHANNEL_ID: String = "GENERAL_NOTIFICATION_CHANNEL_ID"
