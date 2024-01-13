@@ -6,8 +6,8 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.honorida.R
-import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.domain.extensions.getFileNameFromUrl
+import com.honorida.domain.services.interfaces.IDownloader
 
 class Downloader(
     private val context: Application

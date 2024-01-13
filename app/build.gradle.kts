@@ -29,6 +29,14 @@ android {
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
 
+        kapt {
+            correctErrorTypes = true
+
+            arguments {
+                arg("room.schemaLocation", "${projectDir}/main/java/honorida/data/local/context")
+            }
+        }
+
         buildConfigField("String", "API_URL", "\"${properties.getProperty("API_URL")}\"")
         buildConfigField("String", "REPO_URL", "\"${properties.getProperty("REPO_URL")}\"")
     }
@@ -58,10 +66,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 dependencies {
@@ -101,6 +105,10 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.50")
     kapt("androidx.hilt:hilt-compiler:1.1.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    // Room
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
