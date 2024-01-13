@@ -1,20 +1,17 @@
 package com.honorida.workers
 
-import android.app.Application
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.honorida.BuildConfig
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
-import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.domain.services.interfaces.IAppUpdater
 import com.honorida.domain.services.interfaces.INotificationService
 import dagger.Lazy
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
-import javax.inject.Inject
 
 @HiltWorker
 class AppUpdateWorker @AssistedInject constructor(
@@ -32,7 +29,6 @@ class AppUpdateWorker @AssistedInject constructor(
             appUpdater.get().checkForUpdates(
                 context,
                 BuildConfig.VERSION_NAME,
-                BuildConfig.VERSION_NAME.isPreReleaseVersion()
             ) {
                 if (it.updateRequired) {
                     notificationService.get().showAppUpdateNotification(it)

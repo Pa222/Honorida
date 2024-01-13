@@ -66,15 +66,18 @@ fun ApplicationPreferencesPage(
                         checked = updatesPreferences.checkUpdatesOnStartUp,
                         onChange = {
                             viewModel.updateCheckUpdatesOnStartUpPreference(it)
-                        }
+                        },
+                        enabled = updatesPreferences.receiveAppUpdates
                     )
                     CheckBoxControl(
                         text = stringResource(R.string.receive_pre_release_versions),
                         checked = updatesPreferences.receivePreReleaseVersions,
                         onChange = {
-                            //
+                            viewModel.updateReceivePreReleaseAppVersionsPreference(it)
                         },
                         enabled = false
+                        // Disabled because there's no release version at this point
+//                        enabled = updatesPreferences.receiveAppUpdates
                     )
                 }
             }

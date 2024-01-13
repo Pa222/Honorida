@@ -64,10 +64,15 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAppUpdater(honoridaApiService: IHonoridaApiService, downloader: IDownloader): IAppUpdater {
+    fun provideAppUpdater(
+        honoridaApiService: IHonoridaApiService,
+        downloader: IDownloader,
+        protoDataStore: IProtoDataStore,
+    ): IAppUpdater {
         return AppUpdater(
             honoridaApiService,
-            downloader
+            downloader,
+            protoDataStore,
         )
     }
 

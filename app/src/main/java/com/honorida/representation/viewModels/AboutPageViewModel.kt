@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.honorida.R
-import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.domain.services.interfaces.IAppUpdater
 import com.honorida.ui.components.navigation.getAppUpdateUri
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +26,6 @@ class AboutPageViewModel @Inject constructor(
             appUpdater.checkForUpdates(
                 context,
                 appVersion,
-                checkForPreRelease = appVersion.isPreReleaseVersion()
             ) {
                 if (it.updateRequired) {
                     navController.navigate(getAppUpdateUri(it))

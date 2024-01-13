@@ -3,6 +3,7 @@ package com.honorida.representation.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
+import com.honorida.data.models.protoStore.UpdatesPreferences
 import com.honorida.representation.uiStates.ApplicationPreferencesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,10 +28,14 @@ class ApplicationPreferencesViewModel @Inject constructor(
     fun updateReceiveAppUpdatesPreference(value: Boolean) {
         viewModelScope.launch {
             preferencesStore.updatesPreferences.updateData {
-                it.copy(
-                    receiveAppUpdates = value,
-                    checkUpdatesOnStartUp = if (value) it.checkUpdatesOnStartUp else false
-                )
+                if (!value) {
+                    UpdatesPreferences()
+                }
+                else {
+                    it.copy(
+                        receiveAppUpdates = true,
+                    )
+                }
             }
         }
     }
@@ -39,6 +44,14 @@ class ApplicationPreferencesViewModel @Inject constructor(
         viewModelScope.launch {
             preferencesStore.updatesPreferences.updateData {
                 it.copy(checkUpdatesOnStartUp = value)
+            }
+        }
+    }
+
+    fun updateReceivePreReleaseAppVersionsPreference(value: Boolean) {
+        viewModelScope.launch {
+            preferencesStore.updatesPreferences.updateData {
+                it.copy(receivePreReleaseVersions = value)
             }
         }
     }
