@@ -11,9 +11,11 @@ import com.honorida.domain.services.interfaces.INotificationService
 import javax.inject.Inject
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
-class FMService @Inject constructor(
-    private val notificationService: INotificationService
-) : FirebaseMessagingService() {
+class FMService() : FirebaseMessagingService() {
+
+    @Inject
+    lateinit var notificationService: INotificationService
+
     override fun onMessageReceived(message: RemoteMessage) {
         try {
             when(message.data[Extras.NotificationType.key]) {

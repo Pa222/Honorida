@@ -11,6 +11,7 @@ import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.domain.services.interfaces.IAppUpdater
 import com.honorida.domain.services.interfaces.IDownloader
 import kotlinx.coroutines.flow.collectLatest
+import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
 class AppUpdater @Inject constructor(
@@ -35,7 +36,11 @@ class AppUpdater @Inject constructor(
                 callBack(response)
             }
 
-        } catch (e: Exception) {
+        }
+        catch (e: CancellationException) {
+            //
+        }
+        catch (e: Exception) {
             Log.e("checkForUpdates", e.message ?: "Unknown error")
             Toast.makeText(context,
                 context.getText(R.string.failed_to_check_for_updates),
