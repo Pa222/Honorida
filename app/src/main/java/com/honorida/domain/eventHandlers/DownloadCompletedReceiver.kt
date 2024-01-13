@@ -1,4 +1,4 @@
-package com.honorida.data.local.eventHandlers
+package com.honorida.domain.eventHandlers
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver

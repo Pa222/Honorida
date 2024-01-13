@@ -1,4 +1,4 @@
-package com.honorida.data.local.services
+package com.honorida.domain.services
 
 import android.app.Application
 import android.app.DownloadManager
@@ -6,7 +6,7 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.honorida.R
-import com.honorida.data.local.interfaces.IDownloader
+import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.domain.extensions.getFileNameFromUrl
 
 class Downloader(

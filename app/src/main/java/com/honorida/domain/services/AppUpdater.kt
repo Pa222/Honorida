@@ -7,7 +7,7 @@ import com.honorida.R
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.data.external.models.VersionInfoResponse
 import com.honorida.data.external.services.IHonoridaApiService
-import com.honorida.data.local.interfaces.IDownloader
+import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.domain.services.interfaces.IAppUpdater
 import kotlinx.coroutines.flow.collectLatest

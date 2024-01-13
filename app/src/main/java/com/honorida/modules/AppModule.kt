@@ -8,12 +8,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.work.WorkManager
 import com.honorida.BuildConfig
 import com.honorida.data.external.services.IHonoridaApiService
-import com.honorida.data.local.interfaces.IDownloader
+import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.data.local.repositories.DataStoreRepository
 import com.honorida.data.local.repositories.ProtoDataStore
 import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
-import com.honorida.data.local.services.Downloader
+import com.honorida.domain.services.Downloader
 import com.honorida.domain.services.AppUpdater
 import com.honorida.domain.services.NotificationService
 import com.honorida.domain.services.interfaces.IAppUpdater
