@@ -1,5 +1,6 @@
 package com.honorida.domain.services
 
+import android.app.Application
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
@@ -13,7 +14,7 @@ import com.honorida.domain.services.interfaces.INotificationService
 import com.honorida.ui.components.navigation.DeepLinks
 
 class NotificationService(
-    private val context: Context
+    private val context: Application
 ) : INotificationService {
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

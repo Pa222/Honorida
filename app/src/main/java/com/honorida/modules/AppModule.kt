@@ -1,5 +1,6 @@
 package com.honorida.modules
 
+import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -17,60 +18,68 @@ import com.honorida.domain.services.AppUpdater
 import com.honorida.domain.services.NotificationService
 import com.honorida.domain.services.interfaces.IAppUpdater
 import com.honorida.domain.services.interfaces.INotificationService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
-import retrofit2.create
+import javax.inject.Singleton
 
-interface IAppModule {
-    val dataStoreRepository: IDataStoreRepository
-    val protoDataStore: IProtoDataStore
-    val honoridaApiService: IHonoridaApiService
-    val downloader: IDownloader
-    val appUpdater: IAppUpdater
-    val notificationService: INotificationService
-    val workManager: WorkManager
-}
-
-class AppModuleImpl (
-    private val appContext: Context
-) : IAppModule {
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "UserPreferences"
     )
 
-    override val dataStoreRepository: IDataStoreRepository by lazy {
-        DataStoreRepository(appContext.dataStore)
+    @Provides
+    @Singleton
+    fun provideDataStoreRepository(context: Application): IDataStoreRepository {
+        return DataStoreRepository(context.dataStore)
     }
 
-    override val protoDataStore: IProtoDataStore by lazy {
-        ProtoDataStore(appContext)
+    @Provides
+    @Singleton
+    fun provideProtoDataStore(context: Application): IProtoDataStore {
+        return ProtoDataStore(context)
     }
 
-    override val honoridaApiService: IHonoridaApiService by lazy {
-        Retrofit.Builder()
+    @Provides
+    @Singleton
+    fun provideHonoridaApiService(): IHonoridaApiService {
+        return Retrofit.Builder()
             .addConverterFactory(JacksonConverterFactory.create())
             .baseUrl(BuildConfig.API_URL)
             .build()
-            .create()
+            .create(IHonoridaApiService::class.java)
     }
 
-    override val downloader: IDownloader by lazy {
-        Downloader(appContext)
+    @Provides
+    @Singleton
+    fun provideDownloader(context: Application): IDownloader {
+        return Downloader(context)
     }
 
-    override val appUpdater: IAppUpdater by lazy {
-        AppUpdater(
+    @Provides
+    @Singleton
+    fun provideAppUpdater(honoridaApiService: IHonoridaApiService, downloader: IDownloader): IAppUpdater {
+        return AppUpdater(
             honoridaApiService,
             downloader
         )
     }
 
-    override val notificationService: INotificationService by lazy {
-        NotificationService(appContext)
+    @Provides
+    @Singleton
+    fun providesNotificationService(context: Application): INotificationService {
+        return NotificationService(context)
     }
 
-    override val workManager: WorkManager by lazy {
-        WorkManager.getInstance(appContext)
+    @Provides
+    @Singleton
+    fun provideWorkManager(context: Application): WorkManager {
+        return WorkManager.getInstance(context)
     }
 }

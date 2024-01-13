@@ -8,13 +8,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.data.local.enums.DarkThemePreference
 import com.honorida.data.local.enums.toSelectControlValue
 import com.honorida.representation.viewModels.AppearanceSettingsViewModel
-import com.honorida.representation.viewModels.helpers.viewModelFactory
 import com.honorida.ui.components.pages.more.subPages.appSettings.components.SettingsCategory
 import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.shared.controls.selectControl.SelectControl
@@ -24,14 +23,7 @@ import com.honorida.ui.components.topbar.TopBar
 fun AppearanceSettingsPage(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: AppearanceSettingsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-        factory = viewModelFactory {
-            AppearanceSettingsViewModel(
-                appearancePreferencesStore =
-                HonoridaApp.appModule.protoDataStore.appearancePreferences
-            )
-        }
-    )
+    viewModel: AppearanceSettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState().value

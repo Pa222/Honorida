@@ -28,33 +28,28 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.domain.constants.LoadingState
 import com.honorida.representation.viewModels.AppUpdateViewModel
-import com.honorida.representation.viewModels.helpers.viewModelFactory
 
 @Composable
 fun AppUpdatePage(
     releaseId: Int,
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: AppUpdateViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-        factory = viewModelFactory {
-            AppUpdateViewModel(
-                HonoridaApp.appModule.appUpdater,
-                HonoridaApp.appModule.honoridaApiService,
-                releaseId
-            )
-        }
-    )
+    viewModel: AppUpdateViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
     val uiState = viewModel.uiState.collectAsState().value
     val releaseInfo = uiState.releaseInfo
-    if (uiState.loadingState == LoadingState.Failed) {
+
+    if (uiState.loadingState == LoadingState.Idle) {
+        viewModel.loadReleaseInfo(releaseId)
+    }
+    else if (uiState.loadingState == LoadingState.Failed) {
         navController.navigateUp()
         Toast.makeText(
             context,

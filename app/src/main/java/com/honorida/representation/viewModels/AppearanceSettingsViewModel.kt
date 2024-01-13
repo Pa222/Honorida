@@ -1,21 +1,24 @@
 package com.honorida.representation.viewModels
 
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.enums.DarkThemePreference
-import com.honorida.data.models.protoStore.AppearancePreferences
+import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.representation.uiStates.AppearanceUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AppearanceSettingsViewModel(
-    private val appearancePreferencesStore: DataStore<AppearancePreferences>
+@HiltViewModel
+class AppearanceSettingsViewModel @Inject constructor(
+    private val preferencesStore: IProtoDataStore
 ) : ViewModel() {
-    private val _uiState: StateFlow<AppearanceUiState> = appearancePreferencesStore.data.map {
+
+    private val _uiState: StateFlow<AppearanceUiState> = preferencesStore.appearancePreferences.data.map {
         AppearanceUiState(darkThemePreference = it.darkThemePreference)
     }.stateIn(
         scope = viewModelScope,
@@ -28,7 +31,7 @@ class AppearanceSettingsViewModel(
 
     fun updateDarkThemeSetting(value: DarkThemePreference) {
         viewModelScope.launch {
-            appearancePreferencesStore.updateData {
+            preferencesStore.appearancePreferences.updateData {
                 it.copy(darkThemePreference = value)
             }
         }

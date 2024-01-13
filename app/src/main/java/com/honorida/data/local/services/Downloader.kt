@@ -1,7 +1,7 @@
 package com.honorida.data.local.services
 
+import android.app.Application
 import android.app.DownloadManager
-import android.content.Context
 import android.os.Environment
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -10,7 +10,7 @@ import com.honorida.data.local.interfaces.IDownloader
 import com.honorida.domain.extensions.getFileNameFromUrl
 
 class Downloader(
-    private val context: Context
+    private val context: Application
 ): IDownloader {
 
     private val downloadManager = context.getSystemService(DownloadManager::class.java)

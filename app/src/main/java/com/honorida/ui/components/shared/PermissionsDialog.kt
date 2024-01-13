@@ -24,10 +24,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.honorida.R
 import com.honorida.domain.constants.Permissions
-import com.honorida.representation.viewModels.helpers.viewModelFactory
 import com.honorida.ui.components.shared.viewModels.PermissionsDialogViewModel
 
 @Composable
@@ -35,11 +34,7 @@ fun PermissionsDialog(
     permissions: List<Permissions>,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PermissionsDialogViewModel = viewModel(
-        factory = viewModelFactory {
-            PermissionsDialogViewModel()
-        }
-    )
+    viewModel: PermissionsDialogViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     Dialog(

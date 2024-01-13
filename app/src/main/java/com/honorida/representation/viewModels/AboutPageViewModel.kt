@@ -9,9 +9,12 @@ import com.honorida.R
 import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.domain.services.interfaces.IAppUpdater
 import com.honorida.ui.components.navigation.getAppUpdateUri
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AboutPageViewModel(
+@HiltViewModel
+class AboutPageViewModel @Inject constructor(
     private val appUpdater: IAppUpdater
 ) : ViewModel() {
 

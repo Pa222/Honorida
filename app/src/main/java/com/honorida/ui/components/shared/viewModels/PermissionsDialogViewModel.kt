@@ -5,8 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PermissionsDialogViewModel: ViewModel() {
+@HiltViewModel
+class PermissionsDialogViewModel @Inject constructor(
+
+): ViewModel() {
 
     fun openAppSettings(context: Context) {
         val intent = Intent(

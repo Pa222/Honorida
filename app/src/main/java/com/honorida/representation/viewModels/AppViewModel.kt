@@ -1,19 +1,21 @@
 package com.honorida.representation.viewModels
 
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.honorida.data.models.protoStore.AppearancePreferences
+import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.representation.uiStates.AppUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class AppViewModel(
-    appearancePreferenceStore: DataStore<AppearancePreferences>
+@HiltViewModel
+class AppViewModel @Inject constructor(
+    protoDataStore: IProtoDataStore
 ) : ViewModel() {
-    private val _uiState: StateFlow<AppUiState> = appearancePreferenceStore.data.map {
+    private val _uiState: StateFlow<AppUiState> = protoDataStore.appearancePreferences.data.map {
         AppUiState(darkThemePreference = it.darkThemePreference)
     }.stateIn(
         scope = viewModelScope,

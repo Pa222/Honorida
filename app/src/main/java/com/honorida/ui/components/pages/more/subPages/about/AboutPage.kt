@@ -16,14 +16,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.honorida.BuildConfig
-import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.representation.viewModels.AboutPageViewModel
-import com.honorida.representation.viewModels.helpers.viewModelFactory
 import com.honorida.ui.components.pages.more.NavigationListItem
 import com.honorida.ui.components.pages.more.NavigationListItemModel
 import com.honorida.ui.components.shared.ApplicationLogo
@@ -34,13 +32,7 @@ import com.honorida.ui.components.topbar.TopBar
 fun AboutPage(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: AboutPageViewModel = viewModel(
-        factory = viewModelFactory {
-            AboutPageViewModel(
-                HonoridaApp.appModule.appUpdater
-            )
-        }
-    )
+    viewModel: AboutPageViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val appVersion = rememberSaveable {

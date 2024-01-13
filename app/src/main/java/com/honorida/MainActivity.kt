@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.honorida.data.external.models.CheckUpdateResponse
@@ -21,9 +22,16 @@ import com.honorida.domain.extensions.isPreReleaseVersion
 import com.honorida.ui.components.App
 import com.honorida.ui.components.navigation.DeepLinks
 import com.honorida.workers.AppUpdateWorker
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var workManager: WorkManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,7 +72,7 @@ class MainActivity : ComponentActivity() {
         if (intent.action == Intent.ACTION_MAIN){
             val appUpdateWorker = OneTimeWorkRequestBuilder<AppUpdateWorker>()
                 .build()
-            HonoridaApp.appModule.workManager.enqueue(appUpdateWorker)
+            workManager.enqueue(appUpdateWorker)
         }
     }
 

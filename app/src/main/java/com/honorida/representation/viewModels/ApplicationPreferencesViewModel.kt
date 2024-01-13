@@ -4,11 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.representation.uiStates.ApplicationPreferencesUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ApplicationPreferencesViewModel(
+@HiltViewModel
+class ApplicationPreferencesViewModel @Inject constructor(
     private val preferencesStore: IProtoDataStore
 ) : ViewModel() {
 

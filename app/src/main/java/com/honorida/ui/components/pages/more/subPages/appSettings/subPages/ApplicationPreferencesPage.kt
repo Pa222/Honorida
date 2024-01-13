@@ -8,15 +8,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.honorida.HonoridaApp
 import com.honorida.R
 import com.honorida.data.models.protoStore.UpdatesPreferences
 import com.honorida.domain.constants.Permissions
 import com.honorida.representation.viewModels.ApplicationPreferencesViewModel
-import com.honorida.representation.viewModels.helpers.viewModelFactory
 import com.honorida.ui.components.pages.more.subPages.appSettings.components.SettingsCategory
 import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.shared.controls.CheckBoxControl
@@ -26,13 +24,7 @@ import com.honorida.ui.components.topbar.TopBar
 fun ApplicationPreferencesPage(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: ApplicationPreferencesViewModel = viewModel(
-        factory = viewModelFactory {
-            ApplicationPreferencesViewModel(
-                HonoridaApp.appModule.protoDataStore
-            )
-        }
-    )
+    viewModel: ApplicationPreferencesViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState().value
     val updatesPreferences = uiState.updatesPreferences

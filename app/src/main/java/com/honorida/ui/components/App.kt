@@ -6,11 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.honorida.HonoridaApp
 import com.honorida.representation.viewModels.AppViewModel
-import com.honorida.representation.viewModels.helpers.viewModelFactory
 import com.honorida.ui.components.navigation.NavBar
 import com.honorida.ui.components.navigation.Routes
 import com.honorida.ui.components.navigation.graphs.buildAppUpdateNavGraph
@@ -21,14 +20,7 @@ import com.honorida.ui.theme.HonoridaTheme
 
 @Composable
 fun App(
-    viewModel: AppViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-        factory = viewModelFactory {
-            AppViewModel(
-                appearancePreferenceStore =
-                HonoridaApp.appModule.protoDataStore.appearancePreferences
-            )
-        }
-    )
+    viewModel: AppViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState().value
     val darkThemePreference = uiState.darkThemePreference

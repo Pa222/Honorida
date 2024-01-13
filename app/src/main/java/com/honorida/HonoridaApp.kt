@@ -1,16 +1,20 @@
 package com.honorida
 
 import android.app.Application
-import com.honorida.modules.AppModuleImpl
-import com.honorida.modules.IAppModule
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
-class HonoridaApp : Application() {
-    companion object {
-        lateinit var appModule: IAppModule
-    }
+@HiltAndroidApp
+class HonoridaApp : Application(), Configuration.Provider {
 
-    override fun onCreate() {
-        super.onCreate()
-        appModule = AppModuleImpl(this)
-    }
+    @Inject
+    lateinit var hiltWorkerFactory: HiltWorkerFactory
+
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setWorkerFactory(hiltWorkerFactory)
+            .build()
+
 }
