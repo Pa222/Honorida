@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -47,6 +48,9 @@ fun LibraryPage(
     val uiState = viewModel.uiState.collectAsState().value
     val books = uiState.books
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+
+    val screenHeight = configuration.screenHeightDp
 
     val getContentLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.GetContent()
@@ -128,7 +132,7 @@ fun LibraryPage(
 
                         },
                         modifier = Modifier
-                            .height(180.dp)
+                            .height((screenHeight * 0.3).dp)
                             .padding(5.dp)
                     )
                 }

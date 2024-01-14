@@ -63,4 +63,5 @@
     <string name="added_books_processing_status">Added books processing status</string>
     <string name="book_processing">Book processing</string>
     <string name="failed_to_process_book">Failed to process book</string>
+    <string name="book_already_exists">Book already exists</string>
 </resources>

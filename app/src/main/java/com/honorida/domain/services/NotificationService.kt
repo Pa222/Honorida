@@ -24,7 +24,8 @@ class NotificationService(
         contentText: String,
         swappable: Boolean,
         iconResourceId: Int,
-        activityIntent: PendingIntent?
+        activityIntent: PendingIntent?,
+        silent: Boolean,
     ) {
         val notificationBuilder = NotificationCompat.Builder(context, notification.channelId)
             .setSmallIcon(iconResourceId)
@@ -32,6 +33,7 @@ class NotificationService(
             .setContentText(contentText)
             .setOngoing(!swappable)
             .setAutoCancel(true)
+            .setSilent(silent)
 
         if (activityIntent != null) {
             notificationBuilder.setContentIntent(activityIntent)

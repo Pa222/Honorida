@@ -20,4 +20,9 @@ sealed class HonoridaNotification(
         3,
         BOOK_PROCESSING_NOTIFICATION_CHANNEL_ID
     )
+
+    data object BookFailedToProcess: HonoridaNotification(
+        4,
+        BOOK_PROCESSING_NOTIFICATION_CHANNEL_ID
+    )
 }

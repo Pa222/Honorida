@@ -10,7 +10,9 @@ import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.data.models.db.Book
 import com.honorida.data.models.db.Tag
 import com.honorida.domain.constants.Extras
+import com.honorida.domain.exceptions.EntityAlreadyExistsException
 import com.honorida.domain.models.HonoridaNotification
+import com.honorida.domain.services.interfaces.INotificationService
 import dagger.hilt.android.AndroidEntryPoint
 import io.documentnode.epub4j.epub.EpubReader
 import io.documentnode.epub4j.epub.EpubWriter
@@ -33,6 +35,9 @@ class BookParserForegroundService: Service() {
     @Inject
     lateinit var databaseContext: HonoridaDatabase
 
+    @Inject
+    lateinit var notificationsService: INotificationService
+
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
@@ -53,6 +58,7 @@ class BookParserForegroundService: Service() {
         putNotification("")
         scope.launch {
             withContext(Dispatchers.IO) {
+                var destFile: File? = null
                 try {
                     val fileUri = uri.toUri()
                     val reader = EpubReader()
@@ -70,9 +76,12 @@ class BookParserForegroundService: Service() {
                         context.getExternalFilesDir("Books")
                             !!.absolutePath,
                     )
-                    val destFile = File(folder, "${bookTitle}.epub")
+                    destFile = File(folder, "${bookTitle}.epub")
                     if (!destFile.exists()) {
                         destFile.createNewFile()
+                    }
+                    else {
+                        destFile.delete()
                     }
                     val writer = EpubWriter()
                     writer.write(book, destFile.outputStream())
@@ -98,10 +107,25 @@ class BookParserForegroundService: Service() {
                     }
                     databaseContext.booksDao.saveBookWithTags(dbBook, dbTags)
                 }
+                catch (e: EntityAlreadyExistsException) {
+                    notificationsService.showNotification(
+                        HonoridaNotification.BookFailedToProcess,
+                        context.getString(R.string.book_processing),
+                        context.getString(R.string.book_already_exists)
+                    )
+                }
                 catch (e: Exception) {
                     e.printStackTrace()
+                    notificationsService.showNotification(
+                        HonoridaNotification.BookFailedToProcess,
+                        context.getString(R.string.book_processing),
+                        context.getString(R.string.failed_to_process_book)
+                    )
                 }
                 finally {
+                    if (destFile?.exists() == true) {
+                        destFile.delete()
+                    }
                     stopSelf()
                 }
             }
