@@ -1,11 +1,7 @@
 package com.honorida.ui.components.storageSetUp
 
-import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.storage.StorageManager
-import android.os.storage.StorageVolume
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,7 +39,6 @@ import com.honorida.domain.helpers.checkUriPersisted
 import com.honorida.domain.helpers.getDisplayPath
 import com.honorida.representation.viewModels.StorageSetUpViewModel
 import com.honorida.ui.components.navigation.Routes
-import java.util.Objects
 
 
 @Composable

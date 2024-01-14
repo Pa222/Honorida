@@ -8,9 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.enums.DataStoreKey
 import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
 import com.honorida.ui.components.navigation.Routes
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.Route
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(

@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.honorida.R
-import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.constants.Extras
+import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.constants.Permissions
 import com.honorida.domain.services.foreground.BookParserForegroundService
 import com.honorida.representation.viewModels.LibraryViewModel
@@ -129,9 +129,6 @@ fun LibraryPage(
                 items(books) {
                     BookCard(
                         book = it,
-                        onRemove = {
-
-                        },
                         modifier = Modifier
                             .height((screenHeight * 0.3).dp)
                             .padding(5.dp)

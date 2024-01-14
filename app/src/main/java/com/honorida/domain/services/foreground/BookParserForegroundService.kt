@@ -1,23 +1,16 @@
 package com.honorida.domain.services.foreground
 
 import android.app.Service
-import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.IBinder
-import android.provider.DocumentsContract
-import android.provider.MediaStore
 import androidx.core.app.NotificationCompat
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
-import com.honorida.BuildConfig
 import com.honorida.R
 import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.data.local.enums.DataStoreKey
 import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
-import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.data.models.db.Book
 import com.honorida.data.models.db.Tag
 import com.honorida.domain.constants.Extras
@@ -27,7 +20,6 @@ import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.interfaces.INotificationService
 import dagger.hilt.android.AndroidEntryPoint
 import io.documentnode.epub4j.epub.EpubReader
-import io.documentnode.epub4j.epub.EpubWriter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
