@@ -4,8 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".HonoridaApp"
@@ -33,6 +32,10 @@
                 />
             </intent-filter>
         </activity>
+        <service
+            android:name=".domain.services.foreground.BookParserForegroundService"
+            android:foregroundServiceType="shortService"
+        />
 
         <service
             android:name=".domain.services.FMService"

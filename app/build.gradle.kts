@@ -70,6 +70,10 @@ android {
 
 dependencies {
 
+    implementation("io.documentnode:epub4j-core:4.2.1") {
+        exclude("xmlpull")
+    }
+
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -102,6 +106,8 @@ dependencies {
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.hilt:hilt-work:1.2.0-alpha01")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+    androidTestImplementation("com.google.truth:truth:1.2.0")
     kapt("com.google.dagger:hilt-compiler:2.50")
     kapt("androidx.hilt:hilt-compiler:1.1.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")

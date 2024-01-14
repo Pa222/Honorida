@@ -57,4 +57,10 @@
     <string name="book_name">Book name</string>
     <string name="failed_to_remove_book">Failed to remove book</string>
     <string name="remove_book">Remove book</string>
+    <string name="general_notifications">General notifications</string>
+    <string name="notifications_received_from_server">Notifications received from server</string>
+    <string name="books_processing">Books processing</string>
+    <string name="added_books_processing_status">Added books processing status</string>
+    <string name="book_processing">Book processing</string>
+    <string name="failed_to_process_book">Failed to process book</string>
 </resources>

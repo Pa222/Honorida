@@ -14,8 +14,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
-import com.honorida.domain.constants.notifications.APP_UPDATES_NOTIFICATION_CHANNEL_ID
 import com.honorida.domain.extensions.asBoolean
+import com.honorida.domain.models.HonoridaNotification
 import com.honorida.ui.components.App
 import com.honorida.ui.components.firebase.FireBase
 import com.honorida.ui.components.navigation.DeepLinks
@@ -70,22 +70,35 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannels() {
         createNotificationChannel(
-            APP_UPDATES_NOTIFICATION_CHANNEL_ID,
+            HonoridaNotification.AppUpdate,
             getString(R.string.app_update_notifications),
             description =
             getString(R.string.notifications_of_a_new_app_version_available),
-            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        createNotificationChannel(
+            HonoridaNotification.GeneralNotification,
+            getString(R.string.general_notifications),
+            description =
+            getString(R.string.notifications_received_from_server),
+        )
+        createNotificationChannel(
+            HonoridaNotification.BookProcessing,
+            getString(R.string.books_processing),
+            description = getString(R.string.added_books_processing_status),
         )
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(
-        id: String,
+        notification: HonoridaNotification,
         name: String,
-        description: String,
-        importance: Int
+        description: String
     ) {
-        val channel = NotificationChannel(id, name, importance)
+        val channel = NotificationChannel(
+            notification.channelId,
+            name,
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
         channel.description = description
         val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

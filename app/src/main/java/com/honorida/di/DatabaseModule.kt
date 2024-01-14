@@ -3,10 +3,7 @@ package com.honorida.di
 import android.app.Application
 import androidx.room.Room
 import com.honorida.data.local.context.HonoridaDatabase
-import com.honorida.data.local.dao.BooksDao
-import com.honorida.data.local.repositories.DaoRepository
-import com.honorida.data.local.repositories.interfaces.IDaoRepository
-import dagger.Binds
+import com.honorida.data.local.migrations.Migration1to2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,12 +14,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class DatabaseModule {
 
-    @Binds
-    @Singleton
-    abstract fun bindDaoRepository(
-        repository: DaoRepository
-    ) : IDaoRepository
-
     companion object {
         @Provides
         @Singleton
@@ -30,13 +21,8 @@ abstract class DatabaseModule {
             return Room
                 .databaseBuilder(context, HonoridaDatabase::class.java, "Honorida.db")
                 .allowMainThreadQueries()
+                .addMigrations(Migration1to2)
                 .build()
-        }
-
-        @Provides
-        @Singleton
-        fun provideBooksDao(database: HonoridaDatabase): BooksDao {
-            return database.booksDao
         }
     }
 }

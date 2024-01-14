@@ -1,5 +1,9 @@
 package com.honorida.ui.components.pages.library
 
+import android.content.Intent
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,29 +16,25 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.honorida.R
-import com.honorida.data.models.db.Book
+import com.honorida.domain.constants.Extras
+import com.honorida.domain.constants.Permissions
+import com.honorida.domain.services.foreground.BookParserForegroundService
 import com.honorida.representation.viewModels.LibraryViewModel
-import com.honorida.ui.components.pages.library.components.AddBookDialog
 import com.honorida.ui.components.pages.library.components.BookCard
 import com.honorida.ui.components.shared.buttons.FloatingActionButton
 import com.honorida.ui.components.topbar.TopBar
@@ -46,21 +46,20 @@ fun LibraryPage(
 ) {
     val uiState = viewModel.uiState.collectAsState().value
     val books = uiState.books
+    val context = LocalContext.current
 
-    var showAddBookDialog by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    if (showAddBookDialog) {
-        AddBookDialog(
-            onDismissRequest = {
-                showAddBookDialog = false
-            },
-            onConfirm = {
-                showAddBookDialog = false
-                viewModel.putBook(it)
-            }
-        )
+    val getContentLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri ->
+        if (uri != null) {
+            Intent(context, BookParserForegroundService::class.java)
+                .apply {
+                    putExtra(Extras.FileUri.key, uri.toString())
+                }
+                .also {
+                    context.startService(it)
+                }
+        }
     }
 
     Scaffold(
@@ -78,12 +77,17 @@ fun LibraryPage(
             )
         },
         floatingActionButton = {
+            val requiredPermissions = mutableListOf<Permissions>()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requiredPermissions.add(Permissions.PostNotifications)
+            }
             FloatingActionButton(
                 icon = Icons.Filled.Add,
                 contentDescription = stringResource(R.string.add_book),
                 onClick = {
-                    showAddBookDialog = true
+                    getContentLauncher.launch("application/epub+zip")
                 },
+                requiredPermissions = requiredPermissions,
                 modifier = Modifier
                     .padding(20.dp)
                     .size(50.dp)
@@ -120,8 +124,8 @@ fun LibraryPage(
                 items(books) {
                     BookCard(
                         book = it,
-                        onRemove = { book ->
-                           viewModel.deleteBook(book)
+                        onRemove = {
+
                         },
                         modifier = Modifier
                             .height(180.dp)

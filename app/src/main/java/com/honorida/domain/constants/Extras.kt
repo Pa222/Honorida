@@ -7,4 +7,5 @@ sealed class Extras(
     data object ReleaseId: Extras("releaseId")
     data object OpenAppUpdatePage: Extras("openAppUpdatePage")
     data object NotificationType: Extras("notificationType")
+    data object FileUri: Extras("fileUri")
 }
