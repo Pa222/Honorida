@@ -1,4 +1,4 @@
-package com.honorida.domain.extensions
+package com.honorida.domain.helpers
 
 fun String.replaceValues(params: Map<String, String>): String {
     val result = StringBuilder(this)

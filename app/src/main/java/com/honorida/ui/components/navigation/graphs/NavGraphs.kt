@@ -17,6 +17,7 @@ import com.honorida.ui.components.pages.more.subPages.about.AboutPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.AppSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.AppearanceSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.ApplicationPreferencesPage
+import com.honorida.ui.components.storageSetUp.StorageSetUpPage
 
 fun NavGraphBuilder.buildMorePageNavGraph (
     navController: NavController
@@ -81,5 +82,15 @@ fun NavGraphBuilder.buildAppUpdateNavGraph (
             releaseId = backStackEntry.arguments?.getInt(Extras.ReleaseId.key) ?: 0,
             navController = navController,
         )
+    }
+}
+
+fun NavGraphBuilder.buildStorageSetAppNavGraph (
+    navController: NavController
+) {
+    this.composable(
+        route = Routes.STORAGE_SETUP.route,
+    ) {
+        StorageSetUpPage(navController)
     }
 }

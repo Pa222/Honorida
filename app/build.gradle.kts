@@ -84,7 +84,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
-    implementation("androidx.compose.material:material:1.5.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -106,6 +105,7 @@ dependencies {
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.hilt:hilt-work:1.2.0-alpha01")
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
     androidTestImplementation("androidx.room:room-testing:2.6.1")
     androidTestImplementation("com.google.truth:truth:1.2.0")
     kapt("com.google.dagger:hilt-compiler:2.50")

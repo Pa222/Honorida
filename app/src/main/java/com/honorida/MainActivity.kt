@@ -9,13 +9,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
-import com.honorida.domain.extensions.asBoolean
+import com.honorida.domain.helpers.asBoolean
 import com.honorida.domain.models.HonoridaNotification
+import com.honorida.representation.viewModels.SplashViewModel
 import com.honorida.ui.components.App
 import com.honorida.ui.components.firebase.FireBase
 import com.honorida.ui.components.navigation.DeepLinks
@@ -30,8 +33,15 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var workManager: WorkManager
 
+    @Inject
+    lateinit var viewModel: SplashViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen().setKeepOnScreenCondition {
+            viewModel.isLoading.value
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannels()
@@ -52,8 +62,9 @@ class MainActivity : ComponentActivity() {
             if (scheduleUpdateCheck && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 scheduleAppUpdatesCheck()
             }
+            val startDestination by viewModel.startDestination
             FireBase()
-            App()
+            App(startDestination)
         }
     }
 

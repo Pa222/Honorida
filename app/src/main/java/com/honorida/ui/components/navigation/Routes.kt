@@ -2,7 +2,7 @@ package com.honorida.ui.components.navigation
 
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
-import com.honorida.domain.extensions.replaceValues
+import com.honorida.domain.helpers.replaceValues
 
 enum class Routes(
     val route: String,
@@ -28,6 +28,10 @@ enum class Routes(
     APP_UPDATE(
         "appUpdate?" +
                 "${Extras.ReleaseId.key}={${Extras.ReleaseId.key}}",
+        showNavBar = false
+    ),
+    STORAGE_SETUP(
+        "storageSetup",
         showNavBar = false
     )
 }

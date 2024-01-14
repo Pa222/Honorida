@@ -1,15 +1,27 @@
 package com.honorida.domain.services.foreground
 
 import android.app.Service
+import android.content.ContentResolver
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.IBinder
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import androidx.core.app.NotificationCompat
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.documentfile.provider.DocumentFile
+import com.honorida.BuildConfig
 import com.honorida.R
 import com.honorida.data.local.context.HonoridaDatabase
+import com.honorida.data.local.enums.DataStoreKey
+import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
+import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.data.models.db.Book
 import com.honorida.data.models.db.Tag
 import com.honorida.domain.constants.Extras
+import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.exceptions.EntityAlreadyExistsException
 import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.interfaces.INotificationService
@@ -19,6 +31,7 @@ import io.documentnode.epub4j.epub.EpubWriter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -37,6 +50,9 @@ class BookParserForegroundService: Service() {
 
     @Inject
     lateinit var notificationsService: INotificationService
+
+    @Inject
+    lateinit var preferencesRepository: IDataStoreRepository
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -58,7 +74,6 @@ class BookParserForegroundService: Service() {
         putNotification("")
         scope.launch {
             withContext(Dispatchers.IO) {
-                var destFile: File? = null
                 try {
                     val fileUri = uri.toUri()
                     val reader = EpubReader()
@@ -66,25 +81,31 @@ class BookParserForegroundService: Service() {
                     val book = reader.readEpub(inputStream)
                     val bookTitle = book.title
                     putNotification(book.title)
+
+                    val fileName = "${bookTitle}.epub"
+                    val directoryUri = Uri.parse(
+                        preferencesRepository.getPreference(
+                            DataStoreKey.StorageUri,
+                            ""
+                        ).first()
+                    )
+
+                    val targetDirectory = DocumentFile.fromTreeUri(context, directoryUri)!!
+
+                    val targetFile = targetDirectory.createFile(MimeTypes.Epub, fileName)
+                    val outputStream = contentResolver.openOutputStream(targetFile!!.uri)
+
+                    contentResolver.openInputStream(fileUri)?.use { input ->
+                        outputStream?.use { output ->
+                            input.copyTo(output)
+                        }
+                    }
                     val bookCover = book.coverImage.data
                     val bookSubjects = book.metadata.subjects
                     val bookLanguage = book.metadata.language
                     val bookPublishers = book.metadata.publishers
                     val bookAuthors = book.metadata.authors
                     val description = book.metadata.descriptions.firstOrNull()
-                    val folder = File(
-                        context.getExternalFilesDir("Books")
-                            !!.absolutePath,
-                    )
-                    destFile = File(folder, "${bookTitle}.epub")
-                    if (!destFile.exists()) {
-                        destFile.createNewFile()
-                    }
-                    else {
-                        destFile.delete()
-                    }
-                    val writer = EpubWriter()
-                    writer.write(book, destFile.outputStream())
                     val dbBook = Book(
                         title = bookTitle,
                         coverImage = bookCover,
@@ -94,7 +115,7 @@ class BookParserForegroundService: Service() {
                             "${it.firstname} ${it.lastname}"
                         },
                         description = description,
-                        fileUrl = destFile.absolutePath
+                        fileUrl = targetFile.uri.toString()
                     )
                     val dbTags = bookSubjects.map { subject ->
                         var name = subject.replace('-', ' ')
@@ -123,9 +144,6 @@ class BookParserForegroundService: Service() {
                     )
                 }
                 finally {
-                    if (destFile?.exists() == true) {
-                        destFile.delete()
-                    }
                     stopSelf()
                 }
             }

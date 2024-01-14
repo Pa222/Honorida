@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.honorida.R
+import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.Permissions
 import com.honorida.domain.services.foreground.BookParserForegroundService
@@ -89,7 +90,7 @@ fun LibraryPage(
                 icon = Icons.Filled.Add,
                 contentDescription = stringResource(R.string.add_book),
                 onClick = {
-                    getContentLauncher.launch("application/epub+zip")
+                    getContentLauncher.launch(MimeTypes.Epub)
                 },
                 requiredPermissions = requiredPermissions,
                 modifier = Modifier

@@ -8,6 +8,7 @@ import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.data.models.protoStore.AppearancePreferences
 import com.honorida.data.models.protoStore.UpdatesPreferences
 import com.honorida.data.models.protoStore.constants.APPEARANCE_PREFERENCES_DATASTORE_NAME
+import com.honorida.data.models.protoStore.constants.STORAGE_PREFERENCES_DATASTORE_NAME
 import com.honorida.data.models.protoStore.constants.UPDATES_PREFERENCES_DATASTORE_NAME
 import com.honorida.data.models.protoStore.serializers.AppearancePreferencesSerializer
 import com.honorida.data.models.protoStore.serializers.UpdatesPreferencesSerializer
