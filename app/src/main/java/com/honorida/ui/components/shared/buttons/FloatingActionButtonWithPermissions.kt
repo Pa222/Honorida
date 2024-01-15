@@ -2,7 +2,7 @@ package com.honorida.ui.components.shared.buttons
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.FilledTonalIconButton
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,7 +21,7 @@ import com.honorida.ui.components.shared.PermissionsDialog
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun FloatingActionButton(
+fun FloatingActionButtonWithPermissions(
     icon: ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -55,7 +55,7 @@ fun FloatingActionButton(
         )
     }
 
-    FilledTonalIconButton(
+    FloatingActionButton(
         modifier = modifier,
         onClick = {
             if (permissionsState != null && !permissionsState.allPermissionsGranted) {

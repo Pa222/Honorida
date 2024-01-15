@@ -38,7 +38,7 @@ import com.honorida.domain.constants.Permissions
 import com.honorida.domain.services.foreground.BookParserForegroundService
 import com.honorida.representation.viewModels.LibraryViewModel
 import com.honorida.ui.components.pages.library.components.BookCard
-import com.honorida.ui.components.shared.buttons.FloatingActionButton
+import com.honorida.ui.components.shared.buttons.FloatingActionButtonWithPermissions
 import com.honorida.ui.components.topbar.TopBar
 
 @Composable
@@ -86,7 +86,7 @@ fun LibraryPage(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 requiredPermissions.add(Permissions.PostNotifications)
             }
-            FloatingActionButton(
+            FloatingActionButtonWithPermissions(
                 icon = Icons.Filled.Add,
                 contentDescription = stringResource(R.string.add_book),
                 onClick = {
@@ -130,7 +130,7 @@ fun LibraryPage(
                     BookCard(
                         book = it,
                         modifier = Modifier
-                            .height((screenHeight * 0.3).dp)
+                            .height((screenHeight * 0.25).dp)
                             .padding(5.dp)
                     )
                 }
