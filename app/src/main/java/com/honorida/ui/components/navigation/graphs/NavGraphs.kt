@@ -17,6 +17,7 @@ import com.honorida.ui.components.pages.more.subPages.about.AboutPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.AppSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.AppearanceSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.ApplicationPreferencesPage
+import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.StorageSettingsPage
 import com.honorida.ui.components.storageSetUp.StorageSetUpPage
 
 fun NavGraphBuilder.buildMorePageNavGraph (
@@ -42,6 +43,11 @@ fun NavGraphBuilder.buildMorePageNavGraph (
         }
         composable(Routes.MORE_MAIN_SETTINGS_APPLICATION.route) {
             ApplicationPreferencesPage(
+                navController = navController
+            )
+        }
+        composable(Routes.MORE_MAIN_SETTINGS_STORAGE.route) {
+            StorageSettingsPage(
                 navController = navController
             )
         }

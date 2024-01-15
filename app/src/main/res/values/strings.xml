@@ -70,4 +70,6 @@
     <string name="finish">Finish</string>
     <string name="selected_storage">Selected storage:</string>
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
+    <string name="data_storage"><![CDATA[Data & Storage]]></string>
+    <string name="storage_location">Storage location</string>
 </resources>

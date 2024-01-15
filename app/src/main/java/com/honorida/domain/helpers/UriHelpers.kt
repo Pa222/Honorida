@@ -8,7 +8,11 @@ import android.os.storage.StorageVolume
 import com.honorida.R
 import java.util.Objects
 
+
 fun getDisplayPath(context: Context, uri: Uri): String {
+    if (uri.path == "") {
+        return ""
+    }
     val lastPathSegment = uri.lastPathSegment!!
     val backupVolume = lastPathSegment.replaceFirst(":.*".toRegex(), "")
     val backupName = "/storage/emulated/0/" + lastPathSegment.replaceFirst(".*:".toRegex(), "")

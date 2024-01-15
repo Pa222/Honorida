@@ -25,6 +25,11 @@ enum class Routes(
         subRouteOf = MORE_MAIN_SETTINGS,
         showNavBar = false
     ),
+    MORE_MAIN_SETTINGS_STORAGE(
+        "${MORE_MAIN_SETTINGS}/storage",
+        subRouteOf = MORE_MAIN_SETTINGS,
+        showNavBar = false
+    ),
     APP_UPDATE(
         "appUpdate?" +
                 "${Extras.ReleaseId.key}={${Extras.ReleaseId.key}}",
