@@ -36,7 +36,6 @@ import com.honorida.ui.components.shared.BookThumbnail
 @Composable
 fun BookPreviewPage(
     navController: NavController,
-    bookId: Int,
     modifier: Modifier = Modifier,
     viewModel: BookPreviewViewModel = hiltViewModel()
 ) {

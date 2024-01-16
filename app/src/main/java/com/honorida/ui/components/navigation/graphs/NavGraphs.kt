@@ -72,10 +72,9 @@ fun NavGraphBuilder.buildBooksNavGraph(navController: NavController) {
                 type = NavType.IntType
             }
         )
-    ) { backStackEntry ->
+    ) {
         BookPreviewPage(
             navController,
-            bookId = backStackEntry.arguments?.getInt(Extras.BookId.key) ?: 0
         )
     }
 }
