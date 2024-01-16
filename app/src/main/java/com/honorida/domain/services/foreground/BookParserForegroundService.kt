@@ -2,17 +2,11 @@ package com.honorida.domain.services.foreground
 
 import android.app.Service
 import android.content.Intent
-import android.net.Uri
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
-import androidx.documentfile.provider.DocumentFile
 import com.honorida.R
 import com.honorida.data.local.context.HonoridaDatabase
-import com.honorida.data.local.enums.DataStoreKey
-import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
-import com.honorida.data.models.db.Book
-import com.honorida.data.models.db.Tag
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.exceptions.EntityAlreadyExistsException
@@ -21,11 +15,9 @@ import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.INotificationService
 import dagger.hilt.android.AndroidEntryPoint
-import io.documentnode.epub4j.epub.EpubReader
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File

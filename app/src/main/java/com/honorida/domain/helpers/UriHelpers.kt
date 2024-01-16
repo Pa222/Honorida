@@ -1,6 +1,5 @@
 package com.honorida.domain.helpers
 
-import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.os.storage.StorageManager
