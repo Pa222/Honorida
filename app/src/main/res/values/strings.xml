@@ -57,4 +57,20 @@
     <string name="book_name">Book name</string>
     <string name="failed_to_remove_book">Failed to remove book</string>
     <string name="remove_book">Remove book</string>
+    <string name="general_notifications">General notifications</string>
+    <string name="notifications_received_from_server">Notifications received from server</string>
+    <string name="books_processing">Books processing</string>
+    <string name="added_books_processing_status">Added books processing status</string>
+    <string name="book_processing">Book processing</string>
+    <string name="failed_to_process_book">Failed to process book</string>
+    <string name="book_already_exists">Book already exists</string>
+    <string name="storage_setup">This app requires access to the storage in order to save books. Please select folder that will be used as a books storage</string>
+    <string name="please_select_folder_that_will_be_used_as_a_books_storage">Please, select folder that will be used as a books storage</string>
+    <string name="open_directory_picker">Open directory picker</string>
+    <string name="finish">Finish</string>
+    <string name="selected_storage">Selected storage:</string>
+    <string name="StorageUtil__s_s">%1$s/%2$s</string>
+    <string name="data_storage"><![CDATA[Data & Storage]]></string>
+    <string name="storage_location">Storage location</string>
+    <string name="unknown">Unknown</string>
 </resources>

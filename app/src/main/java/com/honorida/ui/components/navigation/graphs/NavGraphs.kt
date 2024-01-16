@@ -10,6 +10,7 @@ import com.honorida.domain.constants.Extras
 import com.honorida.ui.components.appUpdate.AppUpdatePage
 import com.honorida.ui.components.navigation.DeepLinks
 import com.honorida.ui.components.navigation.Routes
+import com.honorida.ui.components.pages.bookPreview.BookPreviewPage
 import com.honorida.ui.components.pages.history.HistoryPage
 import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
@@ -17,6 +18,8 @@ import com.honorida.ui.components.pages.more.subPages.about.AboutPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.AppSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.AppearanceSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.ApplicationPreferencesPage
+import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.StorageSettingsPage
+import com.honorida.ui.components.storageSetUp.StorageSetUpPage
 
 fun NavGraphBuilder.buildMorePageNavGraph (
     navController: NavController
@@ -44,6 +47,11 @@ fun NavGraphBuilder.buildMorePageNavGraph (
                 navController = navController
             )
         }
+        composable(Routes.MORE_MAIN_SETTINGS_STORAGE.route) {
+            StorageSettingsPage(
+                navController = navController
+            )
+        }
     }
 }
 
@@ -56,12 +64,29 @@ fun NavGraphBuilder.buildHistoryPageNavGraph () {
     }
 }
 
-fun NavGraphBuilder.buildLibraryPageNavGraph () {
+fun NavGraphBuilder.buildBooksNavGraph(navController: NavController) {
+    this.composable(
+        Routes.LIBRARY_BOOK_PREVIEW.route,
+        arguments = listOf(
+            navArgument(Extras.BookId.key) {
+                type = NavType.IntType
+            }
+        )
+    ) {
+        BookPreviewPage(
+            navController,
+        )
+    }
+}
+
+fun NavGraphBuilder.buildLibraryPageNavGraph (
+    navController: NavController
+) {
     this.composable(
         Routes.LIBRARY.route,
         deepLinks = listOf(DeepLinks.Library.link)
     ) {
-        LibraryPage()
+        LibraryPage(navController)
     }
 }
 
@@ -81,5 +106,15 @@ fun NavGraphBuilder.buildAppUpdateNavGraph (
             releaseId = backStackEntry.arguments?.getInt(Extras.ReleaseId.key) ?: 0,
             navController = navController,
         )
+    }
+}
+
+fun NavGraphBuilder.buildStorageSetAppNavGraph (
+    navController: NavController
+) {
+    this.composable(
+        route = Routes.STORAGE_SETUP.route,
+    ) {
+        StorageSetUpPage(navController)
     }
 }

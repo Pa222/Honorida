@@ -5,6 +5,8 @@ sealed class Extras(
 ) {
     data object UpdateRequired: Extras("updateRequired")
     data object ReleaseId: Extras("releaseId")
+    data object BookId: Extras("bookId")
     data object OpenAppUpdatePage: Extras("openAppUpdatePage")
     data object NotificationType: Extras("notificationType")
+    data object FileUri: Extras("fileUri")
 }

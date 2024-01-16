@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ColorLens
 import androidx.compose.material.icons.outlined.SettingsApplications
+import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -42,6 +43,13 @@ fun AppSettingsPage(
                 description = context.getString(R.string.application_settings_description),
                 onClick = {
                     navController.navigate(Routes.MORE_MAIN_SETTINGS_APPLICATION.route)
+                }
+            ),
+            NavigationListItemModel(
+                    Icons.Outlined.Storage,
+                text = context.getString(R.string.data_storage),
+                onClick = {
+                    navController.navigate(Routes.MORE_MAIN_SETTINGS_STORAGE.route)
                 }
             )
         )

@@ -12,7 +12,8 @@ interface INotificationService {
         contentText: String,
         swappable: Boolean = true,
         iconResourceId: Int = R.drawable.logo64_64,
-        activityIntent: PendingIntent? = null
+        activityIntent: PendingIntent? = null,
+        silent: Boolean = false,
     )
 
     fun showAppUpdateNotification(updateInfo: CheckUpdateResponse)

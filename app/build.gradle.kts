@@ -18,8 +18,8 @@ android {
         applicationId = "com.honorida"
         minSdk = 24
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.0.0-alpha.4"
+        versionCode = 5
+        versionName = "1.0.0-alpha.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -70,6 +70,10 @@ android {
 
 dependencies {
 
+    implementation("io.documentnode:epub4j-core:4.2.1") {
+        exclude("xmlpull")
+    }
+
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -80,7 +84,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
-    implementation("androidx.compose.material:material:1.5.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -102,6 +105,9 @@ dependencies {
     // Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.hilt:hilt-work:1.2.0-alpha01")
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+    androidTestImplementation("com.google.truth:truth:1.2.0")
     kapt("com.google.dagger:hilt-compiler:2.50")
     kapt("androidx.hilt:hilt-compiler:1.1.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")

@@ -9,7 +9,7 @@ import androidx.navigation.navDeepLink
 import com.honorida.MainActivity
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
-import com.honorida.domain.extensions.replaceValues
+import com.honorida.domain.helpers.replaceValues
 
 private const val rootUri = "honorida://honorida.app"
 
@@ -35,7 +35,7 @@ sealed class DeepLinks(
         ) :Intent {
             return Intent(
                 Intent.ACTION_VIEW,
-                DeepLinks.getAppUpdateUri(updateInfo),
+                getAppUpdateUri(updateInfo),
                 context,
                 MainActivity::class.java
             )
@@ -43,7 +43,7 @@ sealed class DeepLinks(
     }
 
     companion object {
-        fun getAppUpdateUri(updateInfo: CheckUpdateResponse) : Uri {
+        private fun getAppUpdateUri(updateInfo: CheckUpdateResponse) : Uri {
             return AppUpdate.link.uriPattern!!.replaceValues(
                 params = mapOf(
                     Extras.ReleaseId.key to updateInfo.releaseId.toString(),

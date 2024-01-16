@@ -15,6 +15,7 @@ import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.domain.services.AppUpdater
 import com.honorida.domain.services.Downloader
 import com.honorida.domain.services.NotificationService
+import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.IAppUpdater
 import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.domain.services.interfaces.INotificationService
@@ -33,6 +34,15 @@ object AppModule {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "UserPreferences"
     )
+
+    @Provides
+    @Singleton
+    fun provideBookProcessorProvider(
+        context: Application,
+        preferencesStoreRepository: IDataStoreRepository
+    ): BookProcessorProvider {
+        return BookProcessorProvider(context, preferencesStoreRepository)
+    }
 
     @Provides
     @Singleton
