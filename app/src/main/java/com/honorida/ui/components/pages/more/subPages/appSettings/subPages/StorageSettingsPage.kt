@@ -42,10 +42,12 @@ fun StorageSettingsPage(
                     context.contentResolver.releasePersistableUriPermission(uri, flags)
                 }
                 context.contentResolver.takePersistableUriPermission(uri, flags)
-                context.contentResolver.releasePersistableUriPermission(
-                    uiState.selectedStorage.toUri(),
-                    flags
-                )
+                if (checkUriPersisted(context.contentResolver, uiState.selectedStorage.toUri())) {
+                    context.contentResolver.releasePersistableUriPermission(
+                        uiState.selectedStorage.toUri(),
+                        flags
+                    )
+                }
                 viewModel.updateSelectedStorage(uri)
             }
         }

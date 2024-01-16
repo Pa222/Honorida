@@ -6,6 +6,7 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.honorida.R
+import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.helpers.getFileNameFromUrl
 import com.honorida.domain.services.interfaces.IDownloader
 
@@ -15,16 +16,12 @@ class Downloader(
 
     private val downloadManager = context.getSystemService(DownloadManager::class.java)
 
-    companion object {
-        private const val APK_MIME_TYPE = "application/vnd.android.package-archive"
-    }
-
     override fun downloadFile(url: String): Long {
         return try {
             val uri = url.toUri()
             val fileName = url.getFileNameFromUrl()!!
             val request = DownloadManager.Request(uri)
-                .setMimeType(APK_MIME_TYPE)
+                .setMimeType(MimeTypes.Apk)
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setTitle(fileName)
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)

@@ -16,7 +16,9 @@ import com.honorida.data.models.db.Tag
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.exceptions.EntityAlreadyExistsException
+import com.honorida.domain.helpers.getFileExtension
 import com.honorida.domain.models.HonoridaNotification
+import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.INotificationService
 import dagger.hilt.android.AndroidEntryPoint
 import io.documentnode.epub4j.epub.EpubReader
@@ -44,7 +46,7 @@ class BookParserForegroundService: Service() {
     lateinit var notificationsService: INotificationService
 
     @Inject
-    lateinit var preferencesRepository: IDataStoreRepository
+    lateinit var bookProcessorProvider: BookProcessorProvider
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -67,58 +69,16 @@ class BookParserForegroundService: Service() {
         scope.launch {
             withContext(Dispatchers.IO) {
                 try {
+                    val fileExtension = uri.getFileExtension()
+                    val bookProcessor = bookProcessorProvider.getBookProcessorForMimeType(
+                        MimeTypes.ExtensionsMimeTypes[fileExtension]!!
+                    )!!
                     val fileUri = uri.toUri()
-                    val reader = EpubReader()
-                    val inputStream = contentResolver.openInputStream(fileUri)
-                    val book = reader.readEpub(inputStream)
-                    val bookTitle = book.title
-                    putNotification(book.title)
-
-                    val fileName = "${bookTitle}.epub"
-                    val directoryUri = Uri.parse(
-                        preferencesRepository.getPreference(
-                            DataStoreKey.StorageUri,
-                            ""
-                        ).first()
+                    val processedBook = bookProcessor.processBook(fileUri)
+                    databaseContext.booksDao.saveBookWithTags(
+                        processedBook.book,
+                        processedBook.subjects
                     )
-
-                    val targetDirectory = DocumentFile.fromTreeUri(context, directoryUri)!!
-
-                    val targetFile = targetDirectory.createFile(MimeTypes.Epub, fileName)
-                    val outputStream = contentResolver.openOutputStream(targetFile!!.uri)
-
-                    contentResolver.openInputStream(fileUri)?.use { input ->
-                        outputStream?.use { output ->
-                            input.copyTo(output)
-                        }
-                    }
-                    val bookCover = book.coverImage.data
-                    val bookSubjects = book.metadata.subjects
-                    val bookLanguage = book.metadata.language
-                    val bookPublishers = book.metadata.publishers
-                    val bookAuthors = book.metadata.authors
-                    val description = book.metadata.descriptions.firstOrNull()
-                    val dbBook = Book(
-                        title = bookTitle,
-                        coverImage = bookCover,
-                        language = bookLanguage,
-                        publishers = bookPublishers.joinToString(", "),
-                        authors = bookAuthors.joinToString(", ") {
-                            "${it.firstname} ${it.lastname}"
-                        },
-                        description = description,
-                        fileUrl = targetFile.uri.toString()
-                    )
-                    val dbTags = bookSubjects.map { subject ->
-                        var name = subject.replace('-', ' ')
-                        if (name.contains('_')) {
-                            name = name
-                                .substring(name.indexOf('_') + 1)
-                                .trim()
-                        }
-                        Tag(name = name)
-                    }
-                    databaseContext.booksDao.saveBookWithTags(dbBook, dbTags)
                 }
                 catch (e: EntityAlreadyExistsException) {
                     notificationsService.showNotification(
