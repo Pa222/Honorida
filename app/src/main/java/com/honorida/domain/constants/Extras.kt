@@ -4,8 +4,9 @@ sealed class Extras(
     val key: String
 ) {
     data object UpdateRequired: Extras("updateRequired")
-    data object UpdateUrl: Extras("updateUrl")
-    data object LatestAppVersion: Extras("latestAppVersion")
-    data object ReleaseUrl: Extras("releaseUrl")
+    data object ReleaseId: Extras("releaseId")
+    data object BookId: Extras("bookId")
     data object OpenAppUpdatePage: Extras("openAppUpdatePage")
+    data object NotificationType: Extras("notificationType")
+    data object FileUri: Extras("fileUri")
 }

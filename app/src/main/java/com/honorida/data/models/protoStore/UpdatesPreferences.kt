@@ -6,4 +6,5 @@ import kotlinx.serialization.Serializable
 data class UpdatesPreferences(
     val checkUpdatesOnStartUp: Boolean = false,
     val receiveAppUpdates: Boolean = false,
+    val receivePreReleaseVersions: Boolean = true,
 )

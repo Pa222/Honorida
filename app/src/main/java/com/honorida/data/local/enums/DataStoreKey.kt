@@ -1,4 +1,8 @@
 package com.honorida.data.local.enums
+import androidx.datastore.preferences.core.stringPreferencesKey
 
-object DataStoreKey {
+sealed class DataStoreKey {
+    companion object {
+        val StorageUri = stringPreferencesKey(name = "storage_uri")
+    }
 }

@@ -1,5 +1,6 @@
 package com.honorida.data.local.repositories
 
+import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
@@ -12,7 +13,7 @@ import com.honorida.data.models.protoStore.serializers.AppearancePreferencesSeri
 import com.honorida.data.models.protoStore.serializers.UpdatesPreferencesSerializer
 
 class ProtoDataStore(
-    private val context: Context
+    private val context: Application
 ) : IProtoDataStore {
 
     private val Context.appearancePreferencesStore
