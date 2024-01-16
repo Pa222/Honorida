@@ -16,8 +16,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.domain.activityResultContracts.PermissibleOpenDocumentTreeContract
-import com.honorida.domain.helpers.checkUriPersisted
 import com.honorida.domain.helpers.getDisplayPath
+import com.honorida.domain.helpers.isUriPersisted
 import com.honorida.representation.viewModels.StorageSettingsViewModel
 import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.shared.controls.ActionControl
@@ -38,11 +38,11 @@ fun StorageSettingsPage(
             maybeUri?.let { uri ->
                 val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                         Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                if (checkUriPersisted(context.contentResolver, uri)) {
+                if (context.contentResolver.isUriPersisted(uri)) {
                     context.contentResolver.releasePersistableUriPermission(uri, flags)
                 }
                 context.contentResolver.takePersistableUriPermission(uri, flags)
-                if (checkUriPersisted(context.contentResolver, uiState.selectedStorage.toUri())) {
+                if (context.contentResolver.isUriPersisted(uiState.selectedStorage)) {
                     context.contentResolver.releasePersistableUriPermission(
                         uiState.selectedStorage.toUri(),
                         flags

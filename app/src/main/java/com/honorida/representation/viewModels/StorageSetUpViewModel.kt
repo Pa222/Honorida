@@ -14,9 +14,8 @@ class StorageSetUpViewModel @Inject constructor(
     private val preferencesRepository: IDataStoreRepository
 ): ViewModel() {
 
-    fun saveStorageConfigured(location: Uri) {
+    fun saveStorageLocation(location: Uri) {
         viewModelScope.launch {
-            preferencesRepository.putPreference(DataStoreKey.StorageConfigured, true)
             preferencesRepository.putPreference(DataStoreKey.StorageUri, location.toString())
         }
     }

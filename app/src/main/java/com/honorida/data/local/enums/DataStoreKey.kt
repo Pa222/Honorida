@@ -4,7 +4,6 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 
 sealed class DataStoreKey {
     companion object {
-        val StorageConfigured = booleanPreferencesKey(name = "storage_configured")
         val StorageUri = stringPreferencesKey(name = "storage_uri")
     }
 }

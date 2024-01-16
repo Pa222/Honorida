@@ -35,7 +35,3 @@ fun getDisplayPath(context: Context, uri: Uri): String {
         )
     }
 }
-
-fun checkUriPersisted(contentResolver: ContentResolver, uri: Uri): Boolean {
-    return contentResolver.persistedUriPermissions.any { perm -> perm.uri == uri }
-}

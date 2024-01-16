@@ -35,8 +35,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.domain.activityResultContracts.PermissibleOpenDocumentTreeContract
-import com.honorida.domain.helpers.checkUriPersisted
 import com.honorida.domain.helpers.getDisplayPath
+import com.honorida.domain.helpers.isUriPersisted
 import com.honorida.representation.viewModels.StorageSetUpViewModel
 import com.honorida.ui.components.navigation.Routes
 
@@ -58,7 +58,7 @@ fun StorageSetUpPage(
             maybeUri?.let { uri ->
                 val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                         Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                if (checkUriPersisted(context.contentResolver, uri)) {
+                if (context.contentResolver.isUriPersisted(uri)) {
                     context.contentResolver.releasePersistableUriPermission(uri, flags)
                 }
                 context.contentResolver.takePersistableUriPermission(uri, flags)
@@ -100,7 +100,7 @@ fun StorageSetUpPage(
             Spacer(modifier = Modifier.height(20.dp))
             TextButton(
                 onClick = {
-                    viewModel.saveStorageConfigured(selectedUri!!)
+                    viewModel.saveStorageLocation(selectedUri!!)
                     navController.popBackStack()
                     navController.navigate(Routes.LIBRARY.route)
                 },
