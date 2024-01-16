@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.honorida.representation.viewModels.AppViewModel
 import com.honorida.ui.components.navigation.NavBar
 import com.honorida.ui.components.navigation.graphs.buildAppUpdateNavGraph
+import com.honorida.ui.components.navigation.graphs.buildBooksNavGraph
 import com.honorida.ui.components.navigation.graphs.buildHistoryPageNavGraph
 import com.honorida.ui.components.navigation.graphs.buildLibraryPageNavGraph
 import com.honorida.ui.components.navigation.graphs.buildMorePageNavGraph
@@ -40,8 +41,9 @@ fun App(
                 startDestination = startDestination,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                buildLibraryPageNavGraph()
+                buildLibraryPageNavGraph(navController)
                 buildHistoryPageNavGraph()
+                buildBooksNavGraph(navController)
                 buildMorePageNavGraph(navController)
                 buildAppUpdateNavGraph(navController)
                 buildStorageSetAppNavGraph(navController)

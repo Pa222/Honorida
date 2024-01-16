@@ -72,4 +72,5 @@
     <string name="StorageUtil__s_s">%1$s/%2$s</string>
     <string name="data_storage"><![CDATA[Data & Storage]]></string>
     <string name="storage_location">Storage location</string>
+    <string name="unknown">Unknown</string>
 </resources>

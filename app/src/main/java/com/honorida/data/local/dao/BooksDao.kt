@@ -18,6 +18,9 @@ abstract class BooksDao {
     @Query("SELECT * FROM Books where title = :name")
     abstract suspend fun findByTitle(name: String): Book?
 
+    @Query("SELECT * FROM Books where id = :id")
+    abstract suspend fun findById(id: Int): Book?
+
     @Upsert
     abstract suspend fun saveBook(book: Book): Long
 

@@ -10,6 +10,7 @@ import com.honorida.domain.constants.Extras
 import com.honorida.ui.components.appUpdate.AppUpdatePage
 import com.honorida.ui.components.navigation.DeepLinks
 import com.honorida.ui.components.navigation.Routes
+import com.honorida.ui.components.pages.bookPreview.BookPreviewPage
 import com.honorida.ui.components.pages.history.HistoryPage
 import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
@@ -63,12 +64,30 @@ fun NavGraphBuilder.buildHistoryPageNavGraph () {
     }
 }
 
-fun NavGraphBuilder.buildLibraryPageNavGraph () {
+fun NavGraphBuilder.buildBooksNavGraph(navController: NavController) {
+    this.composable(
+        Routes.LIBRARY_BOOK_PREVIEW.route,
+        arguments = listOf(
+            navArgument(Extras.BookId.key) {
+                type = NavType.IntType
+            }
+        )
+    ) { backStackEntry ->
+        BookPreviewPage(
+            navController,
+            bookId = backStackEntry.arguments?.getInt(Extras.BookId.key) ?: 0
+        )
+    }
+}
+
+fun NavGraphBuilder.buildLibraryPageNavGraph (
+    navController: NavController
+) {
     this.composable(
         Routes.LIBRARY.route,
         deepLinks = listOf(DeepLinks.Library.link)
     ) {
-        LibraryPage()
+        LibraryPage(navController)
     }
 }
 

@@ -31,18 +31,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.constants.Permissions
 import com.honorida.domain.services.foreground.BookParserForegroundService
 import com.honorida.representation.viewModels.LibraryViewModel
+import com.honorida.ui.components.navigation.getBookPreviewUri
 import com.honorida.ui.components.pages.library.components.BookCard
 import com.honorida.ui.components.shared.buttons.FloatingActionButtonWithPermissions
 import com.honorida.ui.components.topbar.TopBar
 
 @Composable
 fun LibraryPage(
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: LibraryViewModel = hiltViewModel()
 ) {
@@ -129,6 +132,9 @@ fun LibraryPage(
                 items(books) {
                     BookCard(
                         book = it,
+                        onClick = {
+                            navController.navigate(getBookPreviewUri(it.id))
+                        },
                         modifier = Modifier
                             .height((screenHeight * 0.25).dp)
                             .padding(5.dp)

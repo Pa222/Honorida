@@ -17,50 +17,23 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.data.models.db.Book
+import com.honorida.ui.components.shared.BookThumbnail
 
 @Composable
 fun BookCard(
     book: Book,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val coverBitmap = book.coverImage?.size?.let {
-        BitmapFactory.decodeByteArray(
-        book.coverImage,
-        0,
-            it
-        )
-    }
     Card(
         modifier = modifier
-            .clickable {  }
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                if (coverBitmap != null) {
-                    Image(
-                        bitmap = coverBitmap.asImageBitmap(),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillBounds
-                    )
-                }
-                else {
-                    Icon(
-                        painter = painterResource(R.drawable.cover_image),
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
+            .clickable {
+                onClick()
             }
-        }
+    ) {
+        BookThumbnail(book.coverImage)
     }
 }
