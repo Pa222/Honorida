@@ -8,6 +8,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -74,9 +75,9 @@ dependencies {
         exclude("xmlpull")
     }
 
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation("androidx.compose.ui:ui")
@@ -84,7 +85,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
@@ -94,12 +95,10 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("androidx.datastore:datastore:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0-Beta2")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:2.0.0-Beta3")
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     implementation("androidx.navigation:navigation-compose:2.7.6")
-    implementation("com.google.firebase:firebase-messaging:23.4.0")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
     implementation("androidx.compose.material3:material3-android:1.2.0-beta02")
 
     // Dagger - Hilt
@@ -107,10 +106,16 @@ dependencies {
     implementation("androidx.hilt:hilt-work:1.2.0-alpha01")
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
     androidTestImplementation("androidx.room:room-testing:2.6.1")
-    androidTestImplementation("com.google.truth:truth:1.2.0")
+    androidTestImplementation("com.google.truth:truth:1.3.0")
     kapt("com.google.dagger:hilt-compiler:2.50")
     kapt("androidx.hilt:hilt-compiler:1.1.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    //Firebase
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 
     // Room
     implementation("androidx.room:room-ktx:2.6.1")
