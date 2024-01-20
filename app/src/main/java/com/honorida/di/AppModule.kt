@@ -8,15 +8,18 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.work.WorkManager
 import com.honorida.BuildConfig
 import com.honorida.data.external.services.IHonoridaApiService
+import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.data.local.repositories.DataStoreRepository
 import com.honorida.data.local.repositories.ProtoDataStore
 import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.domain.services.AppUpdater
+import com.honorida.domain.services.BookService
 import com.honorida.domain.services.Downloader
 import com.honorida.domain.services.NotificationService
 import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.IAppUpdater
+import com.honorida.domain.services.interfaces.IBookService
 import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.domain.services.interfaces.INotificationService
 import dagger.Module
@@ -96,5 +99,11 @@ object AppModule {
     @Singleton
     fun provideWorkManager(context: Application): WorkManager {
         return WorkManager.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookService(database: HonoridaDatabase, context: Application): IBookService {
+        return BookService(database, context)
     }
 }

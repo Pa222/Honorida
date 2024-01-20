@@ -1,6 +1,7 @@
 package com.honorida.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
@@ -26,6 +27,9 @@ abstract class BooksDao {
 
     @Upsert
     abstract suspend fun saveTags(tags: List<Tag>)
+
+    @Delete
+    abstract suspend fun deleteBook(book: Book)
 
     @Transaction
     open suspend fun saveBookWithTags(

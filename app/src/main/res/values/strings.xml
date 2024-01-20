@@ -73,4 +73,8 @@
     <string name="data_storage"><![CDATA[Data & Storage]]></string>
     <string name="storage_location">Storage location</string>
     <string name="unknown">Unknown</string>
+    <string name="read">Read</string>
+    <string name="book_not_found">Book not found</string>
+    <string name="failed_to_remove_file_from_storage_verbose">Failed to remove file from storage. Application does not have access to the file location or file was already deleted.</string>
+    <string name="failed_to_remove_file_from_storage">Failed to remove file from storage</string>
 </resources>

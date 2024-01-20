@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.domain.constants.Extras
+import com.honorida.domain.services.BookService
+import com.honorida.domain.services.interfaces.IBookService
 import com.honorida.representation.uiStates.BookInfo
 import com.honorida.representation.uiStates.BookPreviewUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BookPreviewViewModel @Inject constructor(
     private val databaseContext: HonoridaDatabase,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
+    private val bookService: IBookService
 ): ViewModel() {
     private val _uiState = MutableStateFlow(BookPreviewUiState())
 
@@ -46,6 +49,12 @@ class BookPreviewViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun deleteBook(bookId: Int) {
+        viewModelScope.launch {
+            bookService.removeBook(bookId)
         }
     }
 }

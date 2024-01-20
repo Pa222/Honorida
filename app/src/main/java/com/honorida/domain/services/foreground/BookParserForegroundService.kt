@@ -57,13 +57,12 @@ class BookParserForegroundService: Service() {
 
     private fun start(uri: String) {
         val context = this;
-        putNotification("")
+        putNotification(context.getString(R.string.book_processing))
         scope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val fileExtension = uri.getFileExtension()
                     val bookProcessor = bookProcessorProvider.getBookProcessorForMimeType(
-                        MimeTypes.ExtensionsMimeTypes[fileExtension]!!
+                        MimeTypes.Epub
                     )!!
                     val fileUri = uri.toUri()
                     val processedBook = bookProcessor.processBook(fileUri)
