@@ -18,8 +18,8 @@ android {
         applicationId = "com.honorida"
         minSdk = 24
         targetSdk = 34
-        versionCode = 5
-        versionName = "1.0.0-alpha.5"
+        versionCode = 6
+        versionName = "1.0.0-alpha.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
