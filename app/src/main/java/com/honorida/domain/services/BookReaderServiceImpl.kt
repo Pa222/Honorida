@@ -2,7 +2,9 @@ package com.honorida.domain.services
 
 import android.app.Application
 import android.net.Uri
+import androidx.compose.ui.geometry.Size
 import androidx.core.text.HtmlCompat
+import com.honorida.domain.helpers.getCountOfEscapedSymbols
 import com.honorida.domain.services.interfaces.IBookReaderService
 import com.honorida.domain.services.models.ChapterInfo
 import io.documentnode.epub4j.domain.Book
@@ -26,14 +28,39 @@ class BookReaderServiceImpl @Inject constructor(
         return chapters
     }
 
-    override fun getResourceContent(bookFileUri: Uri, resourceId: String): String {
+    override fun getPages(
+        bookFileUri: Uri,
+        resourceId: String,
+        pageSize: Int
+    ): List<String> {
         val book = getBook(bookFileUri)
         val resource = book.resources.getById(resourceId)
-        val resourceDataAsString = resource.data.toString(Charset.forName(resource.inputEncoding))
-        return HtmlCompat.fromHtml(
-            resourceDataAsString,
+
+        var parsedContent = HtmlCompat.fromHtml(
+            resource.data.toString(Charset.forName(resource.inputEncoding)),
             HtmlCompat.FROM_HTML_MODE_COMPACT
         ).toString()
+
+        val pages = mutableListOf<String>()
+        var index = 0
+
+        while (parsedContent.isNotEmpty()) {
+            val tmpPage = parsedContent.take(pageSize)
+            val finalPageSize = tmpPage.length + tmpPage.getCountOfEscapedSymbols()
+            pages.add(
+                parsedContent
+                    .take(finalPageSize)
+            )
+            parsedContent = parsedContent.drop(pageSize)
+            index++
+        }
+
+        return pages
+    }
+
+    override fun getChapterTitle(bookFileUri: Uri, resourceId: String): String? {
+        val book = getBook(bookFileUri)
+        return book.tableOfContents.tocReferences.find { it.resourceId == resourceId }?.title
     }
 
     private fun getBook(bookFileUri: Uri): Book {

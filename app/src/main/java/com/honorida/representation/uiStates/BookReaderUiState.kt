@@ -1,9 +1,16 @@
 package com.honorida.representation.uiStates
 
-import com.honorida.domain.constants.LoadingState
+sealed class BookReaderState{
+    data object BookLoading: BookReaderState()
+    data object WaitingForPages: BookReaderState()
+    data object BookLoaded: BookReaderState()
+    data object Failed: BookReaderState()
+}
 
 data class BookReaderUiState(
     val bookInfo: BookInfo? = null,
-    val processState: LoadingState = LoadingState.Loading,
-    val readerContent: String = ""
+    val readerState: BookReaderState = BookReaderState.BookLoading,
+    val fontSize: Float = 14F,
+    val pages: List<String> = emptyList(),
+    val chapterTitle: String? = null
 )

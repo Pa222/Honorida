@@ -1,9 +1,20 @@
 package com.honorida.domain.services.interfaces
 
 import android.net.Uri
+import androidx.compose.ui.geometry.Size
 import com.honorida.domain.services.models.ChapterInfo
 
 interface IBookReaderService {
     fun getChapters(bookFileUri: Uri): List<ChapterInfo>
-    fun getResourceContent(bookFileUri: Uri, resourceId: String): String
+
+    fun getPages(
+        bookFileUri: Uri,
+        resourceId: String,
+        pageSize: Int,
+    ): List<String>
+
+    fun getChapterTitle(
+        bookFileUri: Uri,
+        resourceId: String
+    ): String?
 }

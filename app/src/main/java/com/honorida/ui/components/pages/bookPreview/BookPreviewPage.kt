@@ -53,6 +53,7 @@ import com.honorida.representation.viewModels.BookPreviewViewModel
 import com.honorida.ui.components.navigation.Routes
 import com.honorida.ui.components.navigation.getBookReaderUri
 import com.honorida.ui.components.pages.bookPreview.components.BookInfoRow
+import com.honorida.ui.components.pages.bookPreview.components.ChapterRow
 import com.honorida.ui.components.shared.BookThumbnail
 
 @Composable
@@ -155,34 +156,32 @@ fun BookPreviewPage(
                 )
             }
         }
-        Column(
-            modifier = Modifier
-                .padding(vertical = 20.dp)
-                .animateContentSize()
-                .height(200.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Text(
-                text = description.toString(),
-                fontSize = 14.sp,
-            )
+        if (description.isNotEmpty()) {
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 20.dp)
+                    .animateContentSize()
+                    .height(200.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = description.toString(),
+                    fontSize = 14.sp,
+                )
+            }
         }
         if (uiState.chaptersList.isNotEmpty()) {
             LazyVerticalGrid(columns = GridCells.Fixed(1)) {
                 items(uiState.chaptersList) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .height(40.dp)
-                            .clickable {
-                                navController.navigate(getBookReaderUri(book.id, it.resourceId))
-                            }
-                    ) {
-                        Text(
-                            text = it.title,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                    ChapterRow(
+                        title = it.title,
+                        index = uiState.chaptersList.indexOf(it),
+                        onClick = {
+                            navController.navigate(
+                                getBookReaderUri(book.id, it.resourceId)
+                            )
+                        }
+                    )
                 }
             }
         }

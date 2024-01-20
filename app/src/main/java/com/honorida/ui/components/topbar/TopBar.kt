@@ -1,6 +1,10 @@
 package com.honorida.ui.components.topbar
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
@@ -17,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.honorida.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,6 +30,7 @@ fun TopBar(
         modifier: Modifier = Modifier,
         title: String = stringResource(R.string.header),
         navigateBackAction: (() -> Unit)? = null,
+        description: String? = null,
         actions: @Composable (RowScope.() -> Unit) = {  },
     ) {
     TopAppBar(
@@ -32,11 +38,20 @@ fun TopBar(
             containerColor = Color.Transparent,
         ),
         title = {
-            Text(
-                title,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Column {
+                Text(
+                    title,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                if (description != null) {
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = description,
+                        fontSize = 10.sp,
+                    )
+                }
+            }
         },
         actions = actions,
         modifier = modifier,

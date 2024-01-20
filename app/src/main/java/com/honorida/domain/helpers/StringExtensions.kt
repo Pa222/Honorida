@@ -40,3 +40,19 @@ fun String.getFileNameFromUrl(): String? {
     }
     return this.subSequence(this.lastIndexOf('/') + 1, this.length).toString()
 }
+
+fun String.getCountOfEscapedSymbols(): Int {
+    var count = 0
+    var isEscape = false
+
+    for (char in this) {
+        if (isEscape) {
+            count++
+            isEscape = false
+        } else if (char == '\\') {
+            isEscape = true
+        }
+    }
+
+    return count
+}
