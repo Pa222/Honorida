@@ -10,10 +10,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.outlined.AutoStories
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.HtmlCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
@@ -41,10 +45,12 @@ fun BookPreviewPage(
 ) {
     val uiState = viewModel.uiState.collectAsState().value
     val book = uiState.bookInfo
+    val description = HtmlCompat.fromHtml(book.description ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 10.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -80,9 +86,7 @@ fun BookPreviewPage(
             Column(
                 modifier = Modifier
                     .padding(
-                        start = 20.dp,
-                        top = 30.dp,
-                        bottom = 30.dp
+                        20.dp,
                     )
             ) {
                 Text(
@@ -117,7 +121,28 @@ fun BookPreviewPage(
                     )
                     Text(text = book.publishers ?: stringResource(R.string.unknown))
                 }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(vertical = 5.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Language,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .padding(end = 5.dp)
+                    )
+                    Text(text = book.language?.uppercase() ?: stringResource(R.string.unknown))
+                }
             }
+        }
+        Column {
+            Text(
+                text = description.toString(),
+                fontSize = 14.sp,
+                modifier = Modifier.padding(vertical = 20.dp)
+            )
         }
     }
 }
