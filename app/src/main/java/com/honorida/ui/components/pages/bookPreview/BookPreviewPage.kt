@@ -1,6 +1,8 @@
 package com.honorida.ui.components.pages.bookPreview
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,13 +11,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.MoreVert
@@ -24,10 +27,8 @@ import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -40,8 +41,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.HtmlCompat
@@ -50,6 +51,8 @@ import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.representation.viewModels.BookPreviewViewModel
 import com.honorida.ui.components.navigation.Routes
+import com.honorida.ui.components.navigation.getBookReaderUri
+import com.honorida.ui.components.pages.bookPreview.components.BookInfoRow
 import com.honorida.ui.components.shared.BookThumbnail
 
 @Composable
@@ -68,7 +71,6 @@ fun BookPreviewPage(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 10.dp)
-            .verticalScroll(rememberScrollState())
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -136,69 +138,53 @@ fun BookPreviewPage(
                     text = book.title,
                     fontSize = 24.sp
                 )
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                BookInfoRow(
+                    icon = Icons.Outlined.Person,
+                    text = book.authors,
                     modifier = Modifier.padding(vertical = 5.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Person,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(text = book.authors ?: stringResource(R.string.unknown))
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                )
+                BookInfoRow(
+                    icon = Icons.Outlined.AutoStories,
+                    text = book.publishers,
                     modifier = Modifier.padding(vertical = 5.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.AutoStories,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(text = book.publishers ?: stringResource(R.string.unknown))
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                )
+                BookInfoRow(
+                    icon = Icons.Outlined.Language,
+                    text = book.language,
                     modifier = Modifier.padding(vertical = 5.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Language,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Text(text = book.language?.uppercase() ?: stringResource(R.string.unknown))
-                }
-                TextButton(
-                    onClick = {  },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.AutoStories,
-                        contentDescription = stringResource(
-                            R.string.read
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Text(text = stringResource(R.string.read))
-                }
+                )
             }
         }
-        Column {
+        Column(
+            modifier = Modifier
+                .padding(vertical = 20.dp)
+                .animateContentSize()
+                .height(200.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(
                 text = description.toString(),
                 fontSize = 14.sp,
-                modifier = Modifier.padding(vertical = 20.dp)
             )
+        }
+        if (uiState.chaptersList.isNotEmpty()) {
+            LazyVerticalGrid(columns = GridCells.Fixed(1)) {
+                items(uiState.chaptersList) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .height(40.dp)
+                            .clickable {
+                                navController.navigate(getBookReaderUri(book.id, it.resourceId))
+                            }
+                    ) {
+                        Text(
+                            text = it.title,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+            }
         }
     }
 }

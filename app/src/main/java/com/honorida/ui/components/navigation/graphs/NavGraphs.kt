@@ -11,6 +11,7 @@ import com.honorida.ui.components.appUpdate.AppUpdatePage
 import com.honorida.ui.components.navigation.DeepLinks
 import com.honorida.ui.components.navigation.Routes
 import com.honorida.ui.components.pages.bookPreview.BookPreviewPage
+import com.honorida.ui.components.pages.bookReader.BookReader
 import com.honorida.ui.components.pages.history.HistoryPage
 import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
@@ -75,6 +76,21 @@ fun NavGraphBuilder.buildBooksNavGraph(navController: NavController) {
     ) {
         BookPreviewPage(
             navController,
+        )
+    }
+    this.composable(
+        Routes.LIBRARY_BOOK_READER.route,
+        arguments = listOf(
+            navArgument(Extras.BookId.key) {
+                type = NavType.IntType
+            },
+            navArgument(Extras.BookResourceId.key) {
+                type = NavType.StringType
+            }
+        )
+    ) {
+        BookReader(
+            navController = navController
         )
     }
 }

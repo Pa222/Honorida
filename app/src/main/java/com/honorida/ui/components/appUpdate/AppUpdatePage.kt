@@ -67,7 +67,7 @@ fun AppUpdatePage(
             )
         }
     }
-    else if (uiState.loadingState == LoadingState.Loaded && releaseInfo != null) {
+    else if (uiState.loadingState == LoadingState.Completed && releaseInfo != null) {
         val configuration = LocalConfiguration.current
 
         val screenHeight = configuration.screenHeightDp

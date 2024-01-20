@@ -14,11 +14,13 @@ import com.honorida.data.local.repositories.ProtoDataStore
 import com.honorida.data.local.repositories.interfaces.IDataStoreRepository
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.domain.services.AppUpdater
+import com.honorida.domain.services.BookReaderServiceImpl
 import com.honorida.domain.services.BookService
 import com.honorida.domain.services.Downloader
 import com.honorida.domain.services.NotificationService
 import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.IAppUpdater
+import com.honorida.domain.services.interfaces.IBookReaderService
 import com.honorida.domain.services.interfaces.IBookService
 import com.honorida.domain.services.interfaces.IDownloader
 import com.honorida.domain.services.interfaces.INotificationService
@@ -105,5 +107,11 @@ object AppModule {
     @Singleton
     fun provideBookService(database: HonoridaDatabase, context: Application): IBookService {
         return BookService(database, context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookReaderService(context: Application): IBookReaderService {
+        return BookReaderServiceImpl(context)
     }
 }
