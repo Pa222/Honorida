@@ -17,9 +17,9 @@ import com.honorida.ui.components.pages.library.LibraryPage
 import com.honorida.ui.components.pages.more.MorePage
 import com.honorida.ui.components.pages.more.subPages.about.AboutPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.AppSettingsPage
-import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appearanceSettings.AppearanceSettingsPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.ApplicationPreferencesPage
 import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.StorageSettingsPage
+import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appearanceSettings.AppearanceSettingsPage
 import com.honorida.ui.components.storageSetUp.StorageSetUpPage
 
 fun NavGraphBuilder.buildMorePageNavGraph (

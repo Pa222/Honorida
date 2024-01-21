@@ -2,7 +2,6 @@ package com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appe
 
 import android.app.Activity
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

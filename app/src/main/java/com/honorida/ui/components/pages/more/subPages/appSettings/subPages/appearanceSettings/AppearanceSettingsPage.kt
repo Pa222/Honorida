@@ -20,7 +20,6 @@ import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appea
 import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.shared.controls.selectControl.SelectControl
 import com.honorida.ui.components.topbar.TopBar
-import com.honorida.ui.theme.ThemeType
 
 @Composable
 fun AppearanceSettingsPage(
