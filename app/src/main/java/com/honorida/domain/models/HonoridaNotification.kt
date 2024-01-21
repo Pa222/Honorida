@@ -3,6 +3,7 @@ package com.honorida.domain.models
 import com.honorida.domain.constants.notifications.APP_UPDATES_NOTIFICATION_CHANNEL_ID
 import com.honorida.domain.constants.notifications.BOOK_PROCESSING_NOTIFICATION_CHANNEL_ID
 import com.honorida.domain.constants.notifications.GENERAL_NOTIFICATION_CHANNEL_ID
+import com.honorida.domain.constants.notifications.STORAGE_TRANSFER_NOTIFICATION_CHANNEL_ID
 
 sealed class HonoridaNotification(
     val id: Int,
@@ -24,5 +25,10 @@ sealed class HonoridaNotification(
     data object BookFailedToProcess: HonoridaNotification(
         4,
         BOOK_PROCESSING_NOTIFICATION_CHANNEL_ID
+    )
+
+    data object FailedToTransferStorage: HonoridaNotification(
+        5,
+        STORAGE_TRANSFER_NOTIFICATION_CHANNEL_ID
     )
 }

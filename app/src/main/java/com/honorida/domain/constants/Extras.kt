@@ -10,4 +10,6 @@ sealed class Extras(
     data object OpenAppUpdatePage: Extras("openAppUpdatePage")
     data object NotificationType: Extras("notificationType")
     data object FileUri: Extras("fileUri")
+    data object SourceStorageUri: Extras("sourceStorageUri")
+    data object TargetStorageUri: Extras("targetStorageUri")
 }

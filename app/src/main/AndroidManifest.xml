@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:name=".HonoridaApp"
@@ -35,6 +36,11 @@
         <service
             android:name=".domain.services.foreground.BookParserForegroundService"
             android:foregroundServiceType="shortService"
+        />
+
+        <service
+            android:name=".domain.services.foreground.StorageTransferForegroundService"
+            android:foregroundServiceType="dataSync"
         />
 
         <service

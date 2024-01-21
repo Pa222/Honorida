@@ -31,6 +31,9 @@ abstract class BooksDao {
     @Delete
     abstract suspend fun deleteBook(book: Book)
 
+    @Query("UPDATE Books set fileUrl = :fileUrl where id = :bookId")
+    abstract suspend fun updateFileUrl(bookId: Int, fileUrl: String)
+
     @Transaction
     open suspend fun saveBookWithTags(
         book: Book,

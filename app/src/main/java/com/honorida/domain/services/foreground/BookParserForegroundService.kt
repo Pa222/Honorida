@@ -93,20 +93,6 @@ class BookParserForegroundService: Service() {
         }
     }
 
-    private fun copy(source: File, destination: File) {
-
-        val input = FileInputStream(source).channel
-        val output = FileOutputStream(destination).channel
-
-        try {
-            input.transferTo(0, input.size(), output);
-        }
-        finally {
-            input?.close();
-            output?.close();
-        }
-    }
-
     private fun putNotification(contentText: String) {
         val notification = NotificationCompat.Builder(
                 this,

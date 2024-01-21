@@ -2,6 +2,7 @@ package com.honorida.ui.components.pages.more.subPages.appSettings.subPages
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,8 +17,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.domain.activityResultContracts.PermissibleOpenDocumentTreeContract
+import com.honorida.domain.constants.Extras
+import com.honorida.domain.constants.Permissions
 import com.honorida.domain.helpers.getDisplayPath
 import com.honorida.domain.helpers.isUriPersisted
+import com.honorida.domain.services.foreground.BookParserForegroundService
+import com.honorida.domain.services.foreground.StorageTransferForegroundService
 import com.honorida.representation.viewModels.StorageSettingsViewModel
 import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.shared.controls.ActionControl
@@ -36,18 +41,23 @@ fun StorageSettingsPage(
         contract = PermissibleOpenDocumentTreeContract(true),
         onResult = { maybeUri ->
             maybeUri?.let { uri ->
+                if (uiState.selectedStorage == uri.toString()) {
+                    return@let
+                }
                 val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                         Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                 if (context.contentResolver.isUriPersisted(uri)) {
                     context.contentResolver.releasePersistableUriPermission(uri, flags)
                 }
                 context.contentResolver.takePersistableUriPermission(uri, flags)
-                if (context.contentResolver.isUriPersisted(uiState.selectedStorage)) {
-                    context.contentResolver.releasePersistableUriPermission(
-                        uiState.selectedStorage.toUri(),
-                        flags
-                    )
-                }
+                Intent(context, StorageTransferForegroundService::class.java)
+                    .apply {
+                        putExtra(Extras.SourceStorageUri.key, uiState.selectedStorage)
+                        putExtra(Extras.TargetStorageUri.key, uri.toString())
+                    }
+                    .also {
+                        context.startService(it)
+                    }
                 viewModel.updateSelectedStorage(uri)
             }
         }
@@ -69,6 +79,10 @@ fun StorageSettingsPage(
                 .padding(innerPadding)
                 .padding(horizontal = 0.dp)
         ) {
+            val requiredPermissions = mutableListOf<Permissions>()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requiredPermissions.add(Permissions.PostNotifications)
+            }
             ActionControl(
                 text = stringResource(R.string.storage_location),
                 description = getDisplayPath(context, uiState.selectedStorage.toUri()),
@@ -82,6 +96,7 @@ fun StorageSettingsPage(
                         }
                     )
                 },
+                requiredPermissions = requiredPermissions,
                 modifier = Modifier.padding(0.dp)
             )
         }
