@@ -47,6 +47,7 @@ import androidx.navigation.NavController
 import com.honorida.R
 import com.honorida.representation.uiStates.BookReaderState
 import com.honorida.representation.viewModels.BookReaderViewModel
+import com.honorida.ui.components.pages.bookReader.components.ReadingProgress
 import com.honorida.ui.components.topbar.TopBar
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -157,13 +158,12 @@ fun BookReader(
             ) {
                 Column(
                     modifier = Modifier
-                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
-                        .zIndex(10F),
+                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
                 ) {
-                    Row {
+                    Column {
                         val coroutineScope = rememberCoroutineScope()
-                        val steps = if (pagerState.pageCount > 2)
-                            pagerState.pageCount - 2
+                        val steps = if (pagerState.pageCount > 3)
+                            pagerState.pageCount - 3
                         else
                             0
                         val range = if (pagerState.pageCount > 2)
@@ -183,6 +183,14 @@ fun BookReader(
                                 .padding(
                                     horizontal = 20.dp
                                 )
+                        )
+                        ReadingProgress(
+                            currentPage = if (pagerState.currentPage >= uiState.pages.size)
+                                pagerState.currentPage
+                            else pagerState.currentPage + 1,
+                            totalPages = uiState.pages.size,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
                         )
                     }
 //                    Row(
@@ -249,22 +257,18 @@ fun BookReader(
                     )
                 }
             }
-            if (isReadingMode) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                ) {
-                    Text(
-                        text = "${
-                            if (pagerState.currentPage >= uiState.pages.size)
-                                pagerState.currentPage
-                            else pagerState.currentPage + 1
-                        }" + "/" + "${uiState.pages.size}",
-                        fontSize = 12.sp
-                    )
-                }
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+            ) {
+                ReadingProgress(
+                    currentPage = if (pagerState.currentPage >= uiState.pages.size)
+                        pagerState.currentPage
+                    else pagerState.currentPage + 1,
+                    totalPages = uiState.pages.size
+                )
             }
         }
     }
