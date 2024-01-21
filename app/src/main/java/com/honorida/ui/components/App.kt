@@ -25,11 +25,11 @@ fun App(
     viewModel: AppViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val darkThemePreference = uiState.darkThemePreference
     val navController = rememberNavController()
 
     HonoridaTheme(
-        darkThemePreference = darkThemePreference
+        darkThemePreference = uiState.appearancePreferences.darkThemePreference,
+        themeType = uiState.appearancePreferences.currentTheme
     ) {
         Scaffold(
             bottomBar = {

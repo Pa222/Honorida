@@ -84,4 +84,6 @@
     <string name="failed_to_transfer_storage">Failed to transfer storage</string>
     <string name="storage_transfer_finished">Storage transfer finished</string>
     <string name="chapters">%1$s Chapters</string>
+    <string name="selected">Selected</string>
+    <string name="default_value">Default</string>
 </resources>
