@@ -1,7 +1,10 @@
 package com.honorida.representation.uiStates
 
+import com.honorida.domain.services.models.ChapterInfo
+
 data class BookPreviewUiState(
-    val bookInfo: BookInfo = BookInfo()
+    val bookInfo: BookInfo = BookInfo(),
+    val chaptersList: List<ChapterInfo> = emptyList()
 )
 
 data class BookInfo(

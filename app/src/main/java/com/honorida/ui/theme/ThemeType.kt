@@ -1,5 +1,10 @@
 package com.honorida.ui.theme
 
-enum class ThemeType {
-    DEFAULT,
+import com.honorida.R
+
+enum class ThemeType(
+    val stringResourceId: Int
+) {
+    DEFAULT(R.string.default_value),
+    DYNAMIC(R.string.dynamic)
 }

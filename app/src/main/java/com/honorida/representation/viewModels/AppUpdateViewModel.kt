@@ -39,7 +39,7 @@ class AppUpdateViewModel @Inject constructor(
                 val response = apiService.getReleaseInfo(releaseId)
                 _uiState.update {
                     it.copy(
-                        loadingState = LoadingState.Loaded,
+                        loadingState = LoadingState.Completed,
                         releaseInfo = response
                     )
                 }

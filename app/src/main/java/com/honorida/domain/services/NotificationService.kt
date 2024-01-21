@@ -10,6 +10,7 @@ import com.honorida.R
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.APP_UPDATE_NOTIFICATION_ACTIVITY_REQUEST
 import com.honorida.domain.models.HonoridaNotification
+import com.honorida.domain.models.ProgressInfo
 import com.honorida.domain.services.interfaces.INotificationService
 import com.honorida.ui.components.navigation.DeepLinks
 
@@ -26,6 +27,7 @@ class NotificationService(
         iconResourceId: Int,
         activityIntent: PendingIntent?,
         silent: Boolean,
+        progressInfo: ProgressInfo?
     ) {
         val notificationBuilder = NotificationCompat.Builder(context, notification.channelId)
             .setSmallIcon(iconResourceId)
@@ -37,6 +39,14 @@ class NotificationService(
 
         if (activityIntent != null) {
             notificationBuilder.setContentIntent(activityIntent)
+        }
+
+        if (progressInfo != null) {
+            notificationBuilder.setProgress(
+                progressInfo.max,
+                progressInfo.current,
+                progressInfo.indeterminate
+            )
         }
 
         val builtNotification = notificationBuilder.build()

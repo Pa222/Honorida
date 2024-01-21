@@ -10,7 +10,6 @@ import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.exceptions.EntityAlreadyExistsException
-import com.honorida.domain.helpers.getFileExtension
 import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.INotificationService
@@ -20,9 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,13 +53,12 @@ class BookParserForegroundService: Service() {
 
     private fun start(uri: String) {
         val context = this;
-        putNotification("")
+        putNotification(context.getString(R.string.book_processing))
         scope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val fileExtension = uri.getFileExtension()
                     val bookProcessor = bookProcessorProvider.getBookProcessorForMimeType(
-                        MimeTypes.ExtensionsMimeTypes[fileExtension]!!
+                        MimeTypes.Epub
                     )!!
                     val fileUri = uri.toUri()
                     val processedBook = bookProcessor.processBook(fileUri)
@@ -91,20 +86,6 @@ class BookParserForegroundService: Service() {
                     stopSelf()
                 }
             }
-        }
-    }
-
-    private fun copy(source: File, destination: File) {
-
-        val input = FileInputStream(source).channel
-        val output = FileOutputStream(destination).channel
-
-        try {
-            input.transferTo(0, input.size(), output);
-        }
-        finally {
-            input?.close();
-            output?.close();
         }
     }
 

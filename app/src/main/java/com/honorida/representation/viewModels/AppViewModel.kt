@@ -29,7 +29,7 @@ class AppViewModel @Inject constructor(
     val uiState = combine(_uiState, _appearancePreferences) {
         uiState, appearancePreferences ->
         uiState.copy(
-            darkThemePreference = appearancePreferences.darkThemePreference,
+            appearancePreferences = appearancePreferences,
         )
     }.stateIn(
         viewModelScope,

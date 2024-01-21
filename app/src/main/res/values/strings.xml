@@ -73,4 +73,20 @@
     <string name="data_storage"><![CDATA[Data & Storage]]></string>
     <string name="storage_location">Storage location</string>
     <string name="unknown">Unknown</string>
+    <string name="read">Read</string>
+    <string name="book_not_found">Book not found</string>
+    <string name="failed_to_remove_file_from_storage_verbose">Failed to remove file from storage. Application does not have access to the file location or file was already deleted.</string>
+    <string name="failed_to_remove_file_from_storage">Failed to remove file from storage</string>
+    <string name="failed_to_open_book">Failed to open book</string>
+    <string name="chapter_number">Chapter %1$s</string>
+    <string name="storage_transfer">Storage transfer</string>
+    <string name="storage_transfer_in_progress">Storage transfer in progress</string>
+    <string name="failed_to_transfer_storage">Failed to transfer storage</string>
+    <string name="storage_transfer_finished">Storage transfer finished</string>
+    <string name="chapters">%1$s Chapters</string>
+    <string name="selected">Selected</string>
+    <string name="default_value">Default</string>
+    <string name="dynamic">Dynamic</string>
+    <string name="font_size">Font size</string>
+    <string name="remove">Remove</string>
 </resources>

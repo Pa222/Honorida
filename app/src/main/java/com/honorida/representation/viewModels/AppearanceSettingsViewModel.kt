@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.enums.DarkThemePreference
 import com.honorida.data.local.repositories.interfaces.IProtoDataStore
 import com.honorida.representation.uiStates.AppearanceUiState
+import com.honorida.ui.theme.ThemeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -33,6 +34,14 @@ class AppearanceSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             preferencesStore.appearancePreferences.updateData {
                 it.copy(darkThemePreference = value)
+            }
+        }
+    }
+
+    fun updateTheme(value: ThemeType) {
+        viewModelScope.launch {
+            preferencesStore.appearancePreferences.updateData {
+                it.copy(currentTheme = value)
             }
         }
     }

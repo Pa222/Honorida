@@ -1,4 +1,4 @@
-package com.honorida.ui.components.pages.more.subPages.appSettings.subPages
+package com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appearanceSettings
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -15,6 +15,7 @@ import com.honorida.data.local.enums.DarkThemePreference
 import com.honorida.data.local.enums.toSelectControlValue
 import com.honorida.representation.viewModels.AppearanceSettingsViewModel
 import com.honorida.ui.components.pages.more.subPages.appSettings.components.SettingsCategory
+import com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appearanceSettings.components.AppThemesList
 import com.honorida.ui.components.shared.SettingsListColumn
 import com.honorida.ui.components.shared.controls.selectControl.SelectControl
 import com.honorida.ui.components.topbar.TopBar
@@ -57,6 +58,11 @@ fun AppearanceSettingsPage(
                     options = darkThemePreferenceSelectOptionList,
                     onChange = {
                         viewModel.updateDarkThemeSetting(it)
+                    }
+                )
+                AppThemesList(
+                    onItemClick = {
+                        viewModel.updateTheme(it)
                     }
                 )
             }

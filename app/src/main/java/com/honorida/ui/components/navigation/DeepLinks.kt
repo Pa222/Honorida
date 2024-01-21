@@ -20,6 +20,12 @@ sealed class DeepLinks(
         uriPattern = "${rootUri}/${Routes.LIBRARY.route}"
         action = Intent.ACTION_VIEW
     })
+
+    data object BookReader: DeepLinks(navDeepLink {
+        uriPattern = "${rootUri}/${Routes.LIBRARY_BOOK_READER.route}"
+        action = Intent.ACTION_VIEW
+    })
+
     data object History: DeepLinks(navDeepLink {
         uriPattern = "${rootUri}/${Routes.HISTORY.route}"
         action = Intent.ACTION_VIEW
