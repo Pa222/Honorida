@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -20,8 +21,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
@@ -66,6 +70,10 @@ fun BookReader(
     val configuration = LocalConfiguration.current
     val readerWidth = configuration.screenWidthDp * 0.95
     val readerHeight = configuration.screenHeightDp * 0.85
+    val readerSize = Size(
+        readerWidth.toFloat(),
+        readerHeight.toFloat()
+    )
 
     if (uiState.readerState == BookReaderState.Failed) {
         Toast.makeText(
@@ -87,12 +95,7 @@ fun BookReader(
     }
 
     if (uiState.readerState == BookReaderState.WaitingForPages) {
-        viewModel.loadPages(
-            Size(
-                readerWidth.toFloat(),
-                readerHeight.toFloat()
-            )
-        )
+        viewModel.loadPages(readerSize)
     }
 
     if (uiState.readerState == BookReaderState.BookLoaded) {
@@ -131,13 +134,16 @@ fun BookReader(
                         navController.navigateUp()
                     },
                     title = bookInfo.title,
-                    description = uiState.chapterTitle
+                    description = uiState.chapterTitle,
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
                 )
             }
             AnimatedVisibility(
                 visible = !isReadingMode,
                 modifier = Modifier
-                    .align(Alignment.BottomCenter),
+                    .align(Alignment.BottomCenter)
+                    .zIndex(10F),
                 enter = slideInVertically(
                     initialOffsetY = {
                         it
@@ -149,31 +155,64 @@ fun BookReader(
                     }
                 )
             ) {
-                Row {
-                    val coroutineScope = rememberCoroutineScope()
-                    val steps = if (pagerState.pageCount > 2)
-                                    pagerState.pageCount - 2
-                                else
-                                    0
-                    val range = if (pagerState.pageCount > 2)
-                                    0F..(pagerState.pageCount - 2).toFloat()
-                                else
-                                    0F..1F
-                    Slider(
-                        value = pagerState.currentPage.toFloat(),
-                        onValueChange = {
-                            coroutineScope.launch {
-                                pagerState.scrollToPage(it.roundToInt())
-                            }
-                        },
-                        steps = steps,
-                        valueRange = range,
-                        modifier = Modifier
-                            .padding(
-                                vertical = 15.dp,
-                                horizontal = 20.dp
-                            )
-                    )
+                Column(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
+                        .zIndex(10F),
+                ) {
+                    Row {
+                        val coroutineScope = rememberCoroutineScope()
+                        val steps = if (pagerState.pageCount > 2)
+                            pagerState.pageCount - 2
+                        else
+                            0
+                        val range = if (pagerState.pageCount > 2)
+                            0F..(pagerState.pageCount - 2).toFloat()
+                        else
+                            0F..1F
+                        Slider(
+                            value = pagerState.currentPage.toFloat(),
+                            onValueChange = {
+                                coroutineScope.launch {
+                                    pagerState.scrollToPage(it.roundToInt())
+                                }
+                            },
+                            steps = steps,
+                            valueRange = range,
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = 20.dp
+                                )
+                        )
+                    }
+//                    Row(
+//                        horizontalArrangement = Arrangement.End,
+//                        verticalAlignment = Alignment.CenterVertically,
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(
+//                                horizontal = 20.dp,
+//                                vertical = 15.dp
+//                            )
+//                    ) {
+//                        var showSettings by remember {
+//                            mutableStateOf(false)
+//                        }
+//                        IconButton(
+//                            onClick = {
+//                                showSettings = !showSettings
+//                            }
+//                        ) {
+//                            Icon(
+//                                imageVector = Icons.Outlined.Settings,
+//                                contentDescription = stringResource(R.string.settings)
+//                            )
+//                        }
+//                        ReaderSettings(
+//                            open = showSettings,
+//                            onDismissRequest = { showSettings = false }
+//                        )
+//                    }
                 }
             }
             HorizontalPager(
@@ -198,7 +237,7 @@ fun BookReader(
                     ) {
                         Text(
                             text = uiState.pages[it],
-                            fontSize = uiState.fontSize.sp
+                            fontSize = uiState.readerSettings.fontSize.sp
                         )
                     }
                 }
@@ -210,20 +249,22 @@ fun BookReader(
                     )
                 }
             }
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-            ) {
-                Text(
-                    text = "${
-                                if (pagerState.currentPage >= uiState.pages.size) 
-                                    pagerState.currentPage 
-                                else pagerState.currentPage + 1
-                            }" + "/" + "${uiState.pages.size}",
-                    fontSize = 12.sp
-                )
+            if (isReadingMode) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                ) {
+                    Text(
+                        text = "${
+                            if (pagerState.currentPage >= uiState.pages.size)
+                                pagerState.currentPage
+                            else pagerState.currentPage + 1
+                        }" + "/" + "${uiState.pages.size}",
+                        fontSize = 12.sp
+                    )
+                }
             }
         }
     }

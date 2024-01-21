@@ -6,6 +6,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.context.HonoridaDatabase
+import com.honorida.data.local.repositories.interfaces.IProtoDataStore
+import com.honorida.data.models.protoStore.ReaderPreferences
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.mappers.BookMapper
 import com.honorida.domain.services.interfaces.IBookReaderService
@@ -13,7 +15,9 @@ import com.honorida.representation.uiStates.BookReaderState
 import com.honorida.representation.uiStates.BookReaderUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,11 +27,26 @@ class BookReaderViewModel @Inject constructor(
     private val databaseContext: HonoridaDatabase,
     private val savedStateHandle: SavedStateHandle,
     private val bookReaderService: IBookReaderService,
+    private val dataStore: IProtoDataStore
 ): ViewModel() {
     private val _uiState = MutableStateFlow(BookReaderUiState())
 
-    val uiState
-        get() = _uiState.asStateFlow()
+    private val _readerSettings = dataStore.readerPreferences.data.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        ReaderPreferences()
+    )
+
+    val uiState = combine(_uiState, _readerSettings) {
+        uiState, readerSettings ->
+        uiState.copy(
+            readerSettings = readerSettings,
+        )
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        BookReaderUiState()
+    )
 
     init {
         viewModelScope.launch {
@@ -68,8 +87,8 @@ class BookReaderViewModel @Inject constructor(
                 val state = _uiState.value
                 val resourceId = savedStateHandle.get<String>(Extras.BookResourceId.key)!!
 
-                val maxCharsHorizontal = containerSize.width / state.fontSize
-                val maxCharsVertical = containerSize.height / state.fontSize
+                val maxCharsHorizontal = containerSize.width / state.readerSettings.fontSize
+                val maxCharsVertical = containerSize.height / state.readerSettings.fontSize
                 val maxCharsPerPage = (maxCharsHorizontal * maxCharsVertical).toInt()
 
                 val pages = bookReaderService.getPages(

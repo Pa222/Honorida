@@ -1,5 +1,7 @@
 package com.honorida.representation.uiStates
 
+import com.honorida.data.models.protoStore.ReaderPreferences
+
 sealed class BookReaderState{
     data object BookLoading: BookReaderState()
     data object WaitingForPages: BookReaderState()
@@ -10,7 +12,7 @@ sealed class BookReaderState{
 data class BookReaderUiState(
     val bookInfo: BookInfo? = null,
     val readerState: BookReaderState = BookReaderState.BookLoading,
-    val fontSize: Float = 14F,
+    val readerSettings: ReaderPreferences = ReaderPreferences(),
     val pages: List<String> = emptyList(),
     val chapterTitle: String? = null
 )

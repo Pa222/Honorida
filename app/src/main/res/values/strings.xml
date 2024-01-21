@@ -87,4 +87,6 @@
     <string name="selected">Selected</string>
     <string name="default_value">Default</string>
     <string name="dynamic">Dynamic</string>
+    <string name="font_size">Font size</string>
+    <string name="remove">Remove</string>
 </resources>
