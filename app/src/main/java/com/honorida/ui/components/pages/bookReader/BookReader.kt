@@ -208,7 +208,7 @@ fun BookReader(
                                     pagerState.currentPage 
                                 else pagerState.currentPage + 1
                             }" + "/" + "${uiState.pages.size}",
-                    fontSize = 8.sp
+                    fontSize = 12.sp
                 )
             }
         }
