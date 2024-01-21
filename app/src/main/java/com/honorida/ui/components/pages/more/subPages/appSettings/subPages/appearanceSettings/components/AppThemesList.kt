@@ -46,7 +46,7 @@ fun AppThemesList(
             Column(
                 modifier = Modifier
                     .width(114.dp)
-                    .padding(top = 8.dp),
+                    .padding(top = 5.dp, start = 5.dp, end = 5.dp),
             ) {
                 HonoridaTheme(
                     darkThemePreference = uiState.appearancePreferences.darkThemePreference,

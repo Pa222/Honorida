@@ -45,7 +45,7 @@ class BookReaderServiceImpl @Inject constructor(
 
         while (parsedContent.isNotEmpty()) {
             val tmpPage = parsedContent.take(pageSize)
-            val finalPageSize = tmpPage.length + tmpPage.getCountOfEscapedSymbols()
+            val finalPageSize = tmpPage.length + (tmpPage.getCountOfEscapedSymbols())
             pages.add(
                 parsedContent
                     .take(finalPageSize)

@@ -6,4 +6,5 @@ enum class ThemeType(
     val stringResourceId: Int
 ) {
     DEFAULT(R.string.default_value),
+    DYNAMIC(R.string.dynamic)
 }

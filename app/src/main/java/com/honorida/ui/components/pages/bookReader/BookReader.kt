@@ -38,12 +38,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
-import com.honorida.domain.helpers.findActivity
 import com.honorida.representation.uiStates.BookReaderState
 import com.honorida.representation.viewModels.BookReaderViewModel
 import com.honorida.ui.components.topbar.TopBar
@@ -68,7 +65,7 @@ fun BookReader(
 
     val configuration = LocalConfiguration.current
     val readerWidth = configuration.screenWidthDp * 0.95
-    val readerHeight = configuration.screenHeightDp * 0.8
+    val readerHeight = configuration.screenHeightDp * 0.85
 
     if (uiState.readerState == BookReaderState.Failed) {
         Toast.makeText(
@@ -99,19 +96,19 @@ fun BookReader(
     }
 
     if (uiState.readerState == BookReaderState.BookLoaded) {
-        val window = context.findActivity()?.window
-
-        if (window != null) {
-            val insetsController = WindowCompat.getInsetsController(window, window.decorView)
-            if (isReadingMode) {
-                insetsController.hide(WindowInsetsCompat.Type.statusBars())
-                insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-            }
-            else {
-                insetsController.show(WindowInsetsCompat.Type.statusBars())
-                insetsController.show(WindowInsetsCompat.Type.navigationBars())
-            }
-        }
+//        val window = context.findActivity()?.window
+//
+//        if (window != null) {
+//            val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+//            if (isReadingMode) {
+//                insetsController.hide(WindowInsetsCompat.Type.statusBars())
+//                insetsController.hide(WindowInsetsCompat.Type.navigationBars())
+//            }
+//            else {
+//                insetsController.show(WindowInsetsCompat.Type.statusBars())
+//                insetsController.show(WindowInsetsCompat.Type.navigationBars())
+//            }
+//        }
 
         val pagerState = rememberPagerState(
             pageCount = {

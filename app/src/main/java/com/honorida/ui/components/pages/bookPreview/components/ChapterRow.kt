@@ -30,7 +30,7 @@ fun ChapterRow(
     ) {
         Column {
             Text(
-                stringResource(R.string.chapter_number, index),
+                stringResource(R.string.chapter_number, index + 1),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

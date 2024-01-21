@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -167,9 +166,9 @@ fun BookPreviewPage(
         }
         Text(
             text = stringResource(R.string.chapters, uiState.chaptersList.size),
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            modifier = Modifier.padding(vertical = 10.dp)
         )
-        Spacer(modifier = Modifier.height(10.dp))
         if (uiState.chaptersList.isNotEmpty()) {
             LazyVerticalGrid(columns = GridCells.Fixed(1)) {
                 items(uiState.chaptersList) {

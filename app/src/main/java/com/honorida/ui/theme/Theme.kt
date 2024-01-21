@@ -23,7 +23,6 @@ import com.honorida.data.local.enums.DarkThemePreference
 fun HonoridaTheme(
     darkThemePreference: DarkThemePreference = DarkThemePreference.FOLLOW_SYSTEM,
     themeType: ThemeType = ThemeType.DEFAULT,
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val darkTheme = when (darkThemePreference) {
@@ -33,7 +32,7 @@ fun HonoridaTheme(
     }
 
     val colorScheme: ColorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && themeType == ThemeType.DYNAMIC -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context)
             else dynamicLightColorScheme(context)
