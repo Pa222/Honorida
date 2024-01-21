@@ -83,4 +83,5 @@
     <string name="storage_transfer_in_progress">Storage transfer in progress</string>
     <string name="failed_to_transfer_storage">Failed to transfer storage</string>
     <string name="storage_transfer_finished">Storage transfer finished</string>
+    <string name="chapters">%1$s Chapters</string>
 </resources>

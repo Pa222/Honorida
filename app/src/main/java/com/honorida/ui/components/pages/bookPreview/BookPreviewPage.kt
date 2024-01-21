@@ -170,6 +170,11 @@ fun BookPreviewPage(
                 )
             }
         }
+        Text(
+            text = stringResource(R.string.chapters, uiState.chaptersList.size),
+            fontSize = 16.sp
+        )
+        Spacer(modifier = Modifier.height(10.dp))
         if (uiState.chaptersList.isNotEmpty()) {
             LazyVerticalGrid(columns = GridCells.Fixed(1)) {
                 items(uiState.chaptersList) {
