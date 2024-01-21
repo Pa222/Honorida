@@ -38,9 +38,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.honorida.R
+import com.honorida.domain.helpers.findActivity
 import com.honorida.representation.uiStates.BookReaderState
 import com.honorida.representation.viewModels.BookReaderViewModel
 import com.honorida.ui.components.topbar.TopBar
@@ -54,9 +57,10 @@ fun BookReader(
     viewModel: BookReaderViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+
     val uiState = viewModel.uiState.collectAsState().value
     var isReadingMode by remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
     val readingModeInteractionSource = remember {
         MutableInteractionSource()
@@ -95,18 +99,31 @@ fun BookReader(
     }
 
     if (uiState.readerState == BookReaderState.BookLoaded) {
+        val window = context.findActivity()?.window
+
+        if (window != null) {
+            val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+            if (isReadingMode) {
+                insetsController.hide(WindowInsetsCompat.Type.statusBars())
+                insetsController.hide(WindowInsetsCompat.Type.navigationBars())
+            }
+            else {
+                insetsController.show(WindowInsetsCompat.Type.statusBars())
+                insetsController.show(WindowInsetsCompat.Type.navigationBars())
+            }
+        }
+
         val pagerState = rememberPagerState(
             pageCount = {
                 uiState.pages.size + 1
             },
         )
         val bookInfo = uiState.bookInfo!!
-
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
             AnimatedVisibility(
-                visible = isReadingMode,
+                visible = !isReadingMode,
                 modifier = Modifier
                     .align(Alignment.TopCenter),
                 enter = slideInVertically(),
@@ -121,7 +138,7 @@ fun BookReader(
                 )
             }
             AnimatedVisibility(
-                visible = isReadingMode,
+                visible = !isReadingMode,
                 modifier = Modifier
                     .align(Alignment.BottomCenter),
                 enter = slideInVertically(
