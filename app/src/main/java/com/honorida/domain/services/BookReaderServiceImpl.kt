@@ -2,7 +2,6 @@ package com.honorida.domain.services
 
 import android.app.Application
 import android.net.Uri
-import androidx.compose.ui.geometry.Size
 import androidx.core.text.HtmlCompat
 import com.honorida.domain.helpers.getCountOfEscapedSymbols
 import com.honorida.domain.services.interfaces.IBookReaderService

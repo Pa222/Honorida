@@ -3,7 +3,6 @@ package com.honorida.ui.components.navigation
 import com.honorida.data.external.models.CheckUpdateResponse
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.helpers.replaceValues
-import com.honorida.representation.uiStates.BookInfo
 
 enum class Routes(
     val route: String,

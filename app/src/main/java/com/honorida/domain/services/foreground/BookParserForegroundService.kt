@@ -10,7 +10,6 @@ import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.MimeTypes
 import com.honorida.domain.exceptions.EntityAlreadyExistsException
-import com.honorida.domain.helpers.getFileExtension
 import com.honorida.domain.models.HonoridaNotification
 import com.honorida.domain.services.bookProcessors.helpers.BookProcessorProvider
 import com.honorida.domain.services.interfaces.INotificationService
@@ -20,9 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint

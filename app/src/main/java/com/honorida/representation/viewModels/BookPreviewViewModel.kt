@@ -1,7 +1,5 @@
 package com.honorida.representation.viewModels
 
-import android.app.Application
-import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -9,11 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.honorida.data.local.context.HonoridaDatabase
 import com.honorida.domain.constants.Extras
 import com.honorida.domain.mappers.BookMapper
-import com.honorida.domain.services.BookService
 import com.honorida.domain.services.interfaces.IBookReaderService
 import com.honorida.domain.services.interfaces.IBookService
-import com.honorida.domain.services.models.ChapterInfo
-import com.honorida.representation.uiStates.BookInfo
 import com.honorida.representation.uiStates.BookPreviewUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

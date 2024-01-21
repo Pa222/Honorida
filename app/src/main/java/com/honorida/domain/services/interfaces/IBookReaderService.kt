@@ -1,7 +1,6 @@
 package com.honorida.domain.services.interfaces
 
 import android.net.Uri
-import androidx.compose.ui.geometry.Size
 import com.honorida.domain.services.models.ChapterInfo
 
 interface IBookReaderService {

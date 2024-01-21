@@ -21,7 +21,6 @@ import com.honorida.domain.constants.Extras
 import com.honorida.domain.constants.Permissions
 import com.honorida.domain.helpers.getDisplayPath
 import com.honorida.domain.helpers.isUriPersisted
-import com.honorida.domain.services.foreground.BookParserForegroundService
 import com.honorida.domain.services.foreground.StorageTransferForegroundService
 import com.honorida.representation.viewModels.StorageSettingsViewModel
 import com.honorida.ui.components.shared.SettingsListColumn
