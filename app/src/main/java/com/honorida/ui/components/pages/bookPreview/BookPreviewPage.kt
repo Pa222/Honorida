@@ -1,6 +1,5 @@
 package com.honorida.ui.components.pages.bookPreview
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,9 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.MoreVert
@@ -24,6 +21,7 @@ import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -36,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,6 +48,7 @@ import com.honorida.ui.components.navigation.getBookReaderUri
 import com.honorida.ui.components.pages.bookPreview.components.BookInfoRow
 import com.honorida.ui.components.pages.bookPreview.components.ChapterRow
 import com.honorida.ui.components.shared.BookThumbnail
+import com.honorida.ui.components.shared.ExpandableText
 
 @Composable
 fun BookPreviewPage(
@@ -56,6 +56,8 @@ fun BookPreviewPage(
     modifier: Modifier = Modifier,
     viewModel: BookPreviewViewModel = hiltViewModel()
 ) {
+    val configuration = LocalConfiguration.current
+
     val uiState = viewModel.uiState.collectAsState().value
     val book = uiState.bookInfo
     val description = HtmlCompat.fromHtml(book.description ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
@@ -151,19 +153,16 @@ fun BookPreviewPage(
             }
         }
         if (description.isNotEmpty()) {
-            Column(
+            ExpandableText(
+                text = description.toString(),
                 modifier = Modifier
                     .padding(vertical = 20.dp)
-                    .animateContentSize()
-                    .height(200.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                Text(
-                    text = description.toString(),
-                    fontSize = 14.sp,
-                )
-            }
+            )
         }
+        HorizontalDivider(
+            thickness = 3.dp,
+            modifier = Modifier.padding(vertical = 10.dp)
+        )
         Text(
             text = stringResource(R.string.chapters, uiState.chaptersList.size),
             fontSize = 16.sp,

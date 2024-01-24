@@ -89,4 +89,6 @@
     <string name="dynamic">Dynamic</string>
     <string name="font_size">Font size</string>
     <string name="remove">Remove</string>
+    <string name="expand">Expand</string>
+    <string name="collapse">Collapse</string>
 </resources>
