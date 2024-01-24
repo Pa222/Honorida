@@ -5,9 +5,13 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -49,30 +53,38 @@ fun <T> SelectControlDialog(
                     fontSize = 24.sp,
                     modifier = Modifier.padding(start = 15.dp)
                 )
-                options.forEach {
-                    val interactionSource = remember {
-                        MutableInteractionSource()
-                    }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
-                            .clickable(
-                                interactionSource = interactionSource,
-                                indication = null
-                            ) {
-                                onChange(it.value)
-                            },
-                    ) {
-                        RadioButton(
-                            selected = it == value,
-                            onClick = {
-                                onChange(it.value)
-                            },
-                            interactionSource = interactionSource
-                        )
-                        Text(text = it.title)
+                Spacer(modifier = Modifier.height(10.dp))
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    options.forEach {
+                        val interactionSource = remember {
+                            MutableInteractionSource()
+                        }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
+                                    onChange(it.value)
+                                },
+                        ) {
+                            RadioButton(
+                                selected = it == value,
+                                onClick = {
+                                    onChange(it.value)
+                                },
+                                interactionSource = interactionSource
+                            )
+                            Text(text = it.title)
+                        }
                     }
                 }
+                Spacer(modifier = Modifier.height(10.dp))
                 Row(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.fillMaxWidth()
