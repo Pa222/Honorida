@@ -91,4 +91,5 @@
     <string name="remove">Remove</string>
     <string name="expand">Expand</string>
     <string name="collapse">Collapse</string>
+    <string name="some_changes_will_be_applied_after_app_restart">Some changes will be applied after app restart</string>
 </resources>

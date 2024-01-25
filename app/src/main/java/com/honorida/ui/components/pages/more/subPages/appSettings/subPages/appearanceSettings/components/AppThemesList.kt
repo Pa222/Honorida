@@ -1,6 +1,7 @@
 package com.honorida.ui.components.pages.more.subPages.appSettings.subPages.appearanceSettings.components
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.honorida.R
 import com.honorida.representation.viewModels.AppThemesListViewModel
 import com.honorida.ui.components.shared.extensions.secondaryItemAlpha
 import com.honorida.ui.theme.HonoridaTheme
@@ -50,13 +52,13 @@ fun AppThemesList(
             ) {
                 HonoridaTheme(
                     darkThemePreference = uiState.appearancePreferences.darkThemePreference,
-                    themeType = appTheme
+                    themeType = appTheme,
+                    isPreview = true
                 ){
                     AppThemePreviewItem(
                         selected = uiState.appearancePreferences.currentTheme == appTheme,
                         onClick = {
                             onItemClick(appTheme)
-                            (context as? Activity)?.let { ActivityCompat.recreate(it) }
                         },
                     )
                 }

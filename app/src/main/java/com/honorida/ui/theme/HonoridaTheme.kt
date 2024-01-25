@@ -23,7 +23,8 @@ import com.honorida.data.local.enums.DarkThemePreference
 fun HonoridaTheme(
     darkThemePreference: DarkThemePreference = DarkThemePreference.FOLLOW_SYSTEM,
     themeType: ThemeType = ThemeType.DEFAULT,
-    content: @Composable () -> Unit
+    isPreview: Boolean = false,
+    content: @Composable () -> Unit,
 ) {
     val darkTheme = when (darkThemePreference) {
         DarkThemePreference.FOLLOW_SYSTEM -> isSystemInDarkTheme()
@@ -42,7 +43,7 @@ fun HonoridaTheme(
         else -> LightThemes.getOrDefault(themeType, lightColorScheme())
     }
     val view = LocalView.current
-    if (!view.isInEditMode) {
+    if (!view.isInEditMode && !isPreview) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.surface.toArgb()
